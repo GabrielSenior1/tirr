@@ -1,6 +1,18 @@
 {
   "rules": {
-    ".read": "auth != null",
+    "active_launch": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "active_launch_Lanzamiento_Vertical": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "active_launch_Tiro_Parabolico": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    ".read": true,
     ".write": "auth != null"
   }
 }
