@@ -36,7 +36,7 @@ const app = initializeApp(firebaseConfig);
 const auth     = getAuth(app);
 const db       = getFirestore(app);    // Cloud Firestore
 const rtdb     = getDatabase(app);     // Realtime Database
-const storage  = getStorage(app);      // Firebase Storage
+const storage  = getStorage(app, "gs://tirr-platform-score.firebasestorage.app");      // Firebase Storage
 
 // ============================================================
 // Auth Observer - Tracks signed-in user globally

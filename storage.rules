@@ -1,0 +1,18 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Permitir lectura pública de evidencias de fotos de cohetes y avatares
+    match /evidencias_cohetes/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /avatares/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    // Por defecto permitir lectura/escritura a usuarios autenticados
+    match /{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
