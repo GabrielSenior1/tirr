@@ -1,0 +1,51 @@
+================================================================================
+ANÁLISIS Y MAPEO DE AJUSTES - PLATAFORMA TIRR
+================================================================================
+
+| #  | NOTA DE LA TRANSCRIPCIÓN                               | DIAGNÓSTICO EN EL CÓDIGO ACTUAL                                                                                                         | ACCIÓN A REALIZAR                                                                                                                                  |
+|----|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1  | Separar jueces                                         | Actualmente todas las calificaciones sobreescriben el mismo documento por equipo y misión sin registrar qué juez calificó.              | Asignar a cada calificación el ID del juez (jurado1, jurado2, etc.) para que cada jurado evalúe de forma independiente.                           |
+| 2  | Falla el filtro de equipos                             | Hay inconsistencias entre categoria en la base de datos vs. los valores del <select> (Exploradores, Ingenieros vs CAT_A), sin normalizar.| Corregir y unificar el filtrado en todas las vistas (cronómetro, jurado, directorio y resultados).                                                |
+| 3  | Eliminar opción calificar                              | En el dashboard/menú existe el botón tradicional "Calificar" que abre el formulario individual.                                          | Ocultar/retirar este botón para dar paso al nuevo flujo de calificación.                                                                           |
+| 4  | Sacar automáticamente los calificados                  | Los equipos ya calificados siguen apareciendo en el selector de equipos del jurado.                                                      | Filtrar dinámicamente: si el jurado activo ya calificó a ese equipo en esa misión, el equipo desaparece de su lista de pendientes.                  |
+| 5  | En equipos mostrar que ya participó en la categoría    | En el Directorio de Equipos no se sabe a simple vista el estado de participación.                                                       | Añadir una insignia/badge visual: [Ya participó] o [Pendiente] por misión/categoría.                                                               |
+| 6  | Calificar tipo lista (Boceto con 5 casillas)           | Actualmente solo se califica equipo por equipo mediante dropdowns y tarjetas individuales.                                             | Crear la vista tipo tabla/lista continua: cada fila tendrá el nombre del equipo y las 5 casillas de entrada rápida para evaluar de corrido.         |
+| 7  | Cronometrista colocar tiempo al ingreso                | El cronómetro solo captura tiempo con Start/Stop interactivo.                                                                           | Añadir un campo de entrada manual para que el cronometrista pueda digitar el tiempo directamente (útil si usaron cronómetro físico).                |
+| 8  | Edición de equipos                                     | Falta un modal/formulario para modificar datos de equipos ya guardados.                                                                 | Implementar el modal de edición completo (nombre, colegio, categoría, integrantes, especificaciones).                                               |
+| 9  | Tiempo se guarde automático por si jurado no llena     | Si el jurado no envía su formulario, el tiempo del cronómetro no queda consolidado en la base de datos principal.                        | Al pulsar "Detener" o "Guardar" en el cronómetro, registrar el tiempo inmediatamente en el equipo/calificación en Firestore.                      |
+| 10 | Reporte de fallos desde el cronómetro a los jueces     | Las penalizaciones solo las controla el jurado en su pantalla.                                                                          | Permitir que el cronometrista registre fallos/faltas desde su vista y estos se transmitan en tiempo real vía RTDB a la pantalla de los jueces.    |
+| 11 | Organizar con número de registro: ej. 01-Nombre        | Los equipos solo tienen nombre suelto y se ordenan por fecha de creación.                                                               | Agregar prefijo/número de registro secuencial (01 - Nombre, 02 - Nombre) y ordenar las listas por este número.                                     |
+| 12 | Invertir orden de distancia y tiempo                   | Actualmente el tiempo de vuelo está arriba y la distancia abajo.                                                                        | Invertir su ubicación en la interfaz para que coincida con la secuencia requerida por los jueces.                                                  |
+| 13 | Perfil Dice J.E.D. debe ser J1                         | En el perfil/avatar de Firestore aparece "J.E.D." para el Jurado 1.                                                                     | Actualizar el registro para que muestre claramente J1 (Jurado 1).                                                                                  |
+| 14 | Lista completa de los puestos                          | En el podio solo se destacan los primeros 3 lugares.                                                                                    | Garantizar que la tabla muestre el ranking completo del 1° al último equipo con sus puntajes.                                                     |
+
+================================================================================
+PREGUNTAS Y DUDAS CLAVE
+================================================================================
+
+1. Las 5 casillas del boceto (vista tipo lista):
+   Actualmente hay 4 criterios: Vuelo, Diseño, Innovación y Sustentación.
+   ¿A qué corresponde la 5ª casilla?
+   - Opción A: Las 4 notas anteriores + Casilla de Penalizaciones / Fallos.
+   - Opción B: Los 4 criterios anteriores + Casilla de Tiempo de Vuelo / Distancia.
+   - Opción C: ¿Son 5 criterios nuevos de calificación?
+
+2. Separación de jueces y puntaje final:
+   Cuando varios jurados califiquen al mismo equipo:
+   ¿El puntaje final de ese equipo será el promedio de las notas de los jurados, o la suma acumulada?
+
+3. Número de registro (01-Nombre):
+   ¿Prefieres que el número se genere de forma automática según el orden en que se registraron los equipos, o que haya un campo editable para escribirlo manualmente?
+
+================================================================================
+SUGERENCIAS TÉCNICAS
+================================================================================
+
+1. Autoguardado en Calificación tipo Lista:
+   Guardar con el evento change / blur al salir de cada casilla para usar Tab sin presionar botones individuales de guardado.
+
+2. Notificación en vivo de Fallos:
+   Alerta sutil o destello en la pantalla de jueces en tiempo real cuando el cronometrista reporte un fallo.
+
+3. Respaldo Offline / LocalStorage:
+   Guardar copia local en el navegador ante posibles caídas de conectividad.

@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuth() {
+      return true; // Temporalmente permitir todo dado el uso de localStorage
+    }
+
+    match /equipos/{id=**} {
+      allow read, write: if isAuth();
+    }
+    match /calificaciones/{id=**} {
+      allow read, write: if isAuth();
+    }
+    match /usuarios/{userId} {
+      allow read, write: if isAuth();
+    }
+    match /movimientos/{movId} {
+      allow read, write: if isAuth();
+    }
+    match /estudiantes/{estId} {
+      allow read, write: if isAuth();
+    }
+    match /instituciones/{id=**} {
+      allow read, write: if isAuth();
+    }
+    match /carteras/{id} {
+      allow read, write: if isAuth();
+    }
+    match /carteras_colegios/{colegioId} {
+      allow read, write: if isAuth();
+      match /grados/{gradoId} {
+        allow read, write: if isAuth();
+        match /estudiantes/{estId} {
+          allow read, write: if isAuth();
+        }
+      }
+    }
+    match /colegios/{id} {
+      allow read, write: if isAuth();
+    }
+  }
+}
