@@ -2,42 +2,56 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    function isAuth() {
-      return true; // Temporalmente permitir todo dado el uso de localStorage
+    // Autenticación activa en Firebase Auth
+    function isAuthenticated() {
+      return request.auth != null;
     }
 
+    // Perfiles del sistema: lectura pública para mostrar el selector de usuarios en login, escritura protegida
+    match /systemUsers/{userId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Equipos: lectura pública (invitados / espectadores / jueces), escritura solo staff autenticado
     match /equipos/{id=**} {
-      allow read, write: if isAuth();
+      allow read: if true;
+      allow write: if isAuthenticated();
     }
+
+    // Calificaciones: lectura pública para podio y resultados en vivo, escritura solo jurados autenticados
     match /calificaciones/{id=**} {
-      allow read, write: if isAuth();
+      allow read: if true;
+      allow write: if isAuthenticated();
     }
+
+    // Módulos administrativos y de apoyo protegidos
     match /usuarios/{userId} {
-      allow read, write: if isAuth();
+      allow read, write: if isAuthenticated();
     }
     match /movimientos/{movId} {
-      allow read, write: if isAuth();
+      allow read, write: if isAuthenticated();
     }
     match /estudiantes/{estId} {
-      allow read, write: if isAuth();
+      allow read, write: if isAuthenticated();
     }
     match /instituciones/{id=**} {
-      allow read, write: if isAuth();
+      allow read, write: if isAuthenticated();
     }
     match /carteras/{id} {
-      allow read, write: if isAuth();
+      allow read, write: if isAuthenticated();
     }
     match /carteras_colegios/{colegioId} {
-      allow read, write: if isAuth();
+      allow read, write: if isAuthenticated();
       match /grados/{gradoId} {
-        allow read, write: if isAuth();
+        allow read, write: if isAuthenticated();
         match /estudiantes/{estId} {
-          allow read, write: if isAuth();
+          allow read, write: if isAuthenticated();
         }
       }
     }
     match /colegios/{id} {
-      allow read, write: if isAuth();
+      allow read, write: if isAuthenticated();
     }
   }
 }

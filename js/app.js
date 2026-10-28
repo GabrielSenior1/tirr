@@ -607,6 +607,16 @@ function initTIRR() {
         },
 
         subscribeTeams() {
+            if (this.isTestMode) {
+                if (this.teams.length === 0) {
+                    this.loadSampleTeams();
+                }
+                if (this.allCalificaciones.length === 0) {
+                    this.loadSampleCalificaciones();
+                }
+                return;
+            }
+
             const q = query(collection(db, 'equipos'), orderBy('createdAt', 'desc'));
             onSnapshot(q, (snap) => {
                 let list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -621,35 +631,17 @@ function initTIRR() {
                     return tA - tB;
                 });
 
-                if (this.isTestMode) {
-                    if (this.teams.length === 0) {
-                        this.loadSampleTeams();
-                    }
-                    return;
-                }
                 this.teams = list;
             }, (err) => {
                 console.warn("Firestore snapshot error (equipos):", err);
-                if (this.isTestMode && this.teams.length === 0) {
-                    this.loadSampleTeams();
-                }
             });
 
             // Suscribirse a calificaciones globalmente para estados y badges
             onSnapshot(collection(db, 'calificaciones'), (snap) => {
                 const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                if (this.isTestMode) {
-                    if (this.allCalificaciones.length === 0) {
-                        this.loadSampleCalificaciones();
-                    }
-                    return;
-                }
                 this.allCalificaciones = list;
             }, (err) => {
                 console.warn("Firestore snapshot error (calificaciones):", err);
-                if (this.isTestMode && this.allCalificaciones.length === 0) {
-                    this.loadSampleCalificaciones();
-                }
             });
         },
 
@@ -1592,14 +1584,23 @@ function initTIRR() {
             const altura = Number(this.form.altura_cohete);
             const diametro = Number(this.form.diametro_cohete);
 
-            if (isNaN(peso) || peso <= 0 || peso > 400) {
-                return alert('❌ ERROR: El peso debe ser un número mayor a 0 y máximo 400g.');
+            if (isNaN(peso) || peso <= 0) {
+                return alert('❌ ERROR: El peso debe ser mayor a 0.');
             }
-            if (isNaN(altura) || altura <= 0 || altura > 75) {
-                return alert('❌ ERROR: La altura debe ser un número mayor a 0 y máximo 75cm.');
+            if (peso > 400) {
+                return alert('❌ ERROR: El peso no puede superar los 400g.');
             }
-            if (isNaN(diametro) || diametro <= 0 || diametro > 12.5) {
-                return alert('❌ ERROR: El diámetro debe ser un número mayor a 0 y máximo 12.5cm.');
+            if (isNaN(altura) || altura <= 0) {
+                return alert('❌ ERROR: La altura debe ser mayor a 0.');
+            }
+            if (altura > 75) {
+                return alert('❌ ERROR: La altura no puede superar los 75cm.');
+            }
+            if (isNaN(diametro) || diametro <= 0) {
+                return alert('❌ ERROR: El diámetro debe ser mayor a 0.');
+            }
+            if (diametro > 12.5) {
+                return alert('❌ ERROR: El diámetro no puede superar los 12.5cm.');
             }
 
             if (Alpine.store('app').isTestMode) {
@@ -2104,6 +2105,12 @@ function initTIRR() {
         },
 
         async resetPlatformData() {
+            // HARD-01: Proteger contra borrado si se ejecuta en modo prueba
+            if (Alpine.store('app').isTestMode) {
+                alert('⚠️ [VISTA DE PRUEBA] El reinicio total de la plataforma en Firestore está deshabilitado en modo prueba.');
+                return;
+            }
+
             if (!confirm('⚠️ ¿ESTÁS SEGURO? Esta acción borrará TODOS los equipos, calificaciones y resets de perfiles. El sistema quedará vacío.')) return;
             const confirm2 = prompt('Para confirmar, escribe "REINICIAR":');
             if (confirm2 !== 'REINICIAR') return;
