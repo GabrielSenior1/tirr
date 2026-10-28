@@ -23,6 +23,7 @@ function clearSessionData() {
     localStorage.removeItem('misionSeleccionada');
     localStorage.removeItem('activeTab');
     localStorage.removeItem('tirr_last_active');
+    localStorage.removeItem('tirr_test_mode');
 }
 
 // Escuchar interacciones para renovar la marca de tiempo activa
@@ -52,6 +53,7 @@ function initTIRR() {
         isLoadingInitial: true,
         filtroCategoriaEquipos: 'TODAS',
         isGuest: false, // Modo invitado (sin Firebase Auth)
+        isTestMode: false, // Perfil 'Vista de Prueba' para personas externas y revisión IA
         misionSeleccionada: null, // Se asigna en init tras validar expiración
         showMenu: false,
         showLoginModal: false,
@@ -71,10 +73,14 @@ function initTIRR() {
             { id: 5, name: 'Jurado 4', role: 'JURADO', color: 'yellow', hex: '#FFD700', initial: 'J4', email: 'jurado4@tirr.com' },
             { id: 6, name: 'Auxiliar 1', role: 'AUXILIAR JURADO', color: 'emerald', hex: '#10B981', initial: 'A1', email: 'auxiliar1@tirr.com' },
             { id: 7, name: 'Auxiliar 2', role: 'AUXILIAR JURADO', color: 'emerald', hex: '#10B981', initial: 'A2', email: 'auxiliar2@tirr.com' },
-            { id: 8, name: 'Cronometrista', role: 'CRONOMETRISTA', color: 'cyan', hex: '#00E5FF', initial: 'C1', email: 'cronometrista1@tirr.com' }
+            { id: 8, name: 'Cronometrista', role: 'CRONOMETRISTA', color: 'cyan', hex: '#00E5FF', initial: 'C1', email: 'cronometrista1@tirr.com' },
+            { id: 9, name: 'Vista de Prueba', role: 'VISTA DE PRUEBA', color: 'purple', hex: '#A855F7', initial: 'VP', email: 'prueba@tirr.com' }
         ],
 
         get currentJudgeId() {
+            if (this.isTestMode) {
+                return 'juez_prueba_ia';
+            }
             if (this.user) {
                 return this.user.uid || this.user.email;
             }
@@ -82,6 +88,9 @@ function initTIRR() {
         },
 
         get currentJudgeName() {
+            if (this.isTestMode) {
+                return 'Evaluador de Prueba (IA / Externo)';
+            }
             if (this.user) {
                 const found = this.systemUsers.find(u => u.email.toLowerCase() === this.user.email?.toLowerCase());
                 return found ? found.name : (this.user.displayName || this.user.email || 'Jurado');
@@ -113,6 +122,35 @@ function initTIRR() {
         },
 
         async init() {
+            // Verificar si hay solicitud directa por URL o Hash para pruebas / IA
+            if (typeof window !== 'undefined') {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('mode') === 'test' || urlParams.get('perfil') === 'prueba' || urlParams.get('test') === 'true' || window.location.hash === '#vista-de-prueba') {
+                    console.log("🤖 Activación directa de Vista de Prueba por URL / Hash...");
+                    await this.loginAsVistaPrueba();
+                    return;
+                }
+            }
+
+            // Restaurar sesión de prueba si estaba activa y no ha expirado
+            if (localStorage.getItem('tirr_test_mode') === 'true' && !isSessionExpired()) {
+                console.log("🧪 Restaurando sesión de Vista de Prueba...");
+                this.isTestMode = true;
+                this.isAuthenticated = true;
+                this.userRole = 'VISTA DE PRUEBA';
+                this.user = { 
+                    uid: 'tirr-test-user-vp', 
+                    email: 'prueba@tirr.com', 
+                    displayName: 'Vista de Prueba',
+                    initial: 'VP',
+                    photoURL: null
+                };
+                this.misionSeleccionada = localStorage.getItem('misionSeleccionada') || 'Lanzamiento Vertical';
+                this.subscribeTeams();
+                this.hideLoader();
+                return;
+            }
+
             // ── VERIFICACIÓN ESTRICTA DE EXPIRACIÓN DE SESIÓN ─────────────
             if (isSessionExpired()) {
                 console.log("🔒 Sesión expirada por inactividad. Forzando login...");
@@ -206,7 +244,7 @@ function initTIRR() {
 
                     this.subscribeTeams();
                 } else {
-                    if (!this.isGuest) {
+                    if (!this.isGuest && !this.isTestMode) {
                         this.userRole = null;
                         this.teams = [];
                         this.allCalificaciones = [];
@@ -235,6 +273,11 @@ function initTIRR() {
             const role = String(this.userRole).toUpperCase().trim();
 
             if (role === 'ADMINISTRADOR') return true;
+
+            // Acceso completo a módulos operativos para Vista de Prueba
+            if (role === 'VISTA DE PRUEBA' || role === 'PRUEBA' || role === 'TEST' || role === 'DEMO') {
+                return ['dashboard', 'registro', 'cronometro', 'calificacion', 'calificacion_lista', 'equipos', 'resultados', 'resultados_finales'].includes(module);
+            }
 
             if (role === 'JURADO') {
                 return ['dashboard', 'calificacion', 'calificacion_lista', 'equipos', 'resultados', 'resultados_finales'].includes(module);
@@ -284,7 +327,16 @@ function initTIRR() {
         },
 
         async login() {
-            if (!this.selectedLoginUser || !this.loginPin) return;
+            if (!this.selectedLoginUser) return;
+
+            // Acceso directo sin PIN obligatorio para Vista de Prueba
+            if (this.selectedLoginUser.role === 'VISTA DE PRUEBA' || this.selectedLoginUser.email === 'prueba@tirr.com') {
+                await this.loginAsVistaPrueba();
+                this.closeModal();
+                return;
+            }
+
+            if (!this.loginPin) return;
             this.loginLoading = true;
             this.loginError = null;
             try {
@@ -311,6 +363,7 @@ function initTIRR() {
                 clearSessionData();
                 this.setMision(null);
                 this.isGuest = false;
+                this.isTestMode = false;
                 this.isAuthenticated = false;
                 this.userRole = null;
                 this.teams = [];
@@ -337,6 +390,7 @@ function initTIRR() {
 
             clearSessionData();
             this.isGuest = true;
+            this.isTestMode = false;
             this.isAuthenticated = true;
             this.userRole = 'INVITADO';
             this.user = { email: 'invitado@tirr.com', displayName: 'Invitado' };
@@ -347,6 +401,149 @@ function initTIRR() {
             document.dispatchEvent(new CustomEvent('guest:login'));
             this.subscribeTeams();
             this.hideLoader();
+        },
+
+        async loginAsVistaPrueba() {
+            console.log("🧪 Ingresando como Vista de Prueba (Modo Funcional / Auditoría IA)...");
+            try {
+                await signOut(auth);
+            } catch(e) { /* ignore */ }
+
+            clearSessionData();
+            this.isGuest = false;
+            this.isTestMode = true;
+            this.isAuthenticated = true;
+            this.userRole = 'VISTA DE PRUEBA';
+            this.user = { 
+                uid: 'tirr-test-user-vp', 
+                email: 'prueba@tirr.com', 
+                displayName: 'Vista de Prueba',
+                initial: 'VP',
+                photoURL: null
+            };
+            this.misionSeleccionada = 'Lanzamiento Vertical';
+            localStorage.setItem('activeTab', 'dashboard');
+            localStorage.setItem('tirr_test_mode', 'true');
+            touchSession();
+
+            document.dispatchEvent(new CustomEvent('guest:login'));
+            this.subscribeTeams();
+            this.hideLoader();
+        },
+
+        resetTestState() {
+            this.loadSampleTeams();
+            this.loadSampleCalificaciones();
+            alert('🔄 Entorno de prueba restablecido con datos de simulación frescos.');
+        },
+
+        loadSampleTeams() {
+            this.teams = [
+                {
+                    id: 'test-team-01',
+                    numero_registro: '01',
+                    nombre_equipo: 'Apolo Robotics',
+                    nombre_cohete: 'Saturno-V',
+                    categoria: 'Exploradores',
+                    peso_cohete: 280,
+                    altura_cohete: 55,
+                    diametro_cohete: 8.5,
+                    miembros: ['Ana Torres', 'Carlos Pérez'],
+                    tiempo_vuelo_cronometro: 14520,
+                    distancia_cronometro: 42.5,
+                    foto_evidencia: 'js/public/Patricinadores/Robokids.png',
+                    is_test: true
+                },
+                {
+                    id: 'test-team-02',
+                    numero_registro: '02',
+                    nombre_equipo: 'CyberNova Tech',
+                    nombre_cohete: 'Vanguard Alpha',
+                    categoria: 'Ingenieros',
+                    peso_cohete: 340,
+                    altura_cohete: 65,
+                    diametro_cohete: 10,
+                    miembros: ['Lucía Gómez', 'David Ruiz'],
+                    tiempo_vuelo_cronometro: 19800,
+                    distancia_cronometro: 61.2,
+                    foto_evidencia: 'js/public/Patricinadores/Arcas.jpeg',
+                    is_test: true
+                },
+                {
+                    id: 'test-team-03',
+                    numero_registro: '03',
+                    nombre_equipo: 'Quantum Pioneers',
+                    nombre_cohete: 'Cosmos IX',
+                    categoria: 'Masters',
+                    peso_cohete: 390,
+                    altura_cohete: 72,
+                    diametro_cohete: 12,
+                    miembros: ['Santiago Mendoza', 'Elena Vargas'],
+                    tiempo_vuelo_cronometro: 24300,
+                    distancia_cronometro: 85.0,
+                    foto_evidencia: 'js/public/Patricinadores/Tesum.png',
+                    is_test: true
+                }
+            ];
+        },
+
+        loadSampleCalificaciones() {
+            this.allCalificaciones = [
+                {
+                    id: 'test-cal-01',
+                    id_equipo: 'test-team-01',
+                    id_juez: 'jurado1@tirr.com',
+                    nombre_juez: 'Jurado 1',
+                    nombre_equipo: 'Apolo Robotics',
+                    nombre_cohete: 'Saturno-V',
+                    categoria: 'Exploradores',
+                    ronda: 1,
+                    tipo: 'Lanzamiento Vertical',
+                    puntajes: { flight: 35, design: 18, innovation: 17, sustentation: 19 },
+                    distancia: 0,
+                    faltas: 0,
+                    descalificado: false,
+                    tiempo_vuelo: 14520,
+                    totalScore: 89,
+                    is_test: true
+                },
+                {
+                    id: 'test-cal-02',
+                    id_equipo: 'test-team-02',
+                    id_juez: 'jurado1@tirr.com',
+                    nombre_juez: 'Jurado 1',
+                    nombre_equipo: 'CyberNova Tech',
+                    nombre_cohete: 'Vanguard Alpha',
+                    categoria: 'Ingenieros',
+                    ronda: 1,
+                    tipo: 'Lanzamiento Vertical',
+                    puntajes: { flight: 38, design: 19, innovation: 18, sustentation: 18 },
+                    distancia: 0,
+                    faltas: 0,
+                    descalificado: false,
+                    tiempo_vuelo: 19800,
+                    totalScore: 93,
+                    is_test: true
+                },
+                {
+                    id: 'test-cal-03',
+                    id_equipo: 'test-team-03',
+                    id_juez: 'jurado1@tirr.com',
+                    nombre_juez: 'Jurado 1',
+                    nombre_equipo: 'Quantum Pioneers',
+                    nombre_cohete: 'Cosmos IX',
+                    categoria: 'Masters',
+                    ronda: 1,
+                    tipo: 'Lanzamiento Vertical',
+                    puntajes: { flight: 40, design: 20, innovation: 19, sustentation: 20 },
+                    distancia: 0,
+                    faltas: 0,
+                    descalificado: false,
+                    tiempo_vuelo: 24300,
+                    totalScore: 99,
+                    is_test: true
+                }
+            ];
         },
 
         subscribeTeams() {
@@ -364,12 +561,31 @@ function initTIRR() {
                     return tA - tB;
                 });
 
-                this.teams = list;
+                if (list.length === 0 && this.isTestMode) {
+                    this.loadSampleTeams();
+                } else {
+                    this.teams = list;
+                }
+            }, (err) => {
+                console.warn("Firestore snapshot error (equipos):", err);
+                if (this.isTestMode && this.teams.length === 0) {
+                    this.loadSampleTeams();
+                }
             });
 
             // Suscribirse a calificaciones globalmente para estados y badges
             onSnapshot(collection(db, 'calificaciones'), (snap) => {
-                this.allCalificaciones = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                if (list.length === 0 && this.isTestMode) {
+                    this.loadSampleCalificaciones();
+                } else {
+                    this.allCalificaciones = list;
+                }
+            }, (err) => {
+                console.warn("Firestore snapshot error (calificaciones):", err);
+                if (this.isTestMode && this.allCalificaciones.length === 0) {
+                    this.loadSampleCalificaciones();
+                }
             });
         },
 
@@ -380,6 +596,17 @@ function initTIRR() {
 
         async updateTeam() {
             if (!this.editingTeam?.id) return;
+            if (this.isTestMode) {
+                const idx = this.teams.findIndex(t => t.id === this.editingTeam.id);
+                if (idx >= 0) {
+                    this.teams[idx] = { ...this.teams[idx], ...this.editingTeam };
+                }
+                alert('✅ [VISTA DE PRUEBA] Equipo actualizado en la sesión de prueba.');
+                this.showEditTeamModal = false;
+                this.editingTeam = null;
+                this.editMemberInput = '';
+                return;
+            }
             try {
                 const id = this.editingTeam.id;
                 const updatePayload = {
@@ -427,6 +654,11 @@ function initTIRR() {
 
         async deleteTeam(id) {
             if (!confirm('¿Estás seguro de que deseas eliminar este equipo? Esta acción no se puede deshacer.')) return;
+            if (this.isTestMode) {
+                this.teams = this.teams.filter(t => t.id !== id);
+                alert('✅ [VISTA DE PRUEBA] Equipo eliminado de la sesión de prueba.');
+                return;
+            }
             try {
                 await deleteDoc(doc(db, 'equipos', id));
                 alert('✅ Equipo eliminado correctamente.');
@@ -509,6 +741,11 @@ function initTIRR() {
             }
             this.time_ms = Math.round(sec * 1000);
             this.guardado = true;
+            if (Alpine.store('app').isTestMode) {
+                this.selectedTeam.tiempo_vuelo_cronometro = this.time_ms;
+                alert(`✅ [VISTA DE PRUEBA] Tiempo manual fijado: ${sec.toFixed(2)}s.`);
+                return;
+            }
             this.syncToRTDB(true);
             this.persistirTiempoEnFirestore();
             alert(`✅ Tiempo manual fijado: ${sec.toFixed(2)}s y respaldado en la base de datos.`);
@@ -518,6 +755,10 @@ function initTIRR() {
         async reportarFallo() {
             if (!this.selectedTeam) return alert('Selecciona un equipo primero');
             this.fallosReportados++;
+            if (Alpine.store('app').isTestMode) {
+                alert(`⚠️ [VISTA DE PRUEBA] Fallo reportado (#${this.fallosReportados}) para ${this.selectedTeam.nombre_equipo}.`);
+                return;
+            }
             const mision = Alpine.store('app').misionSeleccionada || 'Lanzamiento Vertical';
             const missionPath = mision.replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             
@@ -568,6 +809,12 @@ function initTIRR() {
             if (!this.selectedTeam) return alert('Selecciona un equipo primero');
             if (this.running) this.stop();
             this.guardado = true;
+            if (Alpine.store('app').isTestMode) {
+                this.selectedTeam.tiempo_vuelo_cronometro = this.time_ms;
+                if (this.distancia > 0) this.selectedTeam.distancia_cronometro = this.distancia;
+                alert('✅ [VISTA DE PRUEBA] Registro cronometrado asegurado en sesión de prueba.');
+                return;
+            }
             this.syncToRTDB(true);
             await this.persistirTiempoEnFirestore();
             alert('✅ Registro cronometrado asegurado en base de datos.');
@@ -580,6 +827,7 @@ function initTIRR() {
 
         // Guarda automáticamente en el documento del equipo en Firestore
         async persistirTiempoEnFirestore() {
+            if (Alpine.store('app').isTestMode) return;
             if (!this.selectedTeam) return;
             try {
                 const mision = Alpine.store('app').misionSeleccionada || 'Lanzamiento Vertical';
@@ -596,6 +844,7 @@ function initTIRR() {
         },
 
         syncToRTDB(isFinal = false) {
+            if (Alpine.store('app').isTestMode || Alpine.store('app').isGuest) return;
             if (!this.selectedTeam) return;
 
             const mision = Alpine.store('app').misionSeleccionada || 'Lanzamiento Vertical';
@@ -749,6 +998,15 @@ function initTIRR() {
                     totalScore: Number(this.total),
                     createdAt: serverTimestamp()
                 };
+
+                if (Alpine.store('app').isTestMode) {
+                    alert(`✅ [VISTA DE PRUEBA] Calificación simulada guardada con éxito (Puntaje Total: ${this.total}).`);
+                    this.resetForm();
+                    if (Alpine.store('app').showEditModal) {
+                        Alpine.store('app').closeModal();
+                    }
+                    return;
+                }
 
                 if (this.currentCalificacionId) {
                     await updateDoc(doc(db, 'calificaciones', this.currentCalificacionId), calData);
@@ -1005,6 +1263,45 @@ function initTIRR() {
                 createdAt: serverTimestamp()
             };
 
+            if (Alpine.store('app').isTestMode) {
+                setTimeout(() => {
+                    row.status = 'saved';
+                    row.evaluado = true;
+                    const existingCalIdx = Alpine.store('app').allCalificaciones.findIndex(c => c.id_equipo === teamId && c.id_juez === Alpine.store('app').currentJudgeId && c.tipo === mision);
+                    const mockCal = {
+                        id: row.id_doc || ('mock-cal-' + teamId),
+                        id_equipo: teamId,
+                        id_juez: Alpine.store('app').currentJudgeId,
+                        nombre_juez: Alpine.store('app').currentJudgeName,
+                        nombre_equipo: team.nombre_equipo || 'Cohete',
+                        nombre_cohete: team.nombre_cohete || 'Cohete',
+                        categoria: team.categoria || 'Exploradores',
+                        ronda: 1,
+                        tipo: mision,
+                        puntajes: {
+                            flight: Number(row.flight),
+                            design: Number(row.design),
+                            innovation: Number(row.innovation),
+                            sustentation: Number(row.sustentation)
+                        },
+                        distancia: Number(team.distancia_cronometro || 0),
+                        faltas: Number(row.penalties),
+                        descalificado: !!row.descalificado,
+                        tiempo_vuelo: Number(team.tiempo_vuelo_cronometro || 0),
+                        totalScore: Number(total),
+                        is_test: true,
+                        createdAt: { seconds: Math.floor(Date.now() / 1000) }
+                    };
+                    if (existingCalIdx >= 0) {
+                        Alpine.store('app').allCalificaciones[existingCalIdx] = mockCal;
+                    } else {
+                        Alpine.store('app').allCalificaciones.push(mockCal);
+                    }
+                    console.log("🧪 [VISTA DE PRUEBA] Fila autoguardada localmente:", team.nombre_equipo, "Puntaje:", total);
+                }, 100);
+                return;
+            }
+
             try {
                 if (row.id_doc) {
                     await updateDoc(doc(db, 'calificaciones', row.id_doc), calData);
@@ -1057,7 +1354,8 @@ function initTIRR() {
             { id: 5, nombre: 'Jurado 4', rol: 'JURADO', email: 'jurado4@tirr.com', hex: '#FFD700', color: 'yellow', initial: 'J4' },
             { id: 6, nombre: 'Auxiliar 1', rol: 'AUXILIAR JURADO', email: 'auxiliar1@tirr.com', hex: '#10B981', color: 'emerald', initial: 'A1' },
             { id: 7, nombre: 'Auxiliar 2', rol: 'AUXILIAR JURADO', email: 'auxiliar2@tirr.com', hex: '#10B981', color: 'emerald', initial: 'A2' },
-            { id: 8, nombre: 'Cronometrista', rol: 'CRONOMETRISTA', email: 'cronometrista1@tirr.com', hex: '#00E5FF', color: 'cyan', initial: 'C1' }
+            { id: 8, nombre: 'Cronometrista', rol: 'CRONOMETRISTA', email: 'cronometrista1@tirr.com', hex: '#00E5FF', color: 'cyan', initial: 'C1' },
+            { id: 9, nombre: 'Vista de Prueba', rol: 'VISTA DE PRUEBA', email: 'prueba@tirr.com', hex: '#A855F7', color: 'purple', initial: 'VP' }
         ],
         usuarioActivo: null,
         password: '',
@@ -1156,8 +1454,12 @@ function initTIRR() {
         },
 
         async registrarEquipo() {
-            if (!this.form.nombre_equipo || !this.form.nombre_cohete || !this.fotoFile) {
-                return alert('Por favor, completa el nombre del equipo, el nombre del cohete y sube una foto.');
+            if (!this.form.nombre_equipo || !this.form.nombre_cohete) {
+                return alert('Por favor, completa el nombre del equipo y el nombre del cohete.');
+            }
+
+            if (!Alpine.store('app').isTestMode && !this.fotoFile) {
+                return alert('Por favor, sube una foto de evidencia.');
             }
 
             if (this.form.peso_cohete > 400) {
@@ -1168,6 +1470,25 @@ function initTIRR() {
             }
             if (this.form.diametro_cohete > 12.5) {
                 return alert('❌ ERROR: El diámetro no puede superar los 12.5cm.');
+            }
+
+            if (Alpine.store('app').isTestMode) {
+                const dummyPhoto = this.fotoFile ? URL.createObjectURL(this.fotoFile) : 'js/public/Patricinadores/Robokids.png';
+                const mockTeam = {
+                    id: 'mock-team-' + Date.now(),
+                    ...this.form,
+                    numero_registro: String(this.form.numero_registro || '').padStart(2, '0'),
+                    peso_cohete: Number(this.form.peso_cohete || 250),
+                    altura_cohete: Number(this.form.altura_cohete || 50),
+                    diametro_cohete: Number(this.form.diametro_cohete || 8.5),
+                    foto_evidencia: dummyPhoto,
+                    is_test: true,
+                    createdAt: { seconds: Math.floor(Date.now() / 1000) }
+                };
+                Alpine.store('app').teams.push(mockTeam);
+                alert(`✅ [VISTA DE PRUEBA] Equipo "${mockTeam.nombre_equipo}" registrado exitosamente en la sesión de prueba.`);
+                this.resetForm();
+                return;
             }
 
             this.isSubmitting = true;
@@ -1627,6 +1948,78 @@ function initTIRR() {
     }));
 }
 
+// ── Systematic AI / External Testing Interface ────────────────
+if (typeof window !== 'undefined') {
+    window.__TIRR_TEST_API__ = {
+        login() {
+            return Alpine.store('app').loginAsVistaPrueba();
+        },
+        logout() {
+            return Alpine.store('app').logout();
+        },
+        reset() {
+            return Alpine.store('app').resetTestState();
+        },
+        getProfile() {
+            const s = Alpine.store('app');
+            return {
+                name: 'Vista de Prueba',
+                role: s.userRole,
+                isTestMode: s.isTestMode,
+                isAuthenticated: s.isAuthenticated,
+                activeMission: s.misionSeleccionada,
+                teamsCount: s.teams.length,
+                calificacionesCount: s.allCalificaciones.length
+            };
+        },
+        getModules() {
+            const s = Alpine.store('app');
+            const list = ['dashboard', 'registro', 'cronometro', 'calificacion_lista', 'calificacion', 'equipos', 'resultados', 'resultados_finales'];
+            return list.map(m => ({ module: m, hasAccess: s.hasAccess(m) }));
+        },
+        navigate(tabName) {
+            localStorage.setItem('activeTab', tabName);
+            const el = document.querySelector('[x-data*="activeTab"]');
+            if (el && el._x_dataStack && el._x_dataStack[0]) {
+                el._x_dataStack[0].activeTab = tabName;
+                return true;
+            }
+            return false;
+        },
+        setMission(mission) {
+            Alpine.store('app').setMision(mission);
+            return true;
+        },
+        runDiagnostics() {
+            const s = Alpine.store('app');
+            const checks = [
+                { name: 'Perfil Activo es Vista de Prueba', passed: s.userRole === 'VISTA DE PRUEBA' },
+                { name: 'Acceso a Panel Principal (dashboard)', passed: s.hasAccess('dashboard') },
+                { name: 'Acceso a Registro de Equipos', passed: s.hasAccess('registro') },
+                { name: 'Acceso a Cronometría Oficial', passed: s.hasAccess('cronometro') },
+                { name: 'Acceso a Calificación tipo Lista', passed: s.hasAccess('calificacion_lista') },
+                { name: 'Acceso a Calificación Individual', passed: s.hasAccess('calificacion') },
+                { name: 'Acceso a Directorio de Equipos', passed: s.hasAccess('equipos') },
+                { name: 'Acceso a Resultados y Podio', passed: s.hasAccess('resultados') },
+                { name: 'Acceso a Resultados Finales', passed: s.hasAccess('resultados_finales') },
+                { name: 'Equipos disponibles para interacción', passed: s.teams.length > 0 },
+                { name: 'Calificaciones disponibles para análisis', passed: s.allCalificaciones.length > 0 }
+            ];
+            const allPassed = checks.every(c => c.passed);
+            const summary = {
+                status: allPassed ? 'PASS' : 'WARN',
+                timestamp: new Date().toISOString(),
+                totalChecks: checks.length,
+                passedChecks: checks.filter(c => c.passed).length,
+                checks
+            };
+            console.log("🧪 DIAGNÓSTICO SISTEMÁTICO TIRR (VISTA DE PRUEBA):", summary);
+            return summary;
+        }
+    };
+    console.log("🧪 [TIRR] Vista de Prueba y API para IA listas. Accesible vía window.__TIRR_TEST_API__");
+}
+
 // Inicializar cuando Alpine esté listo
 if (window.Alpine) {
     initTIRR();
@@ -1635,3 +2028,4 @@ if (window.Alpine) {
 }
 
 export { initTIRR };
+

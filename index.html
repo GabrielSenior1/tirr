@@ -292,10 +292,11 @@
             </div>
 
             <div
-                class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2 md:gap-4 max-w-7xl w-full relative z-10 px-4 mb-8">
+                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-2 md:gap-3 max-w-7xl w-full relative z-10 px-4 mb-6">
                 <template :key="user.email + (user.photoURL || 'none')" x-for="user in $store.app.systemUsers">
                     <div @click="openLoginForm(user)"
-                        class="bg-black/40 border border-white/10 p-3 md:p-4 rounded-[2rem] flex flex-col items-center justify-center cursor-pointer transition-all duration-500 hover:-translate-y-1 group backdrop-blur-sm relative overflow-hidden">
+                        class="bg-black/40 border border-white/10 p-3 md:p-4 rounded-[2rem] flex flex-col items-center justify-center cursor-pointer transition-all duration-500 hover:-translate-y-1 group backdrop-blur-sm relative overflow-hidden"
+                        :data-role="user.role">
 
                         <!-- Glow effect matching user color -->
                         <div :style="'background: ' + user.hex"
@@ -315,37 +316,67 @@
                                     <div :style="'background-color: ' + user.hex"
                                         class="w-full h-full rounded-full flex items-center justify-center text-lg md:text-xl font-black headline text-black">
                                         <span class="material-symbols-outlined"
-                                            x-text="user.role.includes('CRONOMETRISTA') ? 'timer' : 'gavel'"></span>
+                                            x-text="user.role.includes('CRONOMETRISTA') ? 'timer' : user.role.includes('PRUEBA') ? 'science' : user.role.includes('AUXILIAR') ? 'engineering' : user.role.includes('ADMIN') ? 'admin_panel_settings' : 'gavel'"></span>
                                     </div>
                                 </template>
                             </div>
                         </div>
-                        <h3 class="text-xs md:text-sm font-black headline mb-0.5 tracking-tight text-white whitespace-nowrap"
+                        <h3 class="text-[11px] md:text-xs font-black headline mb-0.5 tracking-tight text-white whitespace-nowrap text-center"
                             x-text="user.role"></h3>
-                        <p class="text-[9px] md:text-[10px] font-black tracking-[0.2em] text-peach uppercase font-body whitespace-nowrap"
+                        <p class="text-[8px] md:text-[9px] font-black tracking-[0.15em] text-peach uppercase font-body whitespace-nowrap text-center"
                             x-text="user.name"></p>
                     </div>
                 </template>
             </div>
 
-            <!-- BOTÓN DE INVITADO -->
-            <div class="w-full max-w-7xl px-4 mb-8 relative z-10">
-                <button @click="$store.app.loginAsGuest()"
-                    class="w-full bg-white/[0.03] border border-white/10 hover:border-white/30 p-4 md:p-5 rounded-[2rem] flex items-center justify-center gap-4 cursor-pointer transition-all duration-500 hover:-translate-y-1 group backdrop-blur-sm">
-                    <div
-                        class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center group-hover:bg-white/20 transition-all">
-                        <span
-                            class="material-symbols-outlined text-xl md:text-2xl text-white/60 group-hover:text-white transition-colors">visibility</span>
+            <!-- ACCESOS RÁPIDOS EXTERNOS: VISTA DE PRUEBA E INVITADO -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-7xl px-4 mb-8 relative z-10">
+                <!-- BOTÓN 1: VISTA DE PRUEBA (Para personas externas y revisión sistemática IA) -->
+                <button @click="$store.app.loginAsVistaPrueba()" id="btn-vista-prueba" data-testid="login-vista-prueba"
+                    class="bg-gradient-to-r from-purple-950/40 via-purple-900/20 to-black/60 border border-purple-500/30 hover:border-purple-400 p-4 md:p-5 rounded-[2rem] flex items-center justify-between gap-4 cursor-pointer transition-all duration-500 hover:-translate-y-1 group backdrop-blur-sm shadow-[0_0_30px_rgba(168,85,247,0.15)] text-left">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center group-hover:bg-purple-500/30 group-hover:scale-110 transition-all text-purple-400 shrink-0">
+                            <span class="material-symbols-outlined text-xl md:text-2xl">science</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-sm md:text-base font-black headline text-purple-200 group-hover:text-white transition-colors tracking-tight">
+                                    VISTA DE PRUEBA</h3>
+                                <span class="bg-purple-500/20 text-purple-300 border border-purple-500/40 text-[8px] md:text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">
+                                    Demo & Auditoría IA
+                                </span>
+                            </div>
+                            <p class="text-[9px] md:text-[10px] font-bold tracking-[0.15em] text-purple-300/60 uppercase">
+                                Pruebas completas • Cronometría, Calificaciones y Registro interactivo
+                            </p>
+                        </div>
                     </div>
-                    <div class="text-left">
-                        <h3
-                            class="text-sm md:text-base font-black headline text-white/80 group-hover:text-white transition-colors tracking-tight">
-                            INGRESAR COMO INVITADO</h3>
-                        <p class="text-[9px] md:text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">Solo
-                            visualización • Sin credenciales</p>
+                    <span class="material-symbols-outlined text-purple-400/60 group-hover:text-purple-300 transition-colors shrink-0">rocket_launch</span>
+                </button>
+
+                <!-- BOTÓN 2: INVITADO (Solo Lectura) -->
+                <button @click="$store.app.loginAsGuest()" id="btn-invitado" data-testid="login-invitado"
+                    class="bg-white/[0.03] border border-white/10 hover:border-white/30 p-4 md:p-5 rounded-[2rem] flex items-center justify-between gap-4 cursor-pointer transition-all duration-500 hover:-translate-y-1 group backdrop-blur-sm text-left">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center group-hover:bg-white/20 transition-all shrink-0">
+                            <span class="material-symbols-outlined text-xl md:text-2xl text-white/60 group-hover:text-white transition-colors">visibility</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-sm md:text-base font-black headline text-white/80 group-hover:text-white transition-colors tracking-tight">
+                                    INGRESAR COMO INVITADO</h3>
+                                <span class="bg-white/10 text-gray-300 border border-white/20 text-[8px] md:text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">
+                                    Solo Lectura
+                                </span>
+                            </div>
+                            <p class="text-[9px] md:text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">
+                                Visualización del torneo • Podio y resultados en vivo
+                            </p>
+                        </div>
                     </div>
-                    <span
-                        class="material-symbols-outlined text-white/30 group-hover:text-white/60 transition-colors ml-auto">arrow_forward</span>
+                    <span class="material-symbols-outlined text-white/30 group-hover:text-white/60 transition-colors shrink-0">arrow_forward</span>
                 </button>
             </div>
 
@@ -514,7 +545,7 @@
                                 </template>
                                 <template x-if="!localUser?.photoURL">
                                     <span class="material-symbols-outlined text-[40px]"
-                                        x-text="localUser?.role.includes('CRONOMETRISTA') ? 'timer' : 'gavel'"></span>
+                                        x-text="localUser?.role.includes('CRONOMETRISTA') ? 'timer' : localUser?.role.includes('PRUEBA') ? 'science' : localUser?.role.includes('AUXILIAR') ? 'engineering' : localUser?.role.includes('ADMIN') ? 'admin_panel_settings' : 'gavel'"></span>
                                 </template>
                             </div>
                         </div>
@@ -523,28 +554,49 @@
                         <p class="text-peach text-xs font-bold tracking-[0.2em] mt-2 uppercase"
                             x-text="localUser?.name"></p>
 
-                        <div class="mt-12 space-y-6">
-                            <div class="relative group">
-                                <input x-model="localPin" @keyup.enter="doLogin()"
-                                    class="w-full bg-white/5 border-b-2 border-white/10 rounded-2xl px-6 py-6 text-center text-4xl tracking-[0.5em] headline text-white focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all placeholder:text-gray-800 placeholder:tracking-normal placeholder:text-sm"
-                                    placeholder="PIN ACCESO" type="password" autofocus>
-                            </div>
-
-                            <div x-show="localError"
-                                class="text-primary text-[10px] font-black uppercase tracking-widest bg-primary/10 py-3 rounded-xl border border-primary/20"
-                                x-text="localError"></div>
-
-                            <button @click="doLogin()" :disabled="localLoading"
-                                class="w-full relative group overflow-hidden bg-white text-black font-black headline py-5 rounded-2xl transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.15)] disabled:opacity-50">
-                                <span class="relative z-10 tracking-widest text-xs" x-show="!localLoading">INGRESAR A
-                                    TERMINAL</span>
-                                <span x-show="localLoading"
-                                    class="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin mx-auto relative z-10"></span>
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000">
+                        <!-- FORMULARIO DIRECTO PARA VISTA DE PRUEBA (SIN PIN OBLIGATORIO) -->
+                        <template x-if="localUser?.role === 'VISTA DE PRUEBA' || localUser?.email === 'prueba@tirr.com'">
+                            <div class="mt-8 space-y-4">
+                                <div class="bg-purple-900/30 border border-purple-500/40 rounded-2xl p-5 text-center">
+                                    <span class="material-symbols-outlined text-purple-400 text-3xl mb-1">smart_toy</span>
+                                    <h4 class="text-white font-bold headline text-sm uppercase">Perfil de Prueba y Auditoría IA</h4>
+                                    <p class="text-[11px] text-purple-200/80 mt-1 leading-relaxed">
+                                        Acceso irrestricto para personas externas y modelos de IA que deseen revisar o probar la plataforma de forma segura. No requiere PIN.
+                                    </p>
                                 </div>
-                            </button>
-                        </div>
+                                <button @click="$store.app.loginAsVistaPrueba(); localShowLogin = false"
+                                    class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black headline py-4 rounded-2xl transition-all shadow-[0_0_25px_rgba(168,85,247,0.4)] tracking-widest text-xs uppercase flex items-center justify-center gap-2 cursor-pointer">
+                                    <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+                                    INGRESAR A VISTA DE PRUEBA
+                                </button>
+                            </div>
+                        </template>
+
+                        <!-- FORMULARIO ESTÁNDAR CON PIN PARA OTROS USUARIOS -->
+                        <template x-if="localUser?.role !== 'VISTA DE PRUEBA' && localUser?.email !== 'prueba@tirr.com'">
+                            <div class="mt-12 space-y-6">
+                                <div class="relative group">
+                                    <input x-model="localPin" @keyup.enter="doLogin()"
+                                        class="w-full bg-white/5 border-b-2 border-white/10 rounded-2xl px-6 py-6 text-center text-4xl tracking-[0.5em] headline text-white focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all placeholder:text-gray-800 placeholder:tracking-normal placeholder:text-sm"
+                                        placeholder="PIN ACCESO" type="password" autofocus>
+                                </div>
+
+                                <div x-show="localError"
+                                    class="text-primary text-[10px] font-black uppercase tracking-widest bg-primary/10 py-3 rounded-xl border border-primary/20"
+                                    x-text="localError"></div>
+
+                                <button @click="doLogin()" :disabled="localLoading"
+                                    class="w-full relative group overflow-hidden bg-white text-black font-black headline py-5 rounded-2xl transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.15)] disabled:opacity-50">
+                                    <span class="relative z-10 tracking-widest text-xs" x-show="!localLoading">INGRESAR A
+                                        TERMINAL</span>
+                                    <span x-show="localLoading"
+                                        class="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin mx-auto relative z-10"></span>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000">
+                                    </div>
+                                </button>
+                            </div>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -709,7 +761,7 @@
                 </div>
 
                 <nav class="flex-1 space-y-2">
-                    <button @click="activeTab = 'dashboard'"
+                    <button @click="activeTab = 'dashboard'" data-testid="nav-dashboard"
                         :class="activeTab === 'dashboard' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
                         class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                         <span class="material-symbols-outlined transition-colors group-hover:text-white"
@@ -717,7 +769,7 @@
                         <span class="font-headline">Panel Principal</span>
                     </button>
                     <template x-if="$store.app.hasAccess('registro')">
-                        <button @click="activeTab = 'registro'"
+                        <button @click="activeTab = 'registro'" data-testid="nav-registro"
                             :class="activeTab === 'registro' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
@@ -726,7 +778,7 @@
                         </button>
                     </template>
                     <template x-if="$store.app.hasAccess('resultados')">
-                        <button @click="activeTab = 'resultados'"
+                        <button @click="activeTab = 'resultados'" data-testid="nav-resultados"
                             :class="activeTab === 'resultados' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
@@ -735,7 +787,7 @@
                         </button>
                     </template>
                     <template x-if="$store.app.hasAccess('calificacion')">
-                        <button @click="activeTab = 'calificacion_lista'"
+                        <button @click="activeTab = 'calificacion_lista'" data-testid="nav-calificacion-lista"
                             :class="activeTab === 'calificacion_lista' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
@@ -744,7 +796,7 @@
                         </button>
                     </template>
                     <template x-if="$store.app.hasAccess('cronometro')">
-                        <button @click="activeTab = 'cronometro'"
+                        <button @click="activeTab = 'cronometro'" data-testid="nav-cronometro"
                             :class="activeTab === 'cronometro' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
@@ -753,7 +805,7 @@
                         </button>
                     </template>
                     <template x-if="$store.app.hasAccess('equipos')">
-                        <button @click="activeTab = 'equipos'"
+                        <button @click="activeTab = 'equipos'" data-testid="nav-equipos"
                             :class="activeTab === 'equipos' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
@@ -762,7 +814,7 @@
                         </button>
                     </template>
                     <template x-if="$store.app.hasAccess('resultados_finales')">
-                        <button @click="activeTab = 'resultados_finales'"
+                        <button @click="activeTab = 'resultados_finales'" data-testid="nav-resultados-finales"
                             :class="activeTab === 'resultados_finales' ? 'text-emerald-400 font-bold border-r-4 border-emerald-500 bg-gradient-to-r from-emerald-500/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
@@ -772,7 +824,7 @@
                     </template>
 
                     <template x-if="$store.app.user?.email === 'admin@tirr.com'">
-                        <button @click="activeTab = 'configuracion'"
+                        <button @click="activeTab = 'configuracion'" data-testid="nav-configuracion"
                             :class="activeTab === 'configuracion' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
@@ -816,14 +868,21 @@
                         </label>
                         <div class="flex flex-col">
                             <h1 class="text-base md:text-xl font-bold headline text-white truncate max-w-[180px] md:max-w-none"
-                                x-text="$store.app.isGuest ? 'Panel Invitado' : activeTab === 'registro' ? 'Registro' : activeTab === 'resultados_finales' ? 'Resultados Finales' : $store.app.misionSeleccionada === '__RESULTADOS_FINALES__' ? 'Resultados Finales' : `Panel - ${$store.app.misionSeleccionada}`">
+                                x-text="$store.app.isTestMode ? `Vista de Prueba • ${$store.app.misionSeleccionada === '__RESULTADOS_FINALES__' ? 'Resultados Finales' : ($store.app.misionSeleccionada || 'Lanzamiento Vertical')}` : $store.app.isGuest ? 'Panel Invitado' : activeTab === 'registro' ? 'Registro' : activeTab === 'resultados_finales' ? 'Resultados Finales' : $store.app.misionSeleccionada === '__RESULTADOS_FINALES__' ? 'Resultados Finales' : `Panel - ${$store.app.misionSeleccionada}`">
                             </h1>
                             <div class="flex items-center gap-2">
-                                <span
-                                    class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse"></span>
-                                <span
-                                    class="text-[9px] md:text-[10px] uppercase tracking-widest text-green-500 font-bold">SISTEMA
-                                    EN LÍNEA</span>
+                                <template x-if="$store.app.isTestMode">
+                                    <span class="flex items-center gap-1.5 text-purple-400 bg-purple-500/10 border border-purple-500/30 px-2 py-0.5 rounded-full text-[9px] font-black tracking-widest uppercase">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+                                        MODO PRUEBA & IA
+                                    </span>
+                                </template>
+                                <template x-if="!$store.app.isTestMode">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse"></span>
+                                        <span class="text-[9px] md:text-[10px] uppercase tracking-widest text-green-500 font-bold">SISTEMA EN LÍNEA</span>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -837,11 +896,13 @@
                         <div class="flex items-center gap-2 md:gap-4">
                             <div class="relative" x-data="{ showDropdown: false }">
                                 <button @click="showDropdown = !showDropdown" @click.away="showDropdown = false"
-                                    class="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden border border-[#353534] bg-white/5 flex items-center justify-center hover:border-primary transition-colors cursor-pointer focus:outline-none">
+                                    class="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden border border-[#353534] bg-white/5 flex items-center justify-center hover:border-primary transition-colors cursor-pointer focus:outline-none"
+                                    :class="$store.app.isTestMode ? 'border-purple-500 shadow-[0_0_12px_rgba(168,85,247,0.4)]' : ''">
                                     <img x-show="$store.app.user?.photoURL" :src="$store.app.user?.photoURL"
                                         class="w-full h-full object-cover">
                                     <span x-show="!$store.app.user?.photoURL" class="text-white font-bold"
-                                        x-text="$store.app.user?.email?.[0].toUpperCase() || 'A'"></span>
+                                        :class="$store.app.isTestMode ? 'text-purple-400' : ''"
+                                        x-text="$store.app.isTestMode ? 'VP' : ($store.app.user?.email?.[0].toUpperCase() || 'A')"></span>
                                 </button>
 
                                 <div x-show="showDropdown" x-transition x-cloak
@@ -849,9 +910,19 @@
                                     <div class="px-4 py-3 border-b border-[#353534]/50 mb-2">
                                         <p class="text-[10px] uppercase font-bold tracking-widest text-gray-500 mb-1">
                                             Sesión Activa</p>
-                                        <p class="text-sm text-white font-bold truncate"
-                                            x-text="$store.app.user?.email"></p>
+                                        <p class="text-sm font-bold truncate"
+                                            :class="$store.app.isTestMode ? 'text-purple-400' : 'text-white'"
+                                            x-text="$store.app.isTestMode ? 'Vista de Prueba (Demo/IA)' : $store.app.user?.email"></p>
+                                        <p class="text-[9px] uppercase font-bold text-gray-400 mt-0.5"
+                                            x-text="'Rol: ' + ($store.app.userRole || 'Invitado')"></p>
                                     </div>
+                                    <template x-if="$store.app.isTestMode">
+                                        <button @click="$store.app.resetTestState(); showDropdown = false"
+                                            class="w-full text-left px-4 py-2.5 text-xs text-purple-300 hover:bg-purple-900/20 font-bold transition-all flex items-center gap-3">
+                                            <span class="material-symbols-outlined text-[16px]">refresh</span>
+                                            Restablecer Datos Demo
+                                        </button>
+                                    </template>
                                     <button @click="$store.app.logout()"
                                         class="w-full text-left px-4 py-3 text-sm text-[#D30000] hover:bg-white/5 font-bold transition-all flex items-center gap-3">
                                         <span class="material-symbols-outlined text-[18px]">logout</span>
@@ -862,6 +933,35 @@
                         </div>
                     </div>
                 </header>
+
+                <!-- BANNER INFORMATIVO ENTORNO DE PRUEBA / AUDITORÍA IA -->
+                <template x-if="$store.app.isTestMode">
+                    <div class="w-full lg:w-[calc(100%-16rem)] lg:ml-64 fixed top-20 right-0 z-40 bg-purple-950/80 border-b border-purple-500/30 backdrop-blur-md px-4 md:px-8 py-2 flex flex-wrap items-center justify-between gap-3 text-xs shadow-lg">
+                        <div class="flex items-center gap-2.5">
+                            <span class="w-6 h-6 rounded-lg bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-300">
+                                <span class="material-symbols-outlined text-[16px]">science</span>
+                            </span>
+                            <span class="font-bold text-white text-[11px] md:text-xs">
+                                ENTORNO VISTA DE PRUEBA ACTIVO
+                            </span>
+                            <span class="text-purple-300/70 text-[10px] hidden sm:inline">
+                                • Modo seguro para personas externas y revisión sistemática por IA (Datos oficiales protegidos)
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-2 ml-auto">
+                            <button @click="$store.app.resetTestState()"
+                                class="px-3 py-1 rounded-lg bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-400/30 text-[10px] font-black uppercase tracking-wider transition-colors flex items-center gap-1.5 cursor-pointer">
+                                <span class="material-symbols-outlined text-[14px]">refresh</span>
+                                Reiniciar Datos
+                            </button>
+                            <button @click="$store.app.logout()"
+                                class="px-3 py-1 rounded-lg bg-white/5 hover:bg-red-500/20 text-gray-300 hover:text-red-300 border border-white/10 text-[10px] font-black uppercase tracking-wider transition-colors flex items-center gap-1.5 cursor-pointer">
+                                <span class="material-symbols-outlined text-[14px]">logout</span>
+                                Salir
+                            </button>
+                        </div>
+                    </div>
+                </template>
 
                 <!-- Dashboard Content (only visible when in dashboard tab) -->
                 <section x-show="activeTab === 'dashboard'" x-transition class="pt-28 md:pt-32 pb-12 px-4 md:px-8">
@@ -1048,12 +1148,13 @@
                         <div>© 2026 ALT + TEND ASOCIACIÓN DE LICENCIATURA EN TECNOLOGÍA</div>
                         <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
                             <span>Versión del Sistema: 4.2.0-Red</span>
+                            <span class="text-purple-400 font-bold" x-show="$store.app.isTestMode">Modo: Vista de Prueba (Evaluación & IA)</span>
                             <span class="text-[#D30000]"
-                                x-show="!$store.app.isGuest && $store.app.misionSeleccionada && !$store.app.misionSeleccionada.startsWith('__')">Misión:
+                                x-show="!$store.app.isGuest && !$store.app.isTestMode && $store.app.misionSeleccionada && !$store.app.misionSeleccionada.startsWith('__')">Misión:
                                 <span x-text="$store.app.misionSeleccionada"></span></span>
                             <span class="text-emerald-400" x-show="$store.app.isGuest">Modo: Invitado</span>
                             <span class="text-emerald-400"
-                                x-show="!$store.app.isGuest && $store.app.misionSeleccionada === '__RESULTADOS_FINALES__'">Modo:
+                                x-show="!$store.app.isGuest && !$store.app.isTestMode && $store.app.misionSeleccionada === '__RESULTADOS_FINALES__'">Modo:
                                 Resultados Finales</span>
                         </div>
                     </footer>
