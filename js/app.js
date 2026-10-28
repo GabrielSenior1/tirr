@@ -146,6 +146,8 @@ function initTIRR() {
                     photoURL: null
                 };
                 this.misionSeleccionada = localStorage.getItem('misionSeleccionada') || 'Lanzamiento Vertical';
+                if (this.teams.length === 0) this.loadSampleTeams();
+                if (this.allCalificaciones.length === 0) this.loadSampleCalificaciones();
                 this.subscribeTeams();
                 this.hideLoader();
                 return;
@@ -424,6 +426,8 @@ function initTIRR() {
             this.misionSeleccionada = 'Lanzamiento Vertical';
             localStorage.setItem('activeTab', 'dashboard');
             localStorage.setItem('tirr_test_mode', 'true');
+            this.loadSampleTeams();
+            this.loadSampleCalificaciones();
             touchSession();
 
             document.dispatchEvent(new CustomEvent('guest:login'));
@@ -489,6 +493,7 @@ function initTIRR() {
 
         loadSampleCalificaciones() {
             this.allCalificaciones = [
+                // ── Misión 1: Lanzamiento Vertical ──
                 {
                     id: 'test-cal-01',
                     id_equipo: 'test-team-01',
@@ -542,6 +547,61 @@ function initTIRR() {
                     tiempo_vuelo: 24300,
                     totalScore: 99,
                     is_test: true
+                },
+                // ── Misión 2: Tiro Parabólico (Para podio y resultados combinados) ──
+                {
+                    id: 'test-cal-04',
+                    id_equipo: 'test-team-01',
+                    id_juez: 'jurado1@tirr.com',
+                    nombre_juez: 'Jurado 1',
+                    nombre_equipo: 'Apolo Robotics',
+                    nombre_cohete: 'Saturno-V',
+                    categoria: 'Exploradores',
+                    ronda: 1,
+                    tipo: 'Tiro Parabólico',
+                    puntajes: { flight: 36, design: 18, innovation: 18, sustentation: 19 },
+                    distancia: 42.5,
+                    faltas: 0,
+                    descalificado: false,
+                    tiempo_vuelo: 14520,
+                    totalScore: 91,
+                    is_test: true
+                },
+                {
+                    id: 'test-cal-05',
+                    id_equipo: 'test-team-02',
+                    id_juez: 'jurado1@tirr.com',
+                    nombre_juez: 'Jurado 1',
+                    nombre_equipo: 'CyberNova Tech',
+                    nombre_cohete: 'Vanguard Alpha',
+                    categoria: 'Ingenieros',
+                    ronda: 1,
+                    tipo: 'Tiro Parabólico',
+                    puntajes: { flight: 39, design: 19, innovation: 18, sustentation: 19 },
+                    distancia: 61.2,
+                    faltas: 0,
+                    descalificado: false,
+                    tiempo_vuelo: 19800,
+                    totalScore: 95,
+                    is_test: true
+                },
+                {
+                    id: 'test-cal-06',
+                    id_equipo: 'test-team-03',
+                    id_juez: 'jurado1@tirr.com',
+                    nombre_juez: 'Jurado 1',
+                    nombre_equipo: 'Quantum Pioneers',
+                    nombre_cohete: 'Cosmos IX',
+                    categoria: 'Masters',
+                    ronda: 1,
+                    tipo: 'Tiro Parabólico',
+                    puntajes: { flight: 40, design: 20, innovation: 20, sustentation: 18 },
+                    distancia: 85.0,
+                    faltas: 0,
+                    descalificado: false,
+                    tiempo_vuelo: 24300,
+                    totalScore: 98,
+                    is_test: true
                 }
             ];
         },
@@ -561,11 +621,13 @@ function initTIRR() {
                     return tA - tB;
                 });
 
-                if (list.length === 0 && this.isTestMode) {
-                    this.loadSampleTeams();
-                } else {
-                    this.teams = list;
+                if (this.isTestMode) {
+                    if (this.teams.length === 0) {
+                        this.loadSampleTeams();
+                    }
+                    return;
                 }
+                this.teams = list;
             }, (err) => {
                 console.warn("Firestore snapshot error (equipos):", err);
                 if (this.isTestMode && this.teams.length === 0) {
@@ -576,11 +638,13 @@ function initTIRR() {
             // Suscribirse a calificaciones globalmente para estados y badges
             onSnapshot(collection(db, 'calificaciones'), (snap) => {
                 const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                if (list.length === 0 && this.isTestMode) {
-                    this.loadSampleCalificaciones();
-                } else {
-                    this.allCalificaciones = list;
+                if (this.isTestMode) {
+                    if (this.allCalificaciones.length === 0) {
+                        this.loadSampleCalificaciones();
+                    }
+                    return;
                 }
+                this.allCalificaciones = list;
             }, (err) => {
                 console.warn("Firestore snapshot error (calificaciones):", err);
                 if (this.isTestMode && this.allCalificaciones.length === 0) {
@@ -596,6 +660,21 @@ function initTIRR() {
 
         async updateTeam() {
             if (!this.editingTeam?.id) return;
+
+            const editPeso = Number(this.editingTeam.peso_cohete);
+            const editAltura = Number(this.editingTeam.altura_cohete);
+            const editDiametro = Number(this.editingTeam.diametro_cohete);
+
+            if (isNaN(editPeso) || editPeso <= 0 || editPeso > 400) {
+                return alert('❌ ERROR: El peso debe ser un número mayor a 0 y máximo 400g.');
+            }
+            if (isNaN(editAltura) || editAltura <= 0 || editAltura > 75) {
+                return alert('❌ ERROR: La altura debe ser un número mayor a 0 y máximo 75cm.');
+            }
+            if (isNaN(editDiametro) || editDiametro <= 0 || editDiametro > 12.5) {
+                return alert('❌ ERROR: El diámetro debe ser un número mayor a 0 y máximo 12.5cm.');
+            }
+
             if (this.isTestMode) {
                 const idx = this.teams.findIndex(t => t.id === this.editingTeam.id);
                 if (idx >= 0) {
@@ -614,9 +693,9 @@ function initTIRR() {
                     nombre_cohete: this.editingTeam.nombre_cohete || '',
                     categoria: this.editingTeam.categoria || 'Exploradores',
                     numero_registro: String(this.editingTeam.numero_registro || '').padStart(2, '0'),
-                    peso_cohete: Number(this.editingTeam.peso_cohete || 0),
-                    altura_cohete: Number(this.editingTeam.altura_cohete || 0),
-                    diametro_cohete: Number(this.editingTeam.diametro_cohete || 0),
+                    peso_cohete: Number(this.editingTeam.peso_cohete),
+                    altura_cohete: Number(this.editingTeam.altura_cohete),
+                    diametro_cohete: Number(this.editingTeam.diametro_cohete),
                     miembros: Array.isArray(this.editingTeam.miembros) ? this.editingTeam.miembros : [],
                     updatedAt: serverTimestamp()
                 };
@@ -1000,6 +1079,23 @@ function initTIRR() {
                 };
 
                 if (Alpine.store('app').isTestMode) {
+                    const mockCal = {
+                        id: this.currentCalificacionId || ('mock-cal-' + this.selectedTeamId),
+                        ...calData,
+                        createdAt: { seconds: Math.floor(Date.now() / 1000) },
+                        is_test: true
+                    };
+                    const existingIdx = Alpine.store('app').allCalificaciones.findIndex(c => 
+                        c.id_equipo === this.selectedTeamId && 
+                        c.id_juez === Alpine.store('app').currentJudgeId && 
+                        c.tipo === mision
+                    );
+                    if (existingIdx >= 0) {
+                        Alpine.store('app').allCalificaciones[existingIdx] = mockCal;
+                        Alpine.store('app').allCalificaciones = [...Alpine.store('app').allCalificaciones];
+                    } else {
+                        Alpine.store('app').allCalificaciones = [...Alpine.store('app').allCalificaciones, mockCal];
+                    }
                     alert(`✅ [VISTA DE PRUEBA] Calificación simulada guardada con éxito (Puntaje Total: ${this.total}).`);
                     this.resetForm();
                     if (Alpine.store('app').showEditModal) {
@@ -1032,6 +1128,28 @@ function initTIRR() {
         async loadExistingCalificacion(teamId) {
             const mision = Alpine.store('app').misionSeleccionada || 'Lanzamiento Vertical';
             const currentJudgeId = Alpine.store('app').currentJudgeId;
+
+            if (Alpine.store('app').isTestMode) {
+                const found = Alpine.store('app').allCalificaciones.find(c => 
+                    c.id_equipo === teamId && 
+                    c.id_juez === currentJudgeId && 
+                    c.tipo === mision
+                );
+                if (found) {
+                    this.currentCalificacionId = found.id;
+                    this.scores = found.puntajes || { flight: 0, design: 0, innovation: 0, sustentation: 0 };
+                    this.penalties = found.faltas || 0;
+                    this.equipoDescalificado = found.descalificado || false;
+                    this.distancia = found.distancia || 0;
+                } else {
+                    this.currentCalificacionId = null;
+                    this.scores = { flight: 0, design: 0, innovation: 0, sustentation: 0 };
+                    this.penalties = 0;
+                    this.equipoDescalificado = false;
+                }
+                return;
+            }
+
             try {
                 const qDocs = query(
                     collection(db, 'calificaciones'),
@@ -1462,14 +1580,26 @@ function initTIRR() {
                 return alert('Por favor, sube una foto de evidencia.');
             }
 
-            if (this.form.peso_cohete > 400) {
-                return alert('❌ ERROR: El peso no puede superar los 400g.');
+            // BUG-02: Exigir las tres medidas antes de registrar (tanto en modo normal como en modo prueba)
+            if (this.form.peso_cohete === '' || this.form.peso_cohete === null || this.form.peso_cohete === undefined ||
+                this.form.altura_cohete === '' || this.form.altura_cohete === null || this.form.altura_cohete === undefined ||
+                this.form.diametro_cohete === '' || this.form.diametro_cohete === null || this.form.diametro_cohete === undefined) {
+                return alert('❌ ERROR: Debes ingresar el peso, la altura y el diámetro del cohete antes de registrar.');
             }
-            if (this.form.altura_cohete > 75) {
-                return alert('❌ ERROR: La altura no puede superar los 75cm.');
+
+            // BUG-01: Validar números válidos, no NaN, mayores a 0 (evita negativos y ceros) y dentro del rango máximo permitido
+            const peso = Number(this.form.peso_cohete);
+            const altura = Number(this.form.altura_cohete);
+            const diametro = Number(this.form.diametro_cohete);
+
+            if (isNaN(peso) || peso <= 0 || peso > 400) {
+                return alert('❌ ERROR: El peso debe ser un número mayor a 0 y máximo 400g.');
             }
-            if (this.form.diametro_cohete > 12.5) {
-                return alert('❌ ERROR: El diámetro no puede superar los 12.5cm.');
+            if (isNaN(altura) || altura <= 0 || altura > 75) {
+                return alert('❌ ERROR: La altura debe ser un número mayor a 0 y máximo 75cm.');
+            }
+            if (isNaN(diametro) || diametro <= 0 || diametro > 12.5) {
+                return alert('❌ ERROR: El diámetro debe ser un número mayor a 0 y máximo 12.5cm.');
             }
 
             if (Alpine.store('app').isTestMode) {
@@ -1478,9 +1608,9 @@ function initTIRR() {
                     id: 'mock-team-' + Date.now(),
                     ...this.form,
                     numero_registro: String(this.form.numero_registro || '').padStart(2, '0'),
-                    peso_cohete: Number(this.form.peso_cohete || 250),
-                    altura_cohete: Number(this.form.altura_cohete || 50),
-                    diametro_cohete: Number(this.form.diametro_cohete || 8.5),
+                    peso_cohete: peso,
+                    altura_cohete: altura,
+                    diametro_cohete: diametro,
                     foto_evidencia: dummyPhoto,
                     is_test: true,
                     createdAt: { seconds: Math.floor(Date.now() / 1000) }
@@ -1503,9 +1633,9 @@ function initTIRR() {
                 await addDoc(collection(db, 'equipos'), {
                     ...this.form,
                     numero_registro: String(this.form.numero_registro || '').padStart(2, '0'),
-                    peso_cohete: Number(this.form.peso_cohete),
-                    altura_cohete: Number(this.form.altura_cohete),
-                    diametro_cohete: Number(this.form.diametro_cohete),
+                    peso_cohete: peso,
+                    altura_cohete: altura,
+                    diametro_cohete: diametro,
                     foto_evidencia: downloadURL,
                     createdAt: serverTimestamp()
                 });
@@ -1538,22 +1668,61 @@ function initTIRR() {
         },
 
         init() {
-            const q = query(collection(db, 'calificaciones'));
-            onSnapshot(q, (snapshot) => {
-                this.rawCalificaciones = snapshot.docs.map(d => d.data());
+            // BUG-03: En modo prueba, calcular podio directamente desde Alpine.store('app').allCalificaciones
+            if (Alpine.store('app').isTestMode) {
+                this.rawCalificaciones = Alpine.store('app').allCalificaciones || [];
                 this.procesarResultados(this.rawCalificaciones);
                 this.isLoading = false;
+            } else {
+                const q = query(collection(db, 'calificaciones'));
+                onSnapshot(q, (snapshot) => {
+                    if (!Alpine.store('app').isTestMode) {
+                        this.rawCalificaciones = snapshot.docs.map(d => d.data());
+                        this.procesarResultados(this.rawCalificaciones);
+                        this.isLoading = false;
+                    }
+                }, (err) => {
+                    console.warn("Firestore snapshot error (calificaciones):", err);
+                    if (Alpine.store('app').isTestMode) {
+                        this.rawCalificaciones = Alpine.store('app').allCalificaciones || [];
+                        this.procesarResultados(this.rawCalificaciones);
+                    }
+                    this.isLoading = false;
+                });
+            }
+
+            // Escuchar cambios reactivos en allCalificaciones para actualizar en vivo el podio en modo prueba
+            this.$watch('$store.app.allCalificaciones', (newCals) => {
+                if (Alpine.store('app').isTestMode) {
+                    this.rawCalificaciones = newCals || [];
+                    this.procesarResultados(this.rawCalificaciones);
+                    this.isLoading = false;
+                }
+            });
+
+            this.$watch('$store.app.isTestMode', (isTest) => {
+                if (isTest) {
+                    this.rawCalificaciones = Alpine.store('app').allCalificaciones || [];
+                    this.procesarResultados(this.rawCalificaciones);
+                    this.isLoading = false;
+                }
             });
 
             this.$watch('$store.app.teams', () => {
-                if (this.rawCalificaciones.length > 0) {
-                    this.procesarResultados(this.rawCalificaciones);
+                const cals = Alpine.store('app').isTestMode 
+                    ? (Alpine.store('app').allCalificaciones || []) 
+                    : this.rawCalificaciones;
+                if (cals.length > 0) {
+                    this.procesarResultados(cals);
                 }
             });
 
             this.$watch('$store.app.misionSeleccionada', () => {
-                if (this.rawCalificaciones.length > 0) {
-                    this.procesarResultados(this.rawCalificaciones);
+                const cals = Alpine.store('app').isTestMode 
+                    ? (Alpine.store('app').allCalificaciones || []) 
+                    : this.rawCalificaciones;
+                if (cals.length > 0) {
+                    this.procesarResultados(cals);
                 }
             });
         },
@@ -1561,7 +1730,10 @@ function initTIRR() {
         // Calcula el promedio de las notas de los jurados independientes sin duplicar faltas
         procesarResultados(calificaciones) {
             const currentMission = Alpine.store('app').misionSeleccionada || 'Lanzamiento Vertical';
-            const cals = calificaciones.filter(c => c.tipo === currentMission);
+            const sourceCals = (Alpine.store('app').isTestMode && (!calificaciones || calificaciones.length === 0))
+                ? (Alpine.store('app').allCalificaciones || [])
+                : (calificaciones || []);
+            const cals = sourceCals.filter(c => c.tipo === currentMission);
             const equiposBase = Alpine.store('app').teams;
 
             // Agrupar calificaciones por equipo y por juez
@@ -1678,21 +1850,60 @@ function initTIRR() {
         },
 
         init() {
-            const q = query(collection(db, 'calificaciones'));
-            onSnapshot(q, (snapshot) => {
-                this.rawCalificaciones = snapshot.docs.map(d => d.data());
+            // BUG-03: En modo prueba, calcular podio y resultados combinados directamente desde Alpine.store('app').allCalificaciones
+            if (Alpine.store('app').isTestMode) {
+                this.rawCalificaciones = Alpine.store('app').allCalificaciones || [];
                 this.procesarResultadosCombinados(this.rawCalificaciones);
                 this.isLoading = false;
+            } else {
+                const q = query(collection(db, 'calificaciones'));
+                onSnapshot(q, (snapshot) => {
+                    if (!Alpine.store('app').isTestMode) {
+                        this.rawCalificaciones = snapshot.docs.map(d => d.data());
+                        this.procesarResultadosCombinados(this.rawCalificaciones);
+                        this.isLoading = false;
+                    }
+                }, (err) => {
+                    console.warn("Firestore snapshot error (calificaciones finales):", err);
+                    if (Alpine.store('app').isTestMode) {
+                        this.rawCalificaciones = Alpine.store('app').allCalificaciones || [];
+                        this.procesarResultadosCombinados(this.rawCalificaciones);
+                    }
+                    this.isLoading = false;
+                });
+            }
+
+            // Escuchar cambios reactivos en allCalificaciones para actualizar en vivo el podio combinado
+            this.$watch('$store.app.allCalificaciones', (newCals) => {
+                if (Alpine.store('app').isTestMode) {
+                    this.rawCalificaciones = newCals || [];
+                    this.procesarResultadosCombinados(this.rawCalificaciones);
+                    this.isLoading = false;
+                }
+            });
+
+            this.$watch('$store.app.isTestMode', (isTest) => {
+                if (isTest) {
+                    this.rawCalificaciones = Alpine.store('app').allCalificaciones || [];
+                    this.procesarResultadosCombinados(this.rawCalificaciones);
+                    this.isLoading = false;
+                }
             });
 
             this.$watch('$store.app.teams', () => {
-                if (this.rawCalificaciones.length > 0) {
-                    this.procesarResultadosCombinados(this.rawCalificaciones);
+                const cals = Alpine.store('app').isTestMode 
+                    ? (Alpine.store('app').allCalificaciones || []) 
+                    : this.rawCalificaciones;
+                if (cals.length > 0) {
+                    this.procesarResultadosCombinados(cals);
                 }
             });
         },
 
         procesarResultadosCombinados(calificaciones) {
+            const sourceCals = (Alpine.store('app').isTestMode && (!calificaciones || calificaciones.length === 0))
+                ? (Alpine.store('app').allCalificaciones || [])
+                : (calificaciones || []);
             const equiposBase = Alpine.store('app').teams;
 
             // Agrupar por equipo y misión: { [teamId]: { 'Lanzamiento Vertical': { [judgeId]: cal }, 'Tiro Parabólico': { [judgeId]: cal } } }
@@ -2003,7 +2214,9 @@ if (typeof window !== 'undefined') {
                 { name: 'Acceso a Resultados y Podio', passed: s.hasAccess('resultados') },
                 { name: 'Acceso a Resultados Finales', passed: s.hasAccess('resultados_finales') },
                 { name: 'Equipos disponibles para interacción', passed: s.teams.length > 0 },
-                { name: 'Calificaciones disponibles para análisis', passed: s.allCalificaciones.length > 0 }
+                { name: 'Calificaciones disponibles para análisis', passed: s.allCalificaciones.length > 0 },
+                { name: 'Validación de Medidas (BUG-01, BUG-02)', passed: typeof s.teams[0]?.peso_cohete === 'number' && s.teams.every(t => t.peso_cohete > 0 && t.altura_cohete > 0 && t.diametro_cohete > 0) },
+                { name: 'Sincronización de Podio desde Store (BUG-03)', passed: s.allCalificaciones.some(c => c.tipo === 'Lanzamiento Vertical') && s.allCalificaciones.some(c => c.tipo === 'Tiro Parabólico') }
             ];
             const allPassed = checks.every(c => c.passed);
             const summary = {
