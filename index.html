@@ -93,11 +93,14 @@
         }
     </script>
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             overflow-x: hidden;
             width: 100%;
             max-width: 100vw;
@@ -538,7 +541,8 @@
                     class="text-[10px] md:text-[12px] font-black tracking-[0.4em] sm:tracking-[0.6em] text-gray-500 uppercase text-center mb-6 sm:mb-8 headline">
                     Official Event Support Core</p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-3xl mx-auto w-full relative z-10">
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-3xl mx-auto w-full relative z-10">
                     <!-- UNIMAGDALENA -->
                     <div @click="selectedSponsor = { name: 'UNIVERSIDAD DEL MAGDALENA', img: 'js/public/Patricinadores/Unimag.jpeg', tag: 'Aliado Académico Nacional' }; showSponsorModal = true"
                         class="glass-card p-4 rounded-[1.5rem] flex flex-col items-center gap-3 group cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1">
@@ -574,8 +578,8 @@
                         class="glass-card p-4 rounded-[1.5rem] flex flex-col items-center gap-3 group cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1">
                         <div
                             class="w-14 h-14 md:w-20 md:h-20 rounded-xl bg-white flex items-center justify-center overflow-hidden shadow-xl shrink-0">
-                            <img src="js/public/Patricinadores/alt_tend.png" class="w-full h-full object-contain p-2"
-                                alt="ALT+TEND">
+                            <img src="js/public/Patricinadores/alt_tend.png"
+                                class="w-full h-full object-contain p-2" alt="ALT+TEND">
                         </div>
                         <div class="text-center">
                             <div
@@ -584,26 +588,29 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- MODAL DE PATROCINADOR (VISOR EQUILIBRADO) -->
-            <div class="fixed inset-0 z-[5000] flex items-center justify-center p-4 sm:p-6 md:p-8 bg-black/95 backdrop-blur-2xl"
-                x-show="showSponsorModal" x-cloak x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-                x-transition:leave-end="opacity-0 scale-95">
+                        <!-- MODAL DE PATROCINADOR (VISOR EQUILIBRADO) -->
+                        <div class="fixed inset-0 z-[5000] flex items-center justify-center p-4 sm:p-6 md:p-8 bg-black/95 backdrop-blur-2xl"
+                            x-show="showSponsorModal" x-cloak x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-200"
+                            x-transition:leave-start="opacity-100 scale-100"
+                            x-transition:leave-end="opacity-0 scale-95">
 
-                <button @click="showSponsorModal = false"
-                    class="absolute top-6 right-6 sm:top-8 sm:right-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white hover:bg-[#D30000] transition-all z-20 group">
-                    <span class="material-symbols-outlined text-lg sm:text-2xl group-hover:rotate-90 transition-transform">close</span>
-                </button>
+                            <button @click="showSponsorModal = false"
+                                class="absolute top-6 right-6 sm:top-8 sm:right-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white hover:bg-[#D30000] transition-all z-20 group">
+                                <span
+                                    class="material-symbols-outlined text-lg sm:text-2xl group-hover:rotate-90 transition-transform">close</span>
+                            </button>
 
-                <div class="text-center max-w-lg w-full relative z-10 px-2" @click.away="showSponsorModal = false">
-                    <div
-                        class="bg-white p-6 sm:p-8 md:p-10 rounded-3xl sm:rounded-[2.5rem] border border-white/10 shadow-2xl mb-6 overflow-hidden flex items-center justify-center">
-                        <img :src="selectedSponsor?.img" class="max-h-[35vh] max-w-full object-contain mx-auto"
-                            :alt="selectedSponsor?.name">
-                    </div>
+                            <div class="text-center max-w-lg w-full relative z-10 px-2"
+                                @click.away="showSponsorModal = false">
+                                <div
+                                    class="bg-white p-6 sm:p-8 md:p-10 rounded-3xl sm:rounded-[2.5rem] border border-white/10 shadow-2xl mb-6 overflow-hidden flex items-center justify-center">
+                                    <img :src="selectedSponsor?.img"
+                                        class="max-h-[35vh] max-w-full object-contain mx-auto"
+                                        :alt="selectedSponsor?.name">
+                                </div>
 
                     <div class="space-y-2">
                         <p class="text-[10px] font-black tracking-[0.4em] sm:tracking-[0.6em] text-[#D30000] uppercase headline"
@@ -616,104 +623,115 @@
             </div>
 
             <!-- Modal Login -->
-                <div class="fixed inset-0 z-[6000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-                    x-show="localShowLogin" x-cloak x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
+            <div class="fixed inset-0 z-[6000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+                x-show="localShowLogin" x-cloak x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100">
 
-                    <div @click.away="localShowLogin = false"
-                        class="bg-[#1a1a1a]/95 backdrop-blur-md w-full max-w-md rounded-[3rem] p-12 relative border border-white/10 shadow-xl">
-                        <button @click="localShowLogin = false"
-                            class="absolute top-8 right-8 text-gray-500 hover:text-white transition-colors">
-                            <span class="material-symbols-outlined">close</span>
-                        </button>
+                                <div @click.away="localShowLogin = false"
+                                    class="bg-[#1a1a1a]/95 backdrop-blur-md w-full max-w-md rounded-[3rem] p-12 relative border border-white/10 shadow-xl">
+                                    <button @click="localShowLogin = false"
+                                        class="absolute top-8 right-8 text-gray-500 hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined">close</span>
+                                    </button>
 
-                        <div class="text-center">
-                            <div class="relative inline-block mb-8">
-                                <div :style="'border-color: ' + localUser?.hex"
-                                    class="absolute inset-[-6px] rounded-full border-2 border-dashed opacity-40"></div>
-                                <div :style="'background-color: ' + localUser?.hex"
-                                    class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-black headline text-black relative z-10 shadow-xl overflow-hidden">
-                                    <template x-if="localUser?.photoURL">
-                                        <img :src="localUser?.photoURL" class="w-full h-full object-cover">
-                                    </template>
-                                    <template x-if="!localUser?.photoURL">
-                                        <span class="material-symbols-outlined text-[40px]"
-                                            x-text="localUser?.role.includes('CRONOMETRISTA') ? 'timer' : localUser?.role.includes('PRUEBA') ? 'science' : localUser?.role.includes('AUXILIAR') ? 'engineering' : localUser?.role.includes('ADMIN') ? 'admin_panel_settings' : 'gavel'"></span>
-                                    </template>
+                                    <div class="text-center">
+                                        <div class="relative inline-block mb-8">
+                                            <div :style="'border-color: ' + localUser?.hex"
+                                                class="absolute inset-[-6px] rounded-full border-2 border-dashed opacity-40">
+                                            </div>
+                                            <div :style="'background-color: ' + localUser?.hex"
+                                                class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-black headline text-black relative z-10 shadow-xl overflow-hidden">
+                                                <template x-if="localUser?.photoURL">
+                                                    <img :src="localUser?.photoURL" class="w-full h-full object-cover">
+                                                </template>
+                                                <template x-if="!localUser?.photoURL">
+                                                    <span class="material-symbols-outlined text-[40px]"
+                                                        x-text="localUser?.role.includes('CRONOMETRISTA') ? 'timer' : localUser?.role.includes('PRUEBA') ? 'science' : localUser?.role.includes('AUXILIAR') ? 'engineering' : localUser?.role.includes('ADMIN') ? 'admin_panel_settings' : 'gavel'"></span>
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <h2 class="text-3xl font-black headline text-white tracking-tighter"
+                                            x-text="localUser?.role">
+                                        </h2>
+                                        <p class="text-peach text-xs font-bold tracking-[0.2em] mt-2 uppercase"
+                                            x-text="localUser?.name"></p>
+
+                                        <!-- FORMULARIO DIRECTO PARA VISTA DE PRUEBA (SIN PIN OBLIGATORIO) -->
+                                        <template
+                                            x-if="localUser?.role === 'VISTA DE PRUEBA' || localUser?.email === 'prueba@tirr.com'">
+                                            <div class="mt-8 space-y-4">
+                                                <div
+                                                    class="bg-purple-900/30 border border-purple-500/40 rounded-2xl p-5 text-center">
+                                                    <span
+                                                        class="material-symbols-outlined text-purple-400 text-3xl mb-1">smart_toy</span>
+                                                    <h4 class="text-white font-bold headline text-sm uppercase">Perfil
+                                                        de Prueba y
+                                                        Auditoría IA</h4>
+                                                    <p class="text-[11px] text-purple-200/80 mt-1 leading-relaxed">
+                                                        Acceso irrestricto para personas externas y modelos de IA que
+                                                        deseen revisar
+                                                        o
+                                                        probar la plataforma de forma segura. No requiere PIN.
+                                                    </p>
+                                                </div>
+                                                <button @click="$store.app.loginAsVistaPrueba(); localShowLogin = false"
+                                                    class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black headline py-4 rounded-2xl transition-all shadow-[0_0_25px_rgba(168,85,247,0.4)] tracking-widest text-xs uppercase flex items-center justify-center gap-2 cursor-pointer">
+                                                    <span
+                                                        class="material-symbols-outlined text-[18px]">rocket_launch</span>
+                                                    INGRESAR A VISTA DE PRUEBA
+                                                </button>
+                                            </div>
+                                        </template>
+
+                                        <!-- FORMULARIO ESTÁNDAR CON PIN PARA OTROS USUARIOS -->
+                                        <template
+                                            x-if="localUser?.role !== 'VISTA DE PRUEBA' && localUser?.email !== 'prueba@tirr.com'">
+                                            <div class="mt-12 space-y-6">
+                                                <div class="relative group">
+                                                    <input x-model="localPin" @keyup.enter="doLogin()"
+                                                        class="w-full bg-white/5 border-b-2 border-white/10 rounded-2xl px-6 py-6 text-center text-4xl tracking-[0.5em] headline text-white focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all placeholder:text-gray-800 placeholder:tracking-normal placeholder:text-sm"
+                                                        placeholder="PIN ACCESO" type="password" autofocus>
+                                                </div>
+
+                                                <div x-show="localError"
+                                                    class="text-primary text-[10px] font-black uppercase tracking-widest bg-primary/10 py-3 rounded-xl border border-primary/20"
+                                                    x-text="localError"></div>
+
+                                                <button @click="doLogin()" :disabled="localLoading"
+                                                    class="w-full relative group overflow-hidden bg-white text-black font-black headline py-5 rounded-2xl transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.15)] disabled:opacity-50">
+                                                    <span class="relative z-10 tracking-widest text-xs"
+                                                        x-show="!localLoading">INGRESAR
+                                                        A
+                                                        TERMINAL</span>
+                                                    <span x-show="localLoading"
+                                                        class="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin mx-auto relative z-10"></span>
+                                                    <div
+                                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000">
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </template>
+                                    </div>
                                 </div>
                             </div>
-                            <h2 class="text-3xl font-black headline text-white tracking-tighter"
-                                x-text="localUser?.role">
-                            </h2>
-                            <p class="text-peach text-xs font-bold tracking-[0.2em] mt-2 uppercase"
-                                x-text="localUser?.name"></p>
 
-                            <!-- FORMULARIO DIRECTO PARA VISTA DE PRUEBA (SIN PIN OBLIGATORIO) -->
-                            <template
-                                x-if="localUser?.role === 'VISTA DE PRUEBA' || localUser?.email === 'prueba@tirr.com'">
-                                <div class="mt-8 space-y-4">
-                                    <div
-                                        class="bg-purple-900/30 border border-purple-500/40 rounded-2xl p-5 text-center">
-                                        <span
-                                            class="material-symbols-outlined text-purple-400 text-3xl mb-1">smart_toy</span>
-                                        <h4 class="text-white font-bold headline text-sm uppercase">Perfil de Prueba y
-                                            Auditoría IA</h4>
-                                        <p class="text-[11px] text-purple-200/80 mt-1 leading-relaxed">
-                                            Acceso irrestricto para personas externas y modelos de IA que deseen revisar
-                                            o
-                                            probar la plataforma de forma segura. No requiere PIN.
-                                        </p>
-                                    </div>
-                                    <button @click="$store.app.loginAsVistaPrueba(); localShowLogin = false"
-                                        class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black headline py-4 rounded-2xl transition-all shadow-[0_0_25px_rgba(168,85,247,0.4)] tracking-widest text-xs uppercase flex items-center justify-center gap-2 cursor-pointer">
-                                        <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
-                                        INGRESAR A VISTA DE PRUEBA
-                                    </button>
-                                </div>
-                            </template>
 
-                            <!-- FORMULARIO ESTÁNDAR CON PIN PARA OTROS USUARIOS -->
-                            <template
-                                x-if="localUser?.role !== 'VISTA DE PRUEBA' && localUser?.email !== 'prueba@tirr.com'">
-                                <div class="mt-12 space-y-6">
-                                    <div class="relative group">
-                                        <input x-model="localPin" @keyup.enter="doLogin()"
-                                            class="w-full bg-white/5 border-b-2 border-white/10 rounded-2xl px-6 py-6 text-center text-4xl tracking-[0.5em] headline text-white focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all placeholder:text-gray-800 placeholder:tracking-normal placeholder:text-sm"
-                                            placeholder="PIN ACCESO" type="password" autofocus>
-                                    </div>
 
-                                    <div x-show="localError"
-                                        class="text-primary text-[10px] font-black uppercase tracking-widest bg-primary/10 py-3 rounded-xl border border-primary/20"
-                                        x-text="localError"></div>
-
-                                    <button @click="doLogin()" :disabled="localLoading"
-                                        class="w-full relative group overflow-hidden bg-white text-black font-black headline py-5 rounded-2xl transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.15)] disabled:opacity-50">
-                                        <span class="relative z-10 tracking-widest text-xs"
-                                            x-show="!localLoading">INGRESAR
-                                            A
-                                            TERMINAL</span>
-                                        <span x-show="localLoading"
-                                            class="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin mx-auto relative z-10"></span>
-                                        <div
-                                            class="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000">
-                                        </div>
-                                    </button>
-                                </div>
-                            </template>
+                            <!-- Decorative Corner Lines -->
+                            <div
+                                class="hidden sm:block fixed top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-white/5 pointer-events-none">
+                            </div>
+                            <div
+                                class="hidden sm:block fixed top-10 right-10 w-20 h-20 border-t-2 border-r-2 border-white/5 pointer-events-none">
+                            </div>
+                            <div
+                                class="hidden sm:block fixed bottom-10 left-10 w-20 h-20 border-b-2 border-l-2 border-white/5 pointer-events-none">
+                            </div>
+                            <div
+                                class="hidden sm:block fixed bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-white/5 pointer-events-none">
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-
-
-            <!-- Decorative Corner Lines -->
-            <div class="hidden sm:block fixed top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-white/5 pointer-events-none"></div>
-            <div class="hidden sm:block fixed top-10 right-10 w-20 h-20 border-t-2 border-r-2 border-white/5 pointer-events-none"></div>
-            <div class="hidden sm:block fixed bottom-10 left-10 w-20 h-20 border-b-2 border-l-2 border-white/5 pointer-events-none">
-            </div>
-            <div class="hidden sm:block fixed bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-white/5 pointer-events-none">
-            </div>
-        </div>
     </template>
 
     <!-- PANTALLA 2: SELECCIÓN DE MISIÓN (UNA VEZ LOGUEADO, NO INVITADOS) -->
@@ -1293,11 +1311,13 @@
                                         </h3>
                                         <span
                                             class="text-[9px] uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-accent-gold/15 text-accent-gold border border-accent-gold/30 font-black flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-[12px]">star</span> Cuadro de Honor
+                                            <span class="material-symbols-outlined text-[12px]">star</span> Cuadro de
+                                            Honor
                                         </span>
                                     </div>
                                     <p class="text-xs text-gray-400 font-body">
-                                        Gabriel Senior Daza (Creador de la Plataforma) • Prof. Ronny Martínez Reyes (Mentoría Técnica y Visual)
+                                        Gabriel Senior Daza (Creador de la Plataforma) • Prof. Ronny Martínez Reyes
+                                        (Mentoría Técnica y Visual)
                                     </p>
                                 </div>
                             </div>
@@ -1716,148 +1736,168 @@
                 </section>
 
                 <!-- SECCIÓN DE CALIFICACIÓN TIPO LISTA (5 CASILLAS CONTINUAS) -->
-                <section class="p-6 md:p-12 pt-28 md:pt-32" x-show="activeTab === 'calificacion_lista'" x-transition
+                <section class="p-4 sm:p-6 md:p-8 pt-24 md:pt-28" x-show="activeTab === 'calificacion_lista'" x-transition
                     x-data="calificacionListaController">
-                    <div class="max-w-7xl mx-auto">
-                        <!-- Header -->
-                        <div
-                            class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-6 relative">
-                            <div class="flex items-start gap-4">
+                    <div class="max-w-7xl mx-auto space-y-6">
+                        <!-- Header y Barra Superior -->
+                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-[#141416]/80 backdrop-blur-md border border-white/5 rounded-2xl p-5 md:p-6 shadow-xl">
+                            <div class="flex items-center gap-4">
                                 <button @click="activeTab = 'dashboard'"
-                                    class="flex-shrink-0 mt-1 flex items-center gap-2 px-4 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:text-[#D30000] transition-colors relative group">
+                                    class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:text-[#D30000] text-gray-300 transition-colors group">
                                     <span class="material-symbols-outlined text-[18px]">arrow_back</span>
-                                    <span
-                                        class="text-[10px] sm:text-xs font-bold headline uppercase tracking-widest hidden sm:block">Volver
-                                        al Panel</span>
+                                    <span class="text-[11px] font-bold headline uppercase tracking-widest hidden sm:inline">Panel</span>
                                 </button>
                                 <div>
-                                    <div class="flex items-center gap-3">
-                                        <h2
-                                            class="text-3xl md:text-4xl font-black headline text-white uppercase tracking-tighter">
-                                            Evaluación tipo Lista
+                                    <div class="flex items-center gap-2.5 flex-wrap">
+                                        <h2 class="text-xl md:text-2xl font-black headline text-white uppercase tracking-tight">
+                                            Evaluación de Jurados
                                         </h2>
-                                        <span
-                                            class="px-3 py-1 bg-accent-gold/10 text-accent-gold border border-accent-gold/30 rounded-full text-[9px] font-black uppercase tracking-widest">
+                                        <span class="px-2.5 py-0.5 bg-accent-gold/10 text-accent-gold border border-accent-gold/30 rounded-full text-[9px] font-black uppercase tracking-widest">
                                             5 Criterios
                                         </span>
                                     </div>
-                                    <p
-                                        class="text-[10px] text-accent-gold font-black uppercase tracking-[0.4em] mt-2 flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                                        Jurado Activo: <span class="text-white font-bold"
-                                            x-text="$store.app.currentJudgeName"></span> • Misión: <span
-                                            class="text-primary font-bold"
-                                            x-text="$store.app.misionSeleccionada"></span>
-                                    </p>
+                                    <div class="flex items-center gap-3 text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1 flex-wrap">
+                                        <span class="text-accent-gold">Juez: <span class="text-white" x-text="$store.app.currentJudgeName"></span></span>
+                                        <span>•</span>
+                                        <span class="text-primary">Misión: <span class="text-white" x-text="$store.app.misionSeleccionada"></span></span>
+                                        <span>•</span>
+                                        <span class="inline-flex items-center gap-1.5 text-emerald-400">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                            Telemetría Realtime Activa
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Barra de Herramientas y Filtros -->
-                            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                            <!-- Herramientas y Filtros -->
+                            <div class="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
                                 <!-- Filtro Categoría -->
                                 <div class="relative">
                                     <select x-model="filtroCategoria"
-                                        class="bg-surface-container-high border border-white/10 px-4 py-2.5 rounded-xl text-xs font-bold text-gray-300 focus:outline-none focus:border-accent-gold appearance-none cursor-pointer pr-8">
+                                        class="bg-black/50 border border-white/10 px-3.5 py-2 rounded-xl text-xs font-bold text-gray-300 focus:outline-none focus:border-accent-gold appearance-none cursor-pointer pr-8">
                                         <option value="TODAS">TODAS LAS CATEGORÍAS</option>
                                         <option value="Exploradores">EXPLORADORES</option>
                                         <option value="Ingenieros">INGENIEROS</option>
                                         <option value="Masters">MASTERS</option>
                                     </select>
-                                    <span
-                                        class="material-symbols-outlined text-gray-500 text-sm absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+                                    <span class="material-symbols-outlined text-gray-500 text-sm absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
                                 </div>
 
                                 <!-- Toggle Sacar Automáticamente Calificados -->
-                                <label
-                                    class="flex items-center gap-2 bg-white/5 border border-white/10 px-3.5 py-2 rounded-xl cursor-pointer hover:border-accent-gold/40 transition-colors select-none">
+                                <label class="flex items-center gap-2 bg-black/40 border border-white/10 px-3 py-2 rounded-xl cursor-pointer hover:border-accent-gold/40 transition-colors select-none">
                                     <input type="checkbox" x-model="soloPendientes"
                                         class="rounded bg-black/60 border-white/20 text-accent-gold focus:ring-0">
-                                    <span class="text-[11px] font-bold uppercase tracking-wider text-gray-300">Ocultar
-                                        Calificados</span>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-gray-300">Ocultar Evaluados</span>
                                 </label>
 
                                 <!-- Buscador Rápido -->
-                                <div class="relative flex-1 md:w-48">
+                                <div class="relative flex-1 sm:w-44">
                                     <input type="text" x-model="searchQuery" placeholder="Buscar equipo..."
-                                        class="w-full bg-white/5 border border-white/10 px-3 py-2 pl-8 rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-accent-gold">
-                                    <span
-                                        class="material-symbols-outlined text-gray-500 text-sm absolute left-2.5 top-1/2 -translate-y-1/2">search</span>
+                                        class="w-full bg-black/40 border border-white/10 px-3 py-2 pl-8 rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-accent-gold">
+                                    <span class="material-symbols-outlined text-gray-500 text-sm absolute left-2.5 top-1/2 -translate-y-1/2">search</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Indicación de Autoguardado -->
-                        <div
-                            class="mb-4 flex items-center justify-between text-[10px] text-gray-400 uppercase tracking-widest px-2">
+                        <!-- Banner de Telemetría en Vivo del Cronómetro -->
+                        <template x-if="currentGlobalLaunch && (currentGlobalLaunch.running || (Date.now() - (currentGlobalLaunch.updatedAt || 0) < 45000 && currentGlobalLaunch.time_ms > 0))">
+                            <div class="px-4 py-3 rounded-2xl bg-gradient-to-r from-primary/20 via-black/80 to-[#141416] border border-primary/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-primary text-lg" :class="currentGlobalLaunch.running ? 'animate-spin' : ''">rocket</span>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full"
+                                                :class="currentGlobalLaunch.running ? 'bg-primary text-white animate-pulse' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'"
+                                                x-text="currentGlobalLaunch.running ? '🚀 COHETE EN VUELO' : '⏱️ CRONÓMETRO REGISTRADO'">
+                                            </span>
+                                            <span class="text-xs md:text-sm font-black headline text-white uppercase" x-text="currentGlobalLaunch.nombre_equipo"></span>
+                                            <span class="text-[10px] text-gray-400 uppercase hidden md:inline" x-text="'• ' + currentGlobalLaunch.categoria"></span>
+                                        </div>
+                                        <p class="text-[9px] text-gray-400 mt-0.5">
+                                            Los datos del cronómetro se reflejan automáticamente en la tabla sin recargar la página.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 self-end sm:self-center">
+                                    <template x-if="$store.app.misionSeleccionada === 'Lanzamiento Vertical'">
+                                        <div class="text-right">
+                                            <span class="text-[8px] text-gray-400 uppercase font-bold tracking-wider block">Tiempo de Vuelo</span>
+                                            <span class="text-xl md:text-2xl font-black headline font-mono tabular-nums"
+                                                :class="currentGlobalLaunch.running ? 'text-primary animate-pulse' : 'text-emerald-400'"
+                                                x-text="formatTimeSec(currentGlobalLaunch.time_ms)"></span>
+                                        </div>
+                                    </template>
+                                    <template x-if="$store.app.misionSeleccionada === 'Tiro Parabólico'">
+                                        <div class="text-right">
+                                            <span class="text-[8px] text-gray-400 uppercase font-bold tracking-wider block">Distancia</span>
+                                            <span class="text-xl md:text-2xl font-black headline font-mono text-accent-gold"
+                                                x-text="(currentGlobalLaunch.distancia || 0) + ' m'"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Indicación y Conteo -->
+                        <div class="flex items-center justify-between text-[10px] text-gray-400 uppercase tracking-widest px-2">
                             <span class="flex items-center gap-1.5 text-accent-gold font-bold">
                                 <span class="material-symbols-outlined text-sm">bolt</span>
-                                Autoguardado activo al cambiar de casilla (Usa tecla Tab).
+                                Autoguardado instantáneo al cambiar de casilla (Tab). El tiempo se sincroniza en vivo.
                             </span>
-                            <span x-text="'Equipos visibles: ' + visibleTeams.length"></span>
+                            <span class="text-gray-500" x-text="'Equipos: ' + visibleTeams.length"></span>
                         </div>
 
-                        <!-- TABLA CONTINUA TIPO LISTA CON 5 CASILLAS -->
-                        <div
-                            class="bg-[#141414] border border-white/10 rounded-[2.5rem] overflow-x-auto custom-scrollbar shadow-2xl">
-                            <table class="w-full text-left border-collapse min-w-[950px]">
+                        <!-- TABLA CONTINUA TIPO LISTA CON COLUMNA DE CRONÓMETRO INTEGRADA -->
+                        <div class="bg-[#121214] border border-white/10 rounded-2xl overflow-x-auto custom-scrollbar shadow-2xl">
+                            <table class="w-full text-left border-collapse min-w-[980px]">
                                 <thead>
-                                    <tr
-                                        class="border-b border-white/10 bg-black/40 text-[9px] font-black uppercase tracking-[0.25em] text-gray-400">
-                                        <th class="p-4 pl-6 w-56">Equipo / Cohete</th>
-                                        <th class="p-4 text-center w-28">1. Vuelo <span class="text-accent-gold">(máx
-                                                40)</span></th>
-                                        <th class="p-4 text-center w-28">2. Diseño <span class="text-accent-gold">(máx
-                                                20)</span></th>
-                                        <th class="p-4 text-center w-28">3. Innovación <span
-                                                class="text-accent-gold">(máx 20)</span></th>
-                                        <th class="p-4 text-center w-28">4. Sustentación <span
-                                                class="text-accent-gold">(máx 20)</span></th>
-                                        <th class="p-4 text-center w-28">5. Fallos <span
-                                                class="text-primary">(-pts)</span></th>
-                                        <th class="p-4 text-center w-28">Puntaje</th>
-                                        <th class="p-4 text-center w-36 pr-6">Estado / Acción</th>
+                                    <tr class="border-b border-white/10 bg-black/40 text-[9px] font-black uppercase tracking-[0.2em] text-gray-400">
+                                        <th class="p-3.5 pl-5 w-52">Equipo / Cohete</th>
+                                        <th class="p-3.5 text-center w-36"
+                                            x-text="$store.app.misionSeleccionada === 'Tiro Parabólico' ? '🎯 Distancia Oficial' : '⏱️ Tiempo de Vuelo'"></th>
+                                        <th class="p-3.5 text-center w-24">1. Vuelo <span class="text-accent-gold font-normal text-[8px]">(40)</span></th>
+                                        <th class="p-3.5 text-center w-24">2. Diseño <span class="text-accent-gold font-normal text-[8px]">(20)</span></th>
+                                        <th class="p-3.5 text-center w-24">3. Innovación <span class="text-accent-gold font-normal text-[8px]">(20)</span></th>
+                                        <th class="p-3.5 text-center w-24">4. Sustentación <span class="text-accent-gold font-normal text-[8px]">(20)</span></th>
+                                        <th class="p-3.5 text-center w-24">5. Fallos <span class="text-primary font-normal text-[8px]">(-)</span></th>
+                                        <th class="p-3.5 text-center w-24">Puntaje</th>
+                                        <th class="p-3.5 text-center w-32 pr-5">Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-white/5">
                                     <template x-for="team in visibleTeams" :key="team.id">
                                         <tr class="hover:bg-white/[0.02] transition-colors"
-                                            :class="getRow(team.id).evaluado ? 'bg-white/[0.01]' : ''">
-                                            <!-- Columna Equipo -->
-                                            <td class="p-4 pl-6">
+                                            :class="isTeamRunning(team.id) ? 'bg-primary/5' : (getRow(team.id).evaluado ? 'bg-white/[0.01]' : '')">
+                                            <!-- Columna 1: Equipo -->
+                                            <td class="p-3.5 pl-5">
                                                 <div class="flex items-center gap-3">
-                                                    <div
-                                                        class="w-9 h-9 rounded-xl bg-gray-900 border border-white/10 overflow-hidden shrink-0 flex items-center justify-center">
+                                                    <div class="w-8 h-8 rounded-lg bg-gray-900 border border-white/10 overflow-hidden shrink-0 flex items-center justify-center">
                                                         <template x-if="team.foto_evidencia">
-                                                            <img :src="team.foto_evidencia"
-                                                                class="w-full h-full object-cover">
+                                                            <img :src="team.foto_evidencia" class="w-full h-full object-cover">
                                                         </template>
                                                         <template x-if="!team.foto_evidencia">
-                                                            <span
-                                                                class="material-symbols-outlined text-xs text-gray-600">rocket</span>
+                                                            <span class="material-symbols-outlined text-xs text-gray-600">rocket</span>
                                                         </template>
                                                     </div>
                                                     <div class="min-w-0">
-                                                        <div class="font-black headline text-sm text-white uppercase truncate"
+                                                        <div class="font-black headline text-xs md:text-sm text-white uppercase truncate"
                                                             x-text="$store.app.formatTeamName(team)"></div>
                                                         <div class="flex items-center gap-2 mt-0.5">
-                                                            <span
-                                                                class="text-[8px] font-bold uppercase tracking-wider text-gray-500"
+                                                            <span class="text-[8px] font-bold uppercase tracking-wider text-gray-500 truncate"
                                                                 x-text="team.nombre_cohete || 'Cohete'"></span>
-                                                            <span
-                                                                class="text-[8px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-gray-400 font-bold uppercase"
+                                                            <span class="text-[7px] px-1.5 py-0.2 rounded bg-white/5 border border-white/10 text-gray-400 font-bold uppercase"
                                                                 x-text="team.categoria"></span>
                                                         </div>
 
-                                                        <!-- Alerta de fallo reportado desde el cronómetro -->
+                                                        <!-- Alerta sutil de fallo reportado desde el cronómetro -->
                                                         <template x-if="alertasFallosRTDB[team.id] > 0">
-                                                            <div
-                                                                class="mt-1 flex items-center gap-1.5 text-[9px] font-black text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-md animate-pulse">
-                                                                <span>⚠️ Cronómetro: <strong
-                                                                        x-text="alertasFallosRTDB[team.id]"></strong>
-                                                                    fallos</span>
+                                                            <div class="mt-1 flex items-center gap-1.5 text-[8px] font-black text-primary bg-primary/10 border border-primary/20 px-1.5 py-0.5 rounded animate-pulse">
+                                                                <span>⚠️ <strong x-text="alertasFallosRTDB[team.id]"></strong> fallos cronom.</span>
                                                                 <button @click="aplicarFalloCronometroRow(team.id)"
                                                                     class="underline ml-1 hover:text-white"
-                                                                    title="Aplicar a penalizaciones">
+                                                                    title="Copiar a penalizaciones">
                                                                     [Copiar]
                                                                 </button>
                                                             </div>
@@ -1866,82 +1906,126 @@
                                                 </div>
                                             </td>
 
-                                            <!-- Casilla 1: Vuelo (0-40) -->
+                                            <!-- Columna 2: TIEMPO DE VUELO / DISTANCIA EN TIEMPO REAL -->
                                             <td class="p-3 text-center">
+                                                <!-- Lanzamiento Vertical -->
+                                                <template x-if="$store.app.misionSeleccionada === 'Lanzamiento Vertical'">
+                                                    <div>
+                                                        <!-- Caso 1: En pleno vuelo en vivo -->
+                                                        <template x-if="isTeamRunning(team.id)">
+                                                            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/20 border border-primary/40 text-primary font-mono text-xs font-black animate-pulse">
+                                                                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+                                                                <span x-text="formatTimeSec(getTeamTime(team.id))"></span>
+                                                            </div>
+                                                        </template>
+
+                                                        <!-- Caso 2: Tiempo registrado (sea por cronómetro o manual) -->
+                                                        <template x-if="!isTeamRunning(team.id) && getTeamTime(team.id) > 0">
+                                                            <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold"
+                                                                title="Tiempo oficial sincronizado del cronómetro">
+                                                                <span class="material-symbols-outlined text-[13px]">timer</span>
+                                                                <span x-text="formatTimeSec(getTeamTime(team.id))"></span>
+                                                            </div>
+                                                        </template>
+
+                                                        <!-- Caso 3: Aún sin registrar -->
+                                                        <template x-if="!isTeamRunning(team.id) && (!getTeamTime(team.id) || getTeamTime(team.id) === 0)">
+                                                            <span class="text-[10px] font-mono text-gray-600 uppercase tracking-wider">
+                                                                --.--s
+                                                            </span>
+                                                        </template>
+                                                    </div>
+                                                </template>
+
+                                                <!-- Tiro Parabólico -->
+                                                <template x-if="$store.app.misionSeleccionada === 'Tiro Parabólico'">
+                                                    <div>
+                                                        <template x-if="getTeamDistance(team.id) > 0">
+                                                            <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/30 text-accent-gold font-mono text-xs font-bold">
+                                                                <span class="material-symbols-outlined text-[13px]">straighten</span>
+                                                                <span x-text="getTeamDistance(team.id) + ' m'"></span>
+                                                            </div>
+                                                        </template>
+                                                        <template x-if="!getTeamDistance(team.id) || getTeamDistance(team.id) === 0">
+                                                            <span class="text-[10px] font-mono text-gray-600 uppercase tracking-wider">
+                                                                -- m
+                                                            </span>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                            </td>
+
+                                            <!-- Casilla 1: Vuelo (0-40) -->
+                                            <td class="p-2.5 text-center">
                                                 <input type="number" min="0" max="40"
                                                     x-model.number="getRow(team.id).flight" @change="saveRow(team.id)"
                                                     @blur="saveRow(team.id)" :disabled="getRow(team.id).descalificado"
-                                                    class="w-20 bg-black/50 border border-white/15 rounded-xl px-2 py-2 text-center text-lg font-black headline text-accent-gold focus:border-accent-gold outline-none transition-all disabled:opacity-40">
+                                                    class="w-16 sm:w-20 bg-black/40 border border-white/15 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/30 rounded-xl py-1.5 px-2 text-center text-base font-bold headline text-accent-gold outline-none transition-all disabled:opacity-30">
                                             </td>
 
                                             <!-- Casilla 2: Diseño (0-20) -->
-                                            <td class="p-3 text-center">
+                                            <td class="p-2.5 text-center">
                                                 <input type="number" min="0" max="20"
                                                     x-model.number="getRow(team.id).design" @change="saveRow(team.id)"
                                                     @blur="saveRow(team.id)" :disabled="getRow(team.id).descalificado"
-                                                    class="w-20 bg-black/50 border border-white/15 rounded-xl px-2 py-2 text-center text-lg font-black headline text-accent-gold focus:border-accent-gold outline-none transition-all disabled:opacity-40">
+                                                    class="w-16 sm:w-20 bg-black/40 border border-white/15 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/30 rounded-xl py-1.5 px-2 text-center text-base font-bold headline text-accent-gold outline-none transition-all disabled:opacity-30">
                                             </td>
 
                                             <!-- Casilla 3: Innovación (0-20) -->
-                                            <td class="p-3 text-center">
+                                            <td class="p-2.5 text-center">
                                                 <input type="number" min="0" max="20"
                                                     x-model.number="getRow(team.id).innovation"
                                                     @change="saveRow(team.id)" @blur="saveRow(team.id)"
                                                     :disabled="getRow(team.id).descalificado"
-                                                    class="w-20 bg-black/50 border border-white/15 rounded-xl px-2 py-2 text-center text-lg font-black headline text-accent-gold focus:border-accent-gold outline-none transition-all disabled:opacity-40">
+                                                    class="w-16 sm:w-20 bg-black/40 border border-white/15 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/30 rounded-xl py-1.5 px-2 text-center text-base font-bold headline text-accent-gold outline-none transition-all disabled:opacity-30">
                                             </td>
 
                                             <!-- Casilla 4: Sustentación (0-20) -->
-                                            <td class="p-3 text-center">
+                                            <td class="p-2.5 text-center">
                                                 <input type="number" min="0" max="20"
                                                     x-model.number="getRow(team.id).sustentation"
                                                     @change="saveRow(team.id)" @blur="saveRow(team.id)"
                                                     :disabled="getRow(team.id).descalificado"
-                                                    class="w-20 bg-black/50 border border-white/15 rounded-xl px-2 py-2 text-center text-lg font-black headline text-accent-gold focus:border-accent-gold outline-none transition-all disabled:opacity-40">
+                                                    class="w-16 sm:w-20 bg-black/40 border border-white/15 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/30 rounded-xl py-1.5 px-2 text-center text-base font-bold headline text-accent-gold outline-none transition-all disabled:opacity-30">
                                             </td>
 
                                             <!-- Casilla 5: Penalizaciones / Fallos -->
-                                            <td class="p-3 text-center">
+                                            <td class="p-2.5 text-center">
                                                 <input type="number" min="0" x-model.number="getRow(team.id).penalties"
                                                     @change="saveRow(team.id)" @blur="saveRow(team.id)"
-                                                    class="w-20 bg-black/50 border border-primary/30 rounded-xl px-2 py-2 text-center text-lg font-black headline text-primary focus:border-primary outline-none transition-all">
+                                                    class="w-16 sm:w-20 bg-black/40 border border-primary/30 focus:border-primary focus:ring-1 focus:ring-primary/30 rounded-xl py-1.5 px-2 text-center text-base font-bold headline text-primary outline-none transition-all">
                                             </td>
 
                                             <!-- Total Calculado -->
-                                            <td class="p-3 text-center">
-                                                <div class="font-black headline text-xl"
+                                            <td class="p-2.5 text-center">
+                                                <div class="font-black headline text-lg font-mono tabular-nums"
                                                     :class="getRow(team.id).descalificado ? 'text-primary line-through' : 'text-white'"
                                                     x-text="calculateTotal(team.id)"></div>
-                                                <span
-                                                    class="text-[8px] text-gray-500 font-bold uppercase tracking-widest">PTS</span>
+                                                <span class="text-[7px] text-gray-500 font-bold uppercase tracking-widest">PTS</span>
                                             </td>
 
                                             <!-- Estado y Descalificar -->
-                                            <td class="p-4 pr-6 text-center">
+                                            <td class="p-3 pr-5 text-center">
                                                 <div class="flex items-center justify-center gap-2">
                                                     <!-- Estado Guardado -->
                                                     <template x-if="getRow(team.id).status === 'saved'">
-                                                        <span
-                                                            class="text-green-400 flex items-center gap-1 text-[10px] font-black uppercase tracking-wider"
-                                                            title="Guardado en Firestore">
-                                                            <span
-                                                                class="material-symbols-outlined text-base">check_circle</span>
-                                                            <span class="hidden lg:inline">Listo</span>
+                                                        <span class="text-emerald-400 flex items-center gap-1 text-[9px] font-black uppercase tracking-wider"
+                                                            title="Guardado exitosamente">
+                                                            <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                                                            <span class="hidden xl:inline">Listo</span>
                                                         </span>
                                                     </template>
                                                     <template x-if="getRow(team.id).status === 'saving'">
-                                                        <span
-                                                            class="w-4 h-4 border-2 border-accent-gold/40 border-t-accent-gold rounded-full animate-spin"></span>
+                                                        <span class="w-3.5 h-3.5 border-2 border-accent-gold/40 border-t-accent-gold rounded-full animate-spin"></span>
                                                     </template>
 
                                                     <!-- Botón Descalificar -->
                                                     <button
                                                         @click="getRow(team.id).descalificado = !getRow(team.id).descalificado; saveRow(team.id)"
-                                                        :class="getRow(team.id).descalificado ? 'bg-primary text-white border-primary' : 'bg-white/5 text-gray-400 hover:text-white border-white/10'"
-                                                        class="px-2.5 py-1.5 rounded-lg border text-[9px] font-black uppercase tracking-wider transition-all"
-                                                        title="Alternar descalificación">
-                                                        <span
-                                                            x-text="getRow(team.id).descalificado ? 'Descalif.' : 'Descalif.'"></span>
+                                                        :class="getRow(team.id).descalificado ? 'bg-primary text-white border-primary' : 'bg-white/5 text-gray-500 hover:text-white border-white/10'"
+                                                        class="px-2 py-1 rounded-lg border text-[8px] font-black uppercase tracking-wider transition-all"
+                                                        :title="getRow(team.id).descalificado ? 'Equipo descalificado (Clic para reactivar)' : 'Descalificar equipo'">
+                                                        <span x-text="getRow(team.id).descalificado ? 'Descalif.' : 'Descalif.'"></span>
                                                     </button>
                                                 </div>
                                             </td>
@@ -1950,7 +2034,7 @@
 
                                     <template x-if="visibleTeams.length === 0">
                                         <tr>
-                                            <td colspan="8"
+                                            <td colspan="9"
                                                 class="p-12 text-center text-gray-500 font-bold uppercase tracking-widest text-xs">
                                                 No hay equipos pendientes en este filtro.
                                             </td>
@@ -1963,34 +2047,29 @@
                 </section>
 
                 <!-- SECCIÓN DE CALIFICACIÓN -->
-                <section class="p-12 pt-28 md:pt-32" x-show="activeTab === 'calificacion'" x-transition
+                <section class="p-4 sm:p-6 md:p-8 pt-24 md:pt-28" x-show="activeTab === 'calificacion'" x-transition
                     x-data="calificacionJurado">
-                    <div class="max-w-6xl mx-auto">
-                        <div
-                            class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6 relative">
-                            <div class="flex items-start gap-4">
+                    <div class="max-w-6xl mx-auto space-y-6">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#141416]/80 backdrop-blur-md border border-white/5 rounded-2xl p-5 md:p-6 shadow-xl">
+                            <div class="flex items-center gap-4">
                                 <button @click="activeTab = 'dashboard'"
-                                    class="flex-shrink-0 mt-1 flex items-center gap-2 px-4 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:text-[#D30000] transition-colors relative group">
+                                    class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:text-[#D30000] text-gray-300 transition-colors group">
                                     <span class="material-symbols-outlined text-[18px]">arrow_back</span>
-                                    <span
-                                        class="text-[10px] sm:text-xs font-bold headline uppercase tracking-widest hidden sm:block">Volver
-                                        al Panel</span>
-                                    <div
-                                        class="absolute inset-0 border border-transparent group-hover:border-[#D30000]/50 rounded-full transition-all">
-                                    </div>
+                                    <span class="text-[11px] font-bold headline uppercase tracking-widest hidden sm:inline">Panel</span>
                                 </button>
                                 <div>
-                                    <h2
-                                        class="text-3xl md:text-4xl font-black headline text-white uppercase tracking-tighter">
-                                        Terminal de Evaluación</h2>
-                                    <p class="text-[10px] text-accent-gold font-black uppercase tracking-[0.4em] mt-2">
-                                        Criterios Técnicos Aeroespaciales</p>
+                                    <h2 class="text-xl md:text-2xl font-black headline text-white uppercase tracking-tight">
+                                        Terminal de Evaluación
+                                    </h2>
+                                    <p class="text-[9px] text-accent-gold font-bold uppercase tracking-[0.25em] mt-0.5">
+                                        Evaluación Individual Táctica
+                                    </p>
                                 </div>
                             </div>
-                            <div class="flex flex-col md:flex-row items-center gap-4">
+                            <div class="flex flex-wrap items-center gap-3">
                                 <!-- Filtro de Categoría -->
                                 <select x-model="categoriaFiltro"
-                                    class="bg-surface-container-high border border-white/10 px-6 py-3 rounded-full text-xs font-bold text-gray-400 focus:outline-none focus:border-accent-gold appearance-none cursor-pointer">
+                                    class="bg-black/50 border border-white/10 px-4 py-2.5 rounded-xl text-xs font-bold text-gray-300 focus:outline-none focus:border-accent-gold appearance-none cursor-pointer">
                                     <option value="Todos">TODAS LAS CATEGORÍAS</option>
                                     <option value="Exploradores">EXPLORADORES</option>
                                     <option value="Ingenieros">INGENIEROS</option>
@@ -1999,193 +2078,192 @@
 
                                 <!-- Selector de Equipo -->
                                 <select x-model="selectedTeamId"
-                                    class="bg-black/60 border border-accent-gold/50 px-8 py-3 rounded-full text-sm font-bold text-white focus:outline-none focus:border-accent-gold appearance-none text-center shadow-lg shadow-accent-gold/5">
+                                    class="bg-black/60 border border-accent-gold/40 px-5 py-2.5 rounded-xl text-xs md:text-sm font-bold text-white focus:outline-none focus:border-accent-gold appearance-none text-center cursor-pointer shadow-sm">
                                     <option :value="null">Seleccionar Equipo...</option>
                                     <template x-for="team in filteredTeams" :key="team.id">
                                         <option :value="team.id" x-text="team.nombre_equipo.toUpperCase()"></option>
                                     </template>
                                 </select>
 
-                                <span
-                                    class="bg-primary/10 text-primary border border-primary/20 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span> Enlace en
-                                    Vivo
+                                <span class="bg-primary/10 text-primary border border-primary/20 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-wider flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+                                    Enlace Vivo
                                 </span>
                             </div>
                         </div>
 
-                        <!-- Tiempo de Vuelo Vivo -->
-                        <!-- Tiempo de Vuelo Vivo -->
-                        <template x-if="$store.app.misionSeleccionada === 'Lanzamiento Vertical'">
-                            <div class="mb-12 bg-black/40 border border-primary/20 rounded-[2rem] p-8 flex flex-col sm:flex-row justify-between items-center gap-6"
-                                x-show="selectedTeamId">
-                                <div class="flex items-center gap-6">
-                                    <div class="relative">
-                                        <div
-                                            class="w-16 h-16 rounded-full border-4 border-white/5 flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-3xl"
-                                                :class="launchData.running ? 'text-primary animate-pulse' : 'text-gray-600'">timer</span>
-                                        </div>
+                        <!-- TIEMPO DE VUELO / DISTANCIA EN VIVO Y PUNTAJE PROYECTADO -->
+                        <div class="bg-[#121214] border border-white/10 rounded-2xl p-5 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-xl"
+                            x-show="selectedTeamId">
+                            <!-- Lanzamiento Vertical -->
+                            <template x-if="$store.app.misionSeleccionada === 'Lanzamiento Vertical'">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center bg-black/60 relative">
+                                        <span class="material-symbols-outlined text-2xl"
+                                            :class="launchData.running ? 'text-primary animate-pulse' : 'text-emerald-400'">timer</span>
                                         <div x-show="launchData.running"
-                                            class="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full animate-ping">
-                                        </div>
+                                            class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-primary rounded-full animate-ping"></div>
                                     </div>
                                     <div>
-                                        <h3 class="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em]">
-                                            Sincronización de Vuelo</h3>
-                                        <div class="text-4xl font-black headline text-white tracking-tighter mt-1 tabular-nums"
-                                            x-text="(launchData.time_ms / 1000).toFixed(2) + 's'">0.00s</div>
-                                        <div class="flex items-center gap-2 mt-1">
+                                        <div class="flex items-center gap-2">
+                                            <h3 class="text-[9px] text-gray-400 font-black uppercase tracking-widest">
+                                                Tiempo de Vuelo Oficial (Telemetría en Vivo)
+                                            </h3>
+                                            <span x-show="!launchData.running && ((launchData.time_ms || selectedTeam?.tiempo_vuelo_cronometro) > 0)"
+                                                class="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[8px] font-bold uppercase">
+                                                ✓ Sincronizado
+                                            </span>
+                                        </div>
+                                        <div class="text-3xl font-black headline text-white tracking-tight mt-0.5 tabular-nums font-mono"
+                                            x-text="(((launchData.time_ms || selectedTeam?.tiempo_vuelo_cronometro || 0)) / 1000).toFixed(2) + 's'">0.00s</div>
+                                        <div class="flex items-center gap-2 mt-0.5">
                                             <span class="w-1.5 h-1.5 rounded-full"
-                                                :class="launchData.running ? 'bg-primary animate-pulse' : 'bg-gray-600'"></span>
-                                            <span class="text-[9px] font-bold uppercase tracking-widest"
-                                                :class="launchData.running ? 'text-primary' : 'text-gray-600'"
-                                                x-text="launchData.running ? 'Capturando Tiempo...' : 'Señal en Espera'"></span>
+                                                :class="launchData.running ? 'bg-primary animate-pulse' : 'bg-emerald-400'"></span>
+                                            <span class="text-[9px] font-bold uppercase tracking-wider"
+                                                :class="launchData.running ? 'text-primary' : 'text-gray-400'"
+                                                x-text="launchData.running ? 'Capturando Tiempo en Vivo...' : 'Tiempo respaldado en base de datos'"></span>
                                         </div>
                                     </div>
                                 </div>
+                            </template>
 
-                                <div
-                                    class="text-center sm:text-right bg-white/5 px-8 py-4 rounded-2xl border border-white/5">
-                                    <h3 class="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">
-                                        Puntaje Total Proyectado</h3>
-                                    <div class="text-4xl font-black headline text-accent-gold tracking-tighter"
-                                        x-text="total + ' PTS'">0 PTS</div>
+                            <!-- Tiro Parabólico -->
+                            <template x-if="$store.app.misionSeleccionada === 'Tiro Parabólico'">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center bg-black/60">
+                                        <span class="material-symbols-outlined text-2xl text-accent-gold">straighten</span>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <h3 class="text-[9px] text-gray-400 font-black uppercase tracking-widest">
+                                                Distancia Oficial (Telemetría en Vivo)
+                                            </h3>
+                                            <span x-show="distancia > 0 || selectedTeam?.distancia_cronometro > 0"
+                                                class="px-2 py-0.5 rounded-full bg-accent-gold/10 border border-accent-gold/30 text-accent-gold text-[8px] font-bold uppercase">
+                                                ✓ Sincronizado
+                                            </span>
+                                        </div>
+                                        <div class="text-3xl font-black headline text-accent-gold tracking-tight mt-0.5 tabular-nums font-mono"
+                                            x-text="(distancia || selectedTeam?.distancia_cronometro || 0) + ' m'">0 m</div>
+                                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-wider mt-0.5">
+                                            Medición registrada en la mesa de lanzamiento
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </template>
+                            </template>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                            <!-- Criterio 1 -->
-                            <div
-                                class="bg-white/5 border border-white/10 p-6 flex flex-col items-center text-center rounded-[2rem] hover:border-accent-gold/50 transition-all">
-                                <h3 class="text-white headline font-bold text-xs uppercase tracking-widest mb-1">
-                                    Desempeño Vuelo</h3>
-                                <p class="text-[8px] text-gray-500 uppercase tracking-widest mb-4">Trayecto y Aterrizaje
-                                    Seguro</p>
-                                <input type="number" x-model.number="scores.flight" :disabled="equipoDescalificado"
-                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="40"
-                                    class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-center text-2xl font-black headline text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold">
-                                <span class="text-[9px] text-gray-600 font-bold uppercase tracking-widest mt-3">Máx: 40
-                                    PTOS</span>
-                            </div>
-                            <!-- Criterio 2 -->
-                            <div
-                                class="bg-white/5 border border-white/10 p-6 flex flex-col items-center text-center rounded-[2rem] hover:border-accent-gold/50 transition-all">
-                                <h3 class="text-white headline font-bold text-xs uppercase tracking-widest mb-1">Diseño
-                                    Aerodinámica</h3>
-                                <p class="text-[8px] text-gray-500 uppercase tracking-widest mb-4">Construcción y
-                                    Estética</p>
-                                <input type="number" x-model.number="scores.design" :disabled="equipoDescalificado"
-                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="20"
-                                    class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-center text-2xl font-black headline text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold">
-                                <span class="text-[9px] text-gray-600 font-bold uppercase tracking-widest mt-3">Máx: 20
-                                    PTOS</span>
-                            </div>
-                            <!-- Criterio 3 -->
-                            <div
-                                class="bg-white/5 border border-white/10 p-6 flex flex-col items-center text-center rounded-[2rem] hover:border-accent-gold/50 transition-all">
-                                <h3 class="text-white headline font-bold text-xs uppercase tracking-widest mb-1">
-                                    Innovación Maker</h3>
-                                <p class="text-[8px] text-gray-500 uppercase tracking-widest mb-4">Materiales Reciclados
-                                </p>
-                                <input type="number" x-model.number="scores.innovation" :disabled="equipoDescalificado"
-                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="20"
-                                    class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-center text-2xl font-black headline text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold">
-                                <span class="text-[9px] text-gray-600 font-bold uppercase tracking-widest mt-3">Máx: 20
-                                    PTOS</span>
-                            </div>
-                            <!-- Criterio 4 -->
-                            <div
-                                class="bg-white/5 border border-white/10 p-6 flex flex-col items-center text-center rounded-[2rem] hover:border-accent-gold/50 transition-all">
-                                <h3 class="text-white headline font-bold text-xs uppercase tracking-widest mb-1">
-                                    Sustentación</h3>
-                                <p class="text-[8px] text-gray-500 uppercase tracking-widest mb-4">Explicación Técnica
-                                </p>
-                                <input type="number" x-model.number="scores.sustentation"
-                                    :disabled="equipoDescalificado"
-                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="20"
-                                    class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-center text-2xl font-black headline text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold">
-                                <span class="text-[9px] text-gray-600 font-bold uppercase tracking-widest mt-3">Máx: 20
-                                    PTOS</span>
+                            <!-- Puntaje Proyectado -->
+                            <div class="text-center sm:text-right bg-white/[0.03] px-5 py-3 rounded-xl border border-white/5 shrink-0">
+                                <h3 class="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-0.5">
+                                    Puntaje Proyectado</h3>
+                                <div class="text-3xl font-black headline text-accent-gold tracking-tight"
+                                    x-text="total + ' PTS'">0 PTS</div>
                             </div>
                         </div>
 
-                        <!-- INPUT DISTANCIA (SOLO TIRO PARABÓLICO) -->
-                        <!-- INPUT DISTANCIA (SOLO TIRO PARABÓLICO) -->
-                        <template x-if="$store.app.misionSeleccionada === 'Tiro Parabólico'">
-                            <div
-                                class="bg-accent-gold/10 border border-accent-gold/50 p-6 md:p-8 rounded-[2rem] flex flex-col md:flex-row justify-between items-center mb-8 shadow-[0_0_20px_rgba(255,215,0,0.1)]">
-                                <div class="flex flex-col mb-4 md:mb-0 text-center md:text-left">
-                                    <h3
-                                        class="text-accent-gold headline font-bold text-lg md:text-xl uppercase tracking-tighter">
-                                        Distancia Alcanzada</h3>
-                                    <span
-                                        class="text-[9px] md:text-xs text-accent-gold/70 mt-1 uppercase font-bold tracking-widest">Sincronización
-                                        de Cronometrista en Vivo</span>
-                                </div>
-                                <div
-                                    class="flex items-center gap-4 bg-black/40 p-2 md:p-4 rounded-2xl border border-accent-gold/20">
-                                    <input type="number" readonly x-model.number="distancia"
-                                        class="w-32 md:w-40 bg-transparent text-center text-4xl md:text-5xl font-black headline text-accent-gold outline-none pointer-events-none">
-                                    <span
-                                        class="text-sm font-black text-gray-500 uppercase tracking-widest px-2">MTS</span>
-                                </div>
+                        <!-- 4 CRITERIOS DE EVALUACIÓN (DISEÑO COMPACTO Y ELEGANTE) -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                            <!-- Criterio 1: Desempeño Vuelo -->
+                            <div class="bg-[#121214] border border-white/10 p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all">
+                                <h3 class="text-white headline font-bold text-xs uppercase tracking-wider mb-0.5">Desempeño Vuelo</h3>
+                                <p class="text-[8px] text-gray-500 uppercase tracking-wider mb-3">Trayecto y Aterrizaje Seguro</p>
+                                <input type="number" x-model.number="scores.flight" :disabled="equipoDescalificado"
+                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="40"
+                                    class="w-full max-w-[130px] bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
+                                <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2.5">Máx: 40 PTOS</span>
                             </div>
-                        </template>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                            <div
-                                class="bg-primary/5 border border-primary/20 p-6 rounded-[2rem] flex justify-between items-center">
-                                <h3 class="text-primary headline font-bold text-sm uppercase tracking-widest">
-                                    Penalizaciones (Puntos)</h3>
-                                <div class="flex items-center gap-4">
+                            <!-- Criterio 2: Diseño Aerodinámica -->
+                            <div class="bg-[#121214] border border-white/10 p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all">
+                                <h3 class="text-white headline font-bold text-xs uppercase tracking-wider mb-0.5">Diseño Aerodinámico</h3>
+                                <p class="text-[8px] text-gray-500 uppercase tracking-wider mb-3">Construcción y Acabado</p>
+                                <input type="number" x-model.number="scores.design" :disabled="equipoDescalificado"
+                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="20"
+                                    class="w-full max-w-[130px] bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
+                                <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2.5">Máx: 20 PTOS</span>
+                            </div>
+
+                            <!-- Criterio 3: Innovación Maker -->
+                            <div class="bg-[#121214] border border-white/10 p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all">
+                                <h3 class="text-white headline font-bold text-xs uppercase tracking-wider mb-0.5">Innovación Maker</h3>
+                                <p class="text-[8px] text-gray-500 uppercase tracking-wider mb-3">Materiales Reciclados</p>
+                                <input type="number" x-model.number="scores.innovation" :disabled="equipoDescalificado"
+                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="20"
+                                    class="w-full max-w-[130px] bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
+                                <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2.5">Máx: 20 PTOS</span>
+                            </div>
+
+                            <!-- Criterio 4: Sustentación -->
+                            <div class="bg-[#121214] border border-white/10 p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all">
+                                <h3 class="text-white headline font-bold text-xs uppercase tracking-wider mb-0.5">Sustentación</h3>
+                                <p class="text-[8px] text-gray-500 uppercase tracking-wider mb-3">Explicación Técnica</p>
+                                <input type="number" x-model.number="scores.sustentation" :disabled="equipoDescalificado"
+                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="20"
+                                    class="w-full max-w-[130px] bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
+                                <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2.5">Máx: 20 PTOS</span>
+                            </div>
+                        </div>
+
+                        <!-- PENALIZACIONES Y DESCALIFICACIÓN -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            <!-- Penalizaciones -->
+                            <div class="bg-primary/5 border border-primary/20 p-4 rounded-2xl flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-primary headline font-bold text-xs uppercase tracking-wider">Penalizaciones (Puntos)</h3>
+                                    <p class="text-[8px] text-gray-500 uppercase tracking-wider mt-0.5">Resta directa al puntaje final</p>
+                                </div>
+                                <div class="flex items-center gap-3">
                                     <button @click="decrementPenalty()"
-                                        class="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center hover:bg-primary/40 transition-all">
-                                        <span class="material-symbols-outlined">remove</span>
+                                        class="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center hover:bg-primary/30 transition-all active:scale-95">
+                                        <span class="material-symbols-outlined text-[18px]">remove</span>
                                     </button>
-                                    <span class="text-2xl font-black headline text-primary w-12 text-center"
+                                    <span class="text-xl font-black font-mono headline text-primary w-8 text-center"
                                         x-text="penalties"></span>
                                     <button @click="incrementPenalty()"
-                                        class="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center hover:bg-primary/40 transition-all">
-                                        <span class="material-symbols-outlined">add</span>
+                                        class="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center hover:bg-primary/30 transition-all active:scale-95">
+                                        <span class="material-symbols-outlined text-[18px]">add</span>
                                     </button>
                                 </div>
                             </div>
-                            <div :class="equipoDescalificado ? 'bg-primary/20 border-primary shadow-[0_0_20px_rgba(211,0,0,0.15)]' : 'bg-white/5 border-white/10'"
-                                class="p-6 rounded-[2.5rem] flex justify-between items-center transition-all duration-500 border group">
-                                <div class="flex items-center gap-4">
-                                    <div :class="equipoDescalificado ? 'bg-primary' : 'bg-gray-800'"
-                                        class="w-10 h-10 rounded-full flex items-center justify-center transition-colors">
-                                        <span class="material-symbols-outlined text-white text-xl"
+
+                            <!-- Descalificar Equipo -->
+                            <div :class="equipoDescalificado ? 'bg-primary/15 border-primary shadow-[0_0_15px_rgba(211,0,0,0.15)]' : 'bg-[#121214] border-white/10'"
+                                class="p-4 rounded-2xl flex justify-between items-center transition-all duration-300 border">
+                                <div class="flex items-center gap-3">
+                                    <div :class="equipoDescalificado ? 'bg-primary text-white' : 'bg-white/5 text-gray-400'"
+                                        class="w-8 h-8 rounded-lg flex items-center justify-center transition-colors">
+                                        <span class="material-symbols-outlined text-[18px]"
                                             x-text="equipoDescalificado ? 'warning' : 'check_circle'"></span>
                                     </div>
-                                    <h3 :class="equipoDescalificado ? 'text-primary' : 'text-white'"
-                                        class="headline font-bold text-sm uppercase tracking-widest transition-colors">
-                                        Descalificar Equipo</h3>
+                                    <div>
+                                        <h3 :class="equipoDescalificado ? 'text-primary' : 'text-white'"
+                                            class="headline font-bold text-xs uppercase tracking-wider transition-colors">
+                                            Descalificar Equipo</h3>
+                                        <p class="text-[8px] text-gray-500 uppercase tracking-wider mt-0.5">Puntaje a 0 puntos</p>
+                                    </div>
                                 </div>
                                 <div @click="equipoDescalificado = !equipoDescalificado"
-                                    class="relative w-20 h-10 bg-black/40 rounded-full cursor-pointer flex items-center px-1 border border-white/10">
-                                    <div :class="equipoDescalificado ? 'translate-x-[100%] bg-primary shadow-[0_0_15px_rgba(211,0,0,0.6)]' : 'translate-x-0 bg-gray-500'"
-                                        class="w-8 h-8 rounded-full transition-all duration-300 transform flex items-center justify-center text-[8px] font-black text-white">
+                                    class="relative w-14 h-7 bg-black/40 rounded-full cursor-pointer flex items-center px-1 border border-white/10">
+                                    <div :class="equipoDescalificado ? 'translate-x-[26px] bg-primary shadow-[0_0_10px_rgba(211,0,0,0.5)]' : 'translate-x-0 bg-gray-600'"
+                                        class="w-5 h-5 rounded-full transition-all duration-300 transform flex items-center justify-center text-[7px] font-black text-white">
                                         <span x-text="equipoDescalificado ? 'SÍ' : 'NO'"></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex gap-4 mt-6">
+                        <!-- BOTONES DE ACCIÓN -->
+                        <div class="flex gap-3 mt-4">
                             <button @click="$store.app.closeModal ? $store.app.closeModal() : activeTab='dashboard'"
-                                class="w-auto px-6 md:px-8 bg-transparent border-2 border-accent-gold text-accent-gold hover:bg-accent-gold/10 font-black headline py-4 md:py-6 rounded-[2rem] transition-all uppercase tracking-widest">
+                                class="w-auto px-6 bg-transparent border border-white/20 text-gray-300 hover:bg-white/5 font-bold headline py-3 rounded-xl transition-all uppercase tracking-wider text-xs">
                                 Cancelar
                             </button>
                             <button @click="save()" :disabled="!selectedTeamId || isSubmitting"
                                 :class="{'cursor-not-allowed': isSubmitting}"
-                                class="flex-1 bg-accent-gold hover:bg-[#e6c200] text-black font-black headline py-4 md:py-6 rounded-[2rem] transition-all shadow-lg shadow-accent-gold/20 uppercase tracking-widest disabled:opacity-50 flex flex-row items-center justify-center gap-2">
+                                class="flex-1 bg-accent-gold hover:bg-[#e6c200] text-black font-black headline py-3 rounded-xl transition-all shadow-lg shadow-accent-gold/20 uppercase tracking-wider text-xs disabled:opacity-50 flex flex-row items-center justify-center gap-2">
                                 <span x-show="!isSubmitting">Guardar Evaluación</span>
                                 <span x-show="isSubmitting" class="flex items-center gap-2">
-                                    <span
-                                        class="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin"></span>
+                                    <span class="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></span>
                                     Guardando...
                                 </span>
                             </button>

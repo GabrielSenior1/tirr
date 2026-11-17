@@ -831,12 +831,12 @@ function initTIRR() {
             }
             this.time_ms = Math.round(sec * 1000);
             this.guardado = true;
+            this.selectedTeam.tiempo_vuelo_cronometro = this.time_ms;
+            this.syncToRTDB(true);
             if (Alpine.store('app').isTestMode) {
-                this.selectedTeam.tiempo_vuelo_cronometro = this.time_ms;
                 alert(`✅ [VISTA DE PRUEBA] Tiempo manual fijado: ${sec.toFixed(2)}s.`);
                 return;
             }
-            this.syncToRTDB(true);
             this.persistirTiempoEnFirestore();
             alert(`✅ Tiempo manual fijado: ${sec.toFixed(2)}s y respaldado en la base de datos.`);
         },
@@ -899,13 +899,13 @@ function initTIRR() {
             if (!this.selectedTeam) return alert('Selecciona un equipo primero');
             if (this.running) this.stop();
             this.guardado = true;
+            this.selectedTeam.tiempo_vuelo_cronometro = this.time_ms;
+            if (this.distancia > 0) this.selectedTeam.distancia_cronometro = this.distancia;
+            this.syncToRTDB(true);
             if (Alpine.store('app').isTestMode) {
-                this.selectedTeam.tiempo_vuelo_cronometro = this.time_ms;
-                if (this.distancia > 0) this.selectedTeam.distancia_cronometro = this.distancia;
                 alert('✅ [VISTA DE PRUEBA] Registro cronometrado asegurado en sesión de prueba.');
                 return;
             }
-            this.syncToRTDB(true);
             await this.persistirTiempoEnFirestore();
             alert('✅ Registro cronometrado asegurado en base de datos.');
         },
@@ -934,16 +934,19 @@ function initTIRR() {
         },
 
         syncToRTDB(isFinal = false) {
-            if (Alpine.store('app').isTestMode || Alpine.store('app').isGuest) return;
             if (!this.selectedTeam) return;
+
+            // Actualizar inmediatamente en el objeto del equipo en memoria
+            this.selectedTeam.tiempo_vuelo_cronometro = Number(this.time_ms || 0);
+            this.selectedTeam.distancia_cronometro = Number(this.distancia || 0);
 
             const mision = Alpine.store('app').misionSeleccionada || 'Lanzamiento Vertical';
             const missionPath = mision.replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-            const launchRef = ref(rtdb, `active_launch_${missionPath}/${this.selectedTeam.id}`);
-            set(launchRef, {
+            const payload = {
+                teamId: this.selectedTeam.id,
                 running: this.running,
-                time_ms: this.time_ms,
+                time_ms: Number(this.time_ms || 0),
                 distancia: Number(this.distancia || 0),
                 mision: mision,
                 nombre_equipo: this.selectedTeam.nombre_equipo,
@@ -951,7 +954,26 @@ function initTIRR() {
                 fallos_cronometro: this.fallosReportados,
                 is_final: isFinal,
                 updatedAt: Date.now()
-            });
+            };
+
+            Alpine.store('app').currentLiveLaunch = payload;
+
+            // Emitir evento local para sincronización reactiva inmediata en la misma pestaña
+            window.dispatchEvent(new CustomEvent('tirr-telemetria-sync', { detail: payload }));
+
+            if (Alpine.store('app').isGuest) return;
+
+            try {
+                // 1. Canal específico por equipo
+                const launchRef = ref(rtdb, `active_launch_${missionPath}/${this.selectedTeam.id}`);
+                set(launchRef, payload).catch(() => {});
+
+                // 2. Canal global de telemetría activa en plataforma
+                const globalRef = ref(rtdb, `current_live_launch_${missionPath}`);
+                set(globalRef, payload).catch(() => {});
+            } catch (err) {
+                console.warn("RTDB sync error:", err);
+            }
         }
     }));
 
@@ -1039,6 +1061,17 @@ function initTIRR() {
             const mision = Alpine.store('app').misionSeleccionada || 'Lanzamiento Vertical';
             const missionPath = mision.replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
+            // Escuchar evento local intra-pestaña para inmediatez sin reload
+            if (!this._telemetriaHandler) {
+                this._telemetriaHandler = (e) => {
+                    if (e.detail?.teamId === this.selectedTeamId) {
+                        this.launchData = { ...this.launchData, ...e.detail };
+                        if (e.detail.distancia) this.distancia = e.detail.distancia;
+                    }
+                };
+                window.addEventListener('tirr-telemetria-sync', this._telemetriaHandler);
+            }
+
             const launchRef = ref(rtdb, `active_launch_${missionPath}/${teamId}`);
             this.unsubscribeLaunch = onValue(launchRef, (snap) => {
                 if (snap.exists()) {
@@ -1050,8 +1083,10 @@ function initTIRR() {
                         this.alertaFalloVisible = true;
                     }
                 } else {
-                    this.launchData = { running: false, time_ms: 0, distancia: 0, fallos_cronometro: 0 };
-                    if (mision === 'Tiro Parabólico') this.distancia = 0;
+                    const fallbackTime = this.selectedTeam?.tiempo_vuelo_cronometro || 0;
+                    const fallbackDist = this.selectedTeam?.distancia_cronometro || 0;
+                    this.launchData = { running: false, time_ms: fallbackTime, distancia: fallbackDist, fallos_cronometro: 0 };
+                    if (mision === 'Tiro Parabólico') this.distancia = fallbackDist;
                     this.alertaFalloVisible = false;
                 }
             });
@@ -1199,6 +1234,17 @@ function initTIRR() {
                     this.penalties = 0;
                     this.equipoDescalificado = false;
                 }
+
+                // Si aún no hay tiempo en launchData, recuperar el tiempo guardado en el equipo
+                if ((!this.launchData || !this.launchData.time_ms) && this.selectedTeam?.tiempo_vuelo_cronometro) {
+                    this.launchData = {
+                        ...(this.launchData || {}),
+                        running: false,
+                        time_ms: this.selectedTeam.tiempo_vuelo_cronometro,
+                        distancia: this.selectedTeam.distancia_cronometro || 0,
+                        fallos_cronometro: this.launchData?.fallos_cronometro || 0
+                    };
+                }
             } catch (err) {
                 console.error("Error cargando calificación existente:", err);
             }
@@ -1222,6 +1268,8 @@ function initTIRR() {
         soloPendientes: false,
         calificacionesData: {}, // { [teamId]: { flight, design, innovation, sustentation, penalties, descalificado, id_doc, status } }
         alertasFallosRTDB: {},  // { [teamId]: count }
+        rtdbLaunches: {},       // { [teamId]: { time_ms, distancia, running, fallos_cronometro, ... } }
+        currentGlobalLaunch: null,
         searchQuery: '',
 
         init() {
@@ -1230,24 +1278,42 @@ function initTIRR() {
 
             this.$watch('$store.app.misionSeleccionada', () => {
                 this.cargarCalificacionesDelJuez();
+                this.escucharTelemetriaEnVivo();
             });
 
             this.$watch('$store.app.allCalificaciones', () => {
                 this.cargarCalificacionesDelJuez();
             });
 
-            // Escuchar alertas de fallos en vivo desde RTDB para la misión
-            this.escucharAlertasFallos();
+            this.$watch('$store.app.teams', () => {
+                this.cargarCalificacionesDelJuez();
+            });
+
+            // Escuchar telemetría en vivo del cronómetro vía RTDB y canal local
+            this.escucharTelemetriaEnVivo();
+
+            // Sincronización instantánea intra-pestaña
+            window.addEventListener('tirr-telemetria-sync', (e) => {
+                if (e.detail?.teamId) {
+                    this.rtdbLaunches[e.detail.teamId] = e.detail;
+                    this.currentGlobalLaunch = e.detail;
+                    if (e.detail.fallos_cronometro > 0) {
+                        this.alertasFallosRTDB[e.detail.teamId] = e.detail.fallos_cronometro;
+                    }
+                }
+            });
         },
 
-        escucharAlertasFallos() {
+        escucharTelemetriaEnVivo() {
             const mision = Alpine.store('app').misionSeleccionada || 'Lanzamiento Vertical';
             const missionPath = mision.replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            const launchesRef = ref(rtdb, `active_launch_${missionPath}`);
 
+            // 1. Escuchar todos los equipos de la misión en RTDB en tiempo real
+            const launchesRef = ref(rtdb, `active_launch_${missionPath}`);
             onValue(launchesRef, (snap) => {
                 if (snap.exists()) {
-                    const data = snap.val();
+                    const data = snap.val() || {};
+                    this.rtdbLaunches = data;
                     const newAlerts = {};
                     Object.keys(data).forEach(teamId => {
                         if (data[teamId]?.fallos_cronometro > 0) {
@@ -1255,8 +1321,55 @@ function initTIRR() {
                         }
                     });
                     this.alertasFallosRTDB = newAlerts;
+                } else {
+                    this.rtdbLaunches = {};
+                    this.alertasFallosRTDB = {};
                 }
             });
+
+            // 2. Escuchar lanzamiento global activo para la misión
+            const globalRef = ref(rtdb, `current_live_launch_${missionPath}`);
+            onValue(globalRef, (snap) => {
+                if (snap.exists()) {
+                    this.currentGlobalLaunch = snap.val();
+                } else {
+                    this.currentGlobalLaunch = null;
+                }
+            });
+        },
+
+        // Helper para obtener el tiempo de vuelo de un equipo en tiempo real
+        getTeamTime(teamId) {
+            const rtdbTeam = this.rtdbLaunches[teamId];
+            if (rtdbTeam && (rtdbTeam.time_ms > 0 || rtdbTeam.running)) {
+                return rtdbTeam.time_ms;
+            }
+            const team = Alpine.store('app').teams.find(t => t.id === teamId);
+            if (team && team.tiempo_vuelo_cronometro > 0) {
+                return team.tiempo_vuelo_cronometro;
+            }
+            const cal = Alpine.store('app').allCalificaciones.find(c => c.id_equipo === teamId && c.tiempo_vuelo > 0);
+            if (cal) return cal.tiempo_vuelo;
+            return 0;
+        },
+
+        // Helper para saber si un equipo está actualmente en pleno vuelo
+        isTeamRunning(teamId) {
+            return !!(this.rtdbLaunches[teamId]?.running);
+        },
+
+        // Helper para obtener la distancia alcanzada
+        getTeamDistance(teamId) {
+            const rtdbTeam = this.rtdbLaunches[teamId];
+            if (rtdbTeam && rtdbTeam.distancia > 0) return rtdbTeam.distancia;
+            const team = Alpine.store('app').teams.find(t => t.id === teamId);
+            return team?.distancia_cronometro || 0;
+        },
+
+        // Helper para formatear milisegundos en segundos
+        formatTimeSec(ms) {
+            if (!ms || ms <= 0) return '--.--s';
+            return (ms / 1000).toFixed(2) + 's';
         },
 
         cargarCalificacionesDelJuez() {
@@ -1369,6 +1482,9 @@ function initTIRR() {
                 localStorage.setItem(draftKey, JSON.stringify(drafts));
             } catch(e) {}
 
+            const flightTime = Number(this.getTeamTime(team.id) || team.tiempo_vuelo_cronometro || 0);
+            const flightDist = Number(this.getTeamDistance(team.id) || team.distancia_cronometro || 0);
+
             const calData = {
                 id_equipo: team.id,
                 id_juez: judgeId,
@@ -1384,50 +1500,49 @@ function initTIRR() {
                     innovation: Number(row.innovation),
                     sustentation: Number(row.sustentation)
                 },
-                distancia: Number(team.distancia_cronometro || 0),
+                distancia: flightDist,
                 faltas: Number(row.penalties),
                 descalificado: !!row.descalificado,
-                tiempo_vuelo: Number(team.tiempo_vuelo_cronometro || 0),
+                tiempo_vuelo: flightTime,
                 totalScore: Number(total),
                 createdAt: serverTimestamp()
             };
 
             if (Alpine.store('app').isTestMode) {
-                setTimeout(() => {
-                    row.status = 'saved';
-                    row.evaluado = true;
-                    const existingCalIdx = Alpine.store('app').allCalificaciones.findIndex(c => c.id_equipo === teamId && c.id_juez === Alpine.store('app').currentJudgeId && c.tipo === mision);
-                    const mockCal = {
-                        id: row.id_doc || ('mock-cal-' + teamId),
-                        id_equipo: teamId,
-                        id_juez: Alpine.store('app').currentJudgeId,
-                        nombre_juez: Alpine.store('app').currentJudgeName,
-                        nombre_equipo: team.nombre_equipo || 'Cohete',
-                        nombre_cohete: team.nombre_cohete || 'Cohete',
-                        categoria: team.categoria || 'Exploradores',
-                        ronda: 1,
-                        tipo: mision,
-                        puntajes: {
-                            flight: Number(row.flight),
-                            design: Number(row.design),
-                            innovation: Number(row.innovation),
-                            sustentation: Number(row.sustentation)
-                        },
-                        distancia: Number(team.distancia_cronometro || 0),
-                        faltas: Number(row.penalties),
-                        descalificado: !!row.descalificado,
-                        tiempo_vuelo: Number(team.tiempo_vuelo_cronometro || 0),
-                        totalScore: Number(total),
-                        is_test: true,
-                        createdAt: { seconds: Math.floor(Date.now() / 1000) }
-                    };
-                    if (existingCalIdx >= 0) {
-                        Alpine.store('app').allCalificaciones[existingCalIdx] = mockCal;
-                    } else {
-                        Alpine.store('app').allCalificaciones.push(mockCal);
-                    }
-                    console.log("🧪 [VISTA DE PRUEBA] Fila autoguardada localmente:", team.nombre_equipo, "Puntaje:", total);
-                }, 100);
+                row.status = 'saved';
+                row.evaluado = true;
+                const existingCalIdx = Alpine.store('app').allCalificaciones.findIndex(c => c.id_equipo === teamId && c.id_juez === judgeId && c.tipo === mision);
+                const mockCal = {
+                    id: row.id_doc || ('mock-cal-' + teamId),
+                    id_equipo: teamId,
+                    id_juez: judgeId,
+                    nombre_juez: judgeName,
+                    nombre_equipo: team.nombre_equipo || 'Cohete',
+                    nombre_cohete: team.nombre_cohete || 'Cohete',
+                    categoria: team.categoria || 'Exploradores',
+                    ronda: 1,
+                    tipo: mision,
+                    puntajes: {
+                        flight: Number(row.flight),
+                        design: Number(row.design),
+                        innovation: Number(row.innovation),
+                        sustentation: Number(row.sustentation)
+                    },
+                    distancia: flightDist,
+                    faltas: Number(row.penalties),
+                    descalificado: !!row.descalificado,
+                    tiempo_vuelo: flightTime,
+                    totalScore: Number(total),
+                    is_test: true,
+                    createdAt: { seconds: Math.floor(Date.now() / 1000) }
+                };
+                if (existingCalIdx >= 0) {
+                    Alpine.store('app').allCalificaciones[existingCalIdx] = mockCal;
+                } else {
+                    Alpine.store('app').allCalificaciones.push(mockCal);
+                }
+                Alpine.store('app').allCalificaciones = [...Alpine.store('app').allCalificaciones];
+                console.log("🧪 [VISTA DE PRUEBA] Fila autoguardada localmente:", team.nombre_equipo, "Puntaje:", total);
                 return;
             }
 
