@@ -1,2 +1,5 @@
 .vercel
 desktop.ini
+node_modules/
+test-results/
+results.json

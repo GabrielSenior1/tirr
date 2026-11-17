@@ -10,19 +10,22 @@ import { auth, db, rtdb, storage, signInWithEmailAndPassword, signOut, onAuthSta
 const SESSION_TIMEOUT_MS = 2 * 60 * 60 * 1000; // 2 horas
 
 function isSessionExpired() {
-    const lastActive = localStorage.getItem('tirr_last_active');
-    if (!lastActive) return true;
+    const lastActive = localStorage.getItem('tirr_last_active') || localStorage.getItem('zenith_last_active');
+    if (!lastActive) return false; // Sesión nueva o recién iniciada
     return (Date.now() - Number(lastActive)) > SESSION_TIMEOUT_MS;
 }
 
 function touchSession() {
-    localStorage.setItem('tirr_last_active', String(Date.now()));
+    const now = String(Date.now());
+    localStorage.setItem('tirr_last_active', now);
+    localStorage.setItem('zenith_last_active', now);
 }
 
 function clearSessionData() {
     localStorage.removeItem('misionSeleccionada');
     localStorage.removeItem('activeTab');
     localStorage.removeItem('tirr_last_active');
+    localStorage.removeItem('zenith_last_active');
     localStorage.removeItem('tirr_test_mode');
 }
 
@@ -260,14 +263,15 @@ function initTIRR() {
         },
 
         hideLoader() {
+            const delay = this.isTestMode ? 20 : 300;
             setTimeout(() => {
                 this.isLoadingInitial = false;
                 const loader = document.getElementById('loading-screen');
                 if (loader) {
                     loader.style.opacity = '0';
-                    setTimeout(() => { loader.style.display = 'none'; }, 400);
+                    setTimeout(() => { loader.style.display = 'none'; }, this.isTestMode ? 20 : 300);
                 }
-            }, 500);
+            }, delay);
         },
 
         hasAccess(module) {
@@ -342,17 +346,32 @@ function initTIRR() {
             this.loginLoading = true;
             this.loginError = null;
             try {
-                // Limpiar cache local de sesiones anteriores antes de autenticar
+                // Limpiar cache local de sesiones anteriores pero registrar timestamp activo
                 clearSessionData();
+                touchSession();
                 this.setMision(null);
                 localStorage.removeItem('activeTab');
 
-                await signInWithEmailAndPassword(auth, this.selectedLoginUser.email, this.loginPin);
+                const cred = await signInWithEmailAndPassword(auth, this.selectedLoginUser.email, this.loginPin);
+                this.user = cred.user;
+                this.isAuthenticated = true;
+                this.userRole = this.selectedLoginUser.role || 'ADMINISTRADOR';
                 touchSession();
+                this.subscribeTeams();
                 this.closeModal();
             } catch (error) {
                 console.error("Error login:", error);
-                this.loginError = 'PIN INCORRECTO';
+                if (error.code === 'auth/unauthorized-domain') {
+                    this.loginError = 'DOMINIO NO AUTORIZADO (USA http://localhost:3000)';
+                } else if (error.code === 'auth/user-not-found') {
+                    this.loginError = 'USUARIO NO REGISTRADO EN FIREBASE';
+                } else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                    this.loginError = 'PIN INCORRECTO';
+                } else if (error.code === 'auth/too-many-requests') {
+                    this.loginError = 'DEMASIADOS INTENTOS, ESPERA UN MOMENTO';
+                } else {
+                    this.loginError = 'ERROR: ' + (error.message || error.code || 'NO AUTORIZADO');
+                }
                 this.loginPin = '';
             } finally {
                 this.loginLoading = false;
