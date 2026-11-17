@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="dark" lang="es">
 
 <head>
@@ -20,7 +20,8 @@
         rel="stylesheet" />
 
     <script id="tailwind-config">
-        tailwind.config = {
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
@@ -123,6 +124,130 @@
             background: rgba(53, 53, 52, 0.4);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* User Selector Grid & Cards (Ultra-stable layout on all mobile & tablets) */
+        .user-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: 8px !important;
+            width: 100% !important;
+            max-width: 80rem !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+            margin-bottom: 1.5rem !important;
+            box-sizing: border-box !important;
+        }
+
+        @media (min-width: 640px) {
+            .user-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+                gap: 12px !important;
+                padding-left: 16px !important;
+                padding-right: 16px !important;
+                max-width: 44rem !important;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .user-grid {
+                grid-template-columns: repeat(9, minmax(0, 1fr)) !important;
+                max-width: 80rem !important;
+            }
+        }
+
+        .user-card {
+            background: rgba(22, 22, 22, 0.8) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 1.25rem !important;
+            padding: 14px 6px 12px 6px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+            box-sizing: border-box !important;
+            min-height: 105px !important;
+            width: 100% !important;
+        }
+
+        .user-card:hover {
+            transform: translateY(-2px) !important;
+            border-color: rgba(255, 255, 255, 0.25) !important;
+            background: rgba(32, 32, 32, 0.9) !important;
+        }
+
+        .user-card:active {
+            transform: scale(0.97) !important;
+        }
+
+        .user-avatar-circle {
+            width: 44px !important;
+            height: 44px !important;
+            min-width: 44px !important;
+            min-height: 44px !important;
+            max-width: 44px !important;
+            max-height: 44px !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin-bottom: 8px !important;
+            flex-shrink: 0 !important;
+            position: relative !important;
+            z-index: 2 !important;
+            box-sizing: border-box !important;
+        }
+
+        .user-role-text {
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-size: 10px !important;
+            font-weight: 800 !important;
+            color: #ffffff !important;
+            text-align: center !important;
+            letter-spacing: -0.01em !important;
+            width: 100% !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+            line-height: 1.2 !important;
+            margin: 0 0 2px 0 !important;
+        }
+
+        @media (min-width: 640px) {
+            .user-role-text {
+                font-size: 11px !important;
+            }
+        }
+
+        .user-name-text {
+            font-family: 'Manrope', sans-serif !important;
+            font-size: 8px !important;
+            font-weight: 700 !important;
+            color: #e8bcb5 !important;
+            text-align: center !important;
+            letter-spacing: 0.08em !important;
+            text-transform: uppercase !important;
+            width: 100% !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+            line-height: 1.2 !important;
+            margin: 0 !important;
+            opacity: 0.85 !important;
+        }
+
+        @media (min-width: 640px) {
+            .user-name-text {
+                font-size: 9px !important;
+            }
         }
 
         .kinetic-glow:hover {
@@ -302,40 +427,32 @@
                 <div class="h-1 w-20 bg-gradient-to-r from-primary to-transparent mx-auto mt-3"></div>
             </div>
 
-            <div
-                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-2 md:gap-3 max-w-7xl w-full relative z-10 px-3 sm:px-4 mb-6">
+            <div class="user-grid relative z-10">
                 <template :key="user.email + (user.photoURL || 'none')" x-for="user in $store.app.systemUsers">
                     <div @click="openLoginForm(user)"
-                        class="bg-black/40 border border-white/10 p-3 md:p-4 rounded-[2rem] flex flex-col items-center justify-center cursor-pointer transition-all duration-500 hover:-translate-y-1 group backdrop-blur-sm relative overflow-hidden"
+                        class="user-card group"
                         :data-role="user.role">
 
-                        <!-- Glow effect matching user color -->
+                        <!-- Ambient background light matching user color -->
                         <div :style="'background: ' + user.hex"
-                            class="absolute -top-10 -right-10 w-20 h-20 blur-2xl opacity-10 group-hover:opacity-20 transition-opacity">
+                            class="absolute -top-10 -right-10 w-20 h-20 blur-2xl opacity-15 pointer-events-none group-hover:opacity-30 transition-opacity">
                         </div>
 
-                        <div class="relative mb-3 sm:mb-4">
-                            <div :style="'border-color: ' + user.hex"
-                                class="absolute inset-[-6px] sm:inset-[-8px] rounded-full border-2 border-dashed opacity-15 group-hover:opacity-60 group-hover:rotate-90 transition-all duration-1000">
-                            </div>
-                            <div :style="'border-color: ' + user.hex"
-                                class="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full border-2 p-1 flex items-center justify-center relative z-10 shadow-xl transition-transform duration-500 group-hover:scale-110">
-                                <template x-if="user.photoURL">
-                                    <img :src="user.photoURL" class="w-full h-full object-cover rounded-full">
-                                </template>
-                                <template x-if="!user.photoURL">
-                                    <div :style="'background-color: ' + user.hex"
-                                        class="w-full h-full rounded-full flex items-center justify-center text-base sm:text-lg md:text-xl font-black headline text-black">
-                                        <span class="material-symbols-outlined text-[18px] sm:text-[22px]"
-                                            x-text="user.role.includes('CRONOMETRISTA') ? 'timer' : user.role.includes('PRUEBA') ? 'science' : user.role.includes('AUXILIAR') ? 'engineering' : user.role.includes('ADMIN') ? 'admin_panel_settings' : 'gavel'"></span>
-                                    </div>
-                                </template>
-                            </div>
+                        <!-- Fixed Avatar Circle (Immune to WebKit stretching) -->
+                        <div class="user-avatar-circle"
+                            :style="'background-color: ' + user.hex + '; box-shadow: 0 4px 14px ' + user.hex + '50;'">
+                            <template x-if="user.photoURL">
+                                <img :src="user.photoURL" class="w-full h-full object-cover rounded-full">
+                            </template>
+                            <template x-if="!user.photoURL">
+                                <span class="material-symbols-outlined text-black font-black select-none text-[22px]"
+                                    x-text="user.role.includes('CRONOMETRISTA') ? 'timer' : user.role.includes('PRUEBA') ? 'science' : user.role.includes('AUXILIAR') ? 'engineering' : user.role.includes('ADMIN') ? 'admin_panel_settings' : 'gavel'"></span>
+                            </template>
                         </div>
-                        <h3 class="text-[10px] sm:text-[11px] md:text-xs font-black headline mb-0.5 tracking-tight text-white text-center break-words line-clamp-1 w-full"
-                            x-text="user.role"></h3>
-                        <p class="text-[8px] md:text-[9px] font-black tracking-[0.1em] text-peach uppercase font-body text-center truncate w-full"
-                            x-text="user.name"></p>
+
+                        <!-- Role & Name Labels -->
+                        <h3 class="user-role-text" x-text="user.role"></h3>
+                        <p class="user-name-text" x-text="user.name"></p>
                     </div>
                 </template>
             </div>
@@ -499,89 +616,93 @@
             </div>
 
             <!-- Modal Login -->
-            <div class="fixed inset-0 z-[6000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-                x-show="localShowLogin" x-cloak x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
+                <div class="fixed inset-0 z-[6000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+                    x-show="localShowLogin" x-cloak x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
 
-                <div @click.away="localShowLogin = false"
-                    class="bg-[#1a1a1a]/95 backdrop-blur-md w-full max-w-md rounded-[3rem] p-12 relative border border-white/10 shadow-xl">
-                    <button @click="localShowLogin = false"
-                        class="absolute top-8 right-8 text-gray-500 hover:text-white transition-colors">
-                        <span class="material-symbols-outlined">close</span>
-                    </button>
+                    <div @click.away="localShowLogin = false"
+                        class="bg-[#1a1a1a]/95 backdrop-blur-md w-full max-w-md rounded-[3rem] p-12 relative border border-white/10 shadow-xl">
+                        <button @click="localShowLogin = false"
+                            class="absolute top-8 right-8 text-gray-500 hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
 
-                    <div class="text-center">
-                        <div class="relative inline-block mb-8">
-                            <div :style="'border-color: ' + localUser?.hex"
-                                class="absolute inset-[-6px] rounded-full border-2 border-dashed opacity-40"></div>
-                            <div :style="'background-color: ' + localUser?.hex"
-                                class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-black headline text-black relative z-10 shadow-xl overflow-hidden">
-                                <template x-if="localUser?.photoURL">
-                                    <img :src="localUser?.photoURL" class="w-full h-full object-cover">
-                                </template>
-                                <template x-if="!localUser?.photoURL">
-                                    <span class="material-symbols-outlined text-[40px]"
-                                        x-text="localUser?.role.includes('CRONOMETRISTA') ? 'timer' : localUser?.role.includes('PRUEBA') ? 'science' : localUser?.role.includes('AUXILIAR') ? 'engineering' : localUser?.role.includes('ADMIN') ? 'admin_panel_settings' : 'gavel'"></span>
-                                </template>
-                            </div>
-                        </div>
-                        <h2 class="text-3xl font-black headline text-white tracking-tighter" x-text="localUser?.role">
-                        </h2>
-                        <p class="text-peach text-xs font-bold tracking-[0.2em] mt-2 uppercase"
-                            x-text="localUser?.name"></p>
-
-                        <!-- FORMULARIO DIRECTO PARA VISTA DE PRUEBA (SIN PIN OBLIGATORIO) -->
-                        <template
-                            x-if="localUser?.role === 'VISTA DE PRUEBA' || localUser?.email === 'prueba@tirr.com'">
-                            <div class="mt-8 space-y-4">
-                                <div class="bg-purple-900/30 border border-purple-500/40 rounded-2xl p-5 text-center">
-                                    <span
-                                        class="material-symbols-outlined text-purple-400 text-3xl mb-1">smart_toy</span>
-                                    <h4 class="text-white font-bold headline text-sm uppercase">Perfil de Prueba y
-                                        Auditoría IA</h4>
-                                    <p class="text-[11px] text-purple-200/80 mt-1 leading-relaxed">
-                                        Acceso irrestricto para personas externas y modelos de IA que deseen revisar o
-                                        probar la plataforma de forma segura. No requiere PIN.
-                                    </p>
+                        <div class="text-center">
+                            <div class="relative inline-block mb-8">
+                                <div :style="'border-color: ' + localUser?.hex"
+                                    class="absolute inset-[-6px] rounded-full border-2 border-dashed opacity-40"></div>
+                                <div :style="'background-color: ' + localUser?.hex"
+                                    class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-black headline text-black relative z-10 shadow-xl overflow-hidden">
+                                    <template x-if="localUser?.photoURL">
+                                        <img :src="localUser?.photoURL" class="w-full h-full object-cover">
+                                    </template>
+                                    <template x-if="!localUser?.photoURL">
+                                        <span class="material-symbols-outlined text-[40px]"
+                                            x-text="localUser?.role.includes('CRONOMETRISTA') ? 'timer' : localUser?.role.includes('PRUEBA') ? 'science' : localUser?.role.includes('AUXILIAR') ? 'engineering' : localUser?.role.includes('ADMIN') ? 'admin_panel_settings' : 'gavel'"></span>
+                                    </template>
                                 </div>
-                                <button @click="$store.app.loginAsVistaPrueba(); localShowLogin = false"
-                                    class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black headline py-4 rounded-2xl transition-all shadow-[0_0_25px_rgba(168,85,247,0.4)] tracking-widest text-xs uppercase flex items-center justify-center gap-2 cursor-pointer">
-                                    <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
-                                    INGRESAR A VISTA DE PRUEBA
-                                </button>
                             </div>
-                        </template>
+                            <h2 class="text-3xl font-black headline text-white tracking-tighter"
+                                x-text="localUser?.role">
+                            </h2>
+                            <p class="text-peach text-xs font-bold tracking-[0.2em] mt-2 uppercase"
+                                x-text="localUser?.name"></p>
 
-                        <!-- FORMULARIO ESTÁNDAR CON PIN PARA OTROS USUARIOS -->
-                        <template
-                            x-if="localUser?.role !== 'VISTA DE PRUEBA' && localUser?.email !== 'prueba@tirr.com'">
-                            <div class="mt-12 space-y-6">
-                                <div class="relative group">
-                                    <input x-model="localPin" @keyup.enter="doLogin()"
-                                        class="w-full bg-white/5 border-b-2 border-white/10 rounded-2xl px-6 py-6 text-center text-4xl tracking-[0.5em] headline text-white focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all placeholder:text-gray-800 placeholder:tracking-normal placeholder:text-sm"
-                                        placeholder="PIN ACCESO" type="password" autofocus>
-                                </div>
-
-                                <div x-show="localError"
-                                    class="text-primary text-[10px] font-black uppercase tracking-widest bg-primary/10 py-3 rounded-xl border border-primary/20"
-                                    x-text="localError"></div>
-
-                                <button @click="doLogin()" :disabled="localLoading"
-                                    class="w-full relative group overflow-hidden bg-white text-black font-black headline py-5 rounded-2xl transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.15)] disabled:opacity-50">
-                                    <span class="relative z-10 tracking-widest text-xs" x-show="!localLoading">INGRESAR
-                                        A
-                                        TERMINAL</span>
-                                    <span x-show="localLoading"
-                                        class="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin mx-auto relative z-10"></span>
+                            <!-- FORMULARIO DIRECTO PARA VISTA DE PRUEBA (SIN PIN OBLIGATORIO) -->
+                            <template
+                                x-if="localUser?.role === 'VISTA DE PRUEBA' || localUser?.email === 'prueba@tirr.com'">
+                                <div class="mt-8 space-y-4">
                                     <div
-                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000">
+                                        class="bg-purple-900/30 border border-purple-500/40 rounded-2xl p-5 text-center">
+                                        <span
+                                            class="material-symbols-outlined text-purple-400 text-3xl mb-1">smart_toy</span>
+                                        <h4 class="text-white font-bold headline text-sm uppercase">Perfil de Prueba y
+                                            Auditoría IA</h4>
+                                        <p class="text-[11px] text-purple-200/80 mt-1 leading-relaxed">
+                                            Acceso irrestricto para personas externas y modelos de IA que deseen revisar
+                                            o
+                                            probar la plataforma de forma segura. No requiere PIN.
+                                        </p>
                                     </div>
-                                </button>
-                            </div>
-                        </template>
+                                    <button @click="$store.app.loginAsVistaPrueba(); localShowLogin = false"
+                                        class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black headline py-4 rounded-2xl transition-all shadow-[0_0_25px_rgba(168,85,247,0.4)] tracking-widest text-xs uppercase flex items-center justify-center gap-2 cursor-pointer">
+                                        <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+                                        INGRESAR A VISTA DE PRUEBA
+                                    </button>
+                                </div>
+                            </template>
+
+                            <!-- FORMULARIO ESTÁNDAR CON PIN PARA OTROS USUARIOS -->
+                            <template
+                                x-if="localUser?.role !== 'VISTA DE PRUEBA' && localUser?.email !== 'prueba@tirr.com'">
+                                <div class="mt-12 space-y-6">
+                                    <div class="relative group">
+                                        <input x-model="localPin" @keyup.enter="doLogin()"
+                                            class="w-full bg-white/5 border-b-2 border-white/10 rounded-2xl px-6 py-6 text-center text-4xl tracking-[0.5em] headline text-white focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all placeholder:text-gray-800 placeholder:tracking-normal placeholder:text-sm"
+                                            placeholder="PIN ACCESO" type="password" autofocus>
+                                    </div>
+
+                                    <div x-show="localError"
+                                        class="text-primary text-[10px] font-black uppercase tracking-widest bg-primary/10 py-3 rounded-xl border border-primary/20"
+                                        x-text="localError"></div>
+
+                                    <button @click="doLogin()" :disabled="localLoading"
+                                        class="w-full relative group overflow-hidden bg-white text-black font-black headline py-5 rounded-2xl transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.15)] disabled:opacity-50">
+                                        <span class="relative z-10 tracking-widest text-xs"
+                                            x-show="!localLoading">INGRESAR
+                                            A
+                                            TERMINAL</span>
+                                        <span x-show="localLoading"
+                                            class="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin mx-auto relative z-10"></span>
+                                        <div
+                                            class="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000">
+                                        </div>
+                                    </button>
+                                </div>
+                            </template>
+                        </div>
                     </div>
                 </div>
-            </div>
 
 
 
@@ -733,7 +854,8 @@
                 <div class="mb-10 px-2 flex justify-between items-center">
                     <div>
                         <span class="text-2xl font-bold tracking-tighter text-[#D30000] font-headline">ZENITH</span>
-                        <p class="text-[10px] uppercase tracking-widest text-[#FF6B00] font-body mt-1">Torneo de Cohetes</p>
+                        <p class="text-[10px] uppercase tracking-widest text-[#FF6B00] font-body mt-1">Torneo de Cohetes
+                        </p>
                     </div>
                     <label class="lg:hidden text-gray-400 cursor-pointer" for="mobile-menu-checkbox">
                         <span class="material-symbols-outlined" data-icon="close">close</span>
