@@ -756,54 +756,82 @@ function initTIRR() {
             }
         },
 
-        loadSampleTeams() {
-            this.teams = [
-                {
-                    id: 'test-team-01',
-                    numero_registro: '01',
-                    nombre_equipo: 'Apolo Robotics',
-                    nombre_cohete: 'Saturno-V',
-                    categoria: 'Colegio',
-                    peso_cohete: 280,
-                    altura_cohete: 55,
-                    diametro_cohete: 8.5,
-                    miembros: ['Ana Torres', 'Carlos Pérez'],
-                    tiempo_vuelo_cronometro: 14520,
-                    distancia_cronometro: 42.5,
-                    foto_evidencia: 'js/public/Patricinadores/Robokids.png',
-                    is_test: true
-                },
-                {
-                    id: 'test-team-02',
-                    numero_registro: '02',
-                    nombre_equipo: 'CyberNova Tech',
-                    nombre_cohete: 'Vanguard Alpha',
-                    categoria: 'Universidad',
-                    peso_cohete: 340,
-                    altura_cohete: 65,
-                    diametro_cohete: 10,
-                    miembros: ['Lucía Gómez', 'David Ruiz'],
-                    tiempo_vuelo_cronometro: 19800,
-                    distancia_cronometro: 61.2,
-                    foto_evidencia: 'js/public/Patricinadores/Arcas.jpeg',
-                    is_test: true
-                },
-                {
-                    id: 'test-team-03',
-                    numero_registro: '03',
-                    nombre_equipo: 'Quantum Pioneers',
-                    nombre_cohete: 'Cosmos IX',
-                    categoria: 'Colegio',
-                    peso_cohete: 390,
-                    altura_cohete: 72,
-                    diametro_cohete: 12,
-                    miembros: ['Santiago Mendoza', 'Elena Vargas'],
-                    tiempo_vuelo_cronometro: 24300,
-                    distancia_cronometro: 85.0,
-                    foto_evidencia: 'js/public/Patricinadores/Tesum.png',
-                    is_test: true
+        // ── Catálogo Oficial de los 34 Equipos del Torneo TIRR ─────────────
+        officialTeamsCatalog: [
+            { id: 'equipo_01', numero_registro: '01', nombre_cohete: 'NEPTURION X', nombre_equipo: 'AQUASTRA', categoria: 'Colegio', institucion: 'Bureche School', peso_cohete: 250, altura_cohete: 50, diametro_cohete: 8.5, miembros: [] },
+            { id: 'equipo_02', numero_registro: '02', nombre_cohete: 'HELIOS PRIME', nombre_equipo: 'ASTRA NOVA', categoria: 'Colegio', institucion: 'Bureche School', peso_cohete: 250, altura_cohete: 50, diametro_cohete: 8.5, miembros: [] },
+            { id: 'equipo_03', numero_registro: '03', nombre_cohete: 'TITAN VORTEX', nombre_equipo: 'HYDROX', categoria: 'Colegio', institucion: 'Bureche School', peso_cohete: 250, altura_cohete: 50, diametro_cohete: 8.5, miembros: [] },
+            { id: 'equipo_04', numero_registro: '04', nombre_cohete: 'Cohete Laika', nombre_equipo: 'Equipo Laika', categoria: 'Colegio', institucion: 'Colegio Nuestra Señora De Fátima', peso_cohete: 250, altura_cohete: 50, diametro_cohete: 8.5, miembros: [] },
+            { id: 'equipo_05', numero_registro: '05', nombre_cohete: 'Optimus Prime', nombre_equipo: 'Optimus Prime', categoria: 'Colegio', institucion: 'Colegio Nuestra Señora De Fátima', peso_cohete: 250, altura_cohete: 50, diametro_cohete: 8.5, miembros: [] },
+            { id: 'equipo_06', numero_registro: '06', nombre_cohete: 'Apolo 11', nombre_equipo: 'Apolo 11', categoria: 'Colegio', institucion: 'Colegio Nuestra Señora De Fátima', peso_cohete: 250, altura_cohete: 50, diametro_cohete: 8.5, miembros: [] },
+            { id: 'equipo_07', numero_registro: '07', nombre_cohete: 'Artemis', nombre_equipo: 'Artemis', categoria: 'Colegio', institucion: 'Colegio Nuestra Señora De Fátima', peso_cohete: 250, altura_cohete: 50, diametro_cohete: 8.5, miembros: [] },
+            { id: 'equipo_08', numero_registro: '08', nombre_cohete: 'Apolo 12', nombre_equipo: 'Semillero Sumador', categoria: 'Colegio', institucion: 'Colegio Elisa Diazgranados', peso_cohete: 250, altura_cohete: 50, diametro_cohete: 8.5, miembros: [] },
+            { id: 'equipo_09', numero_registro: '09', nombre_cohete: 'Spark 2', nombre_equipo: 'Semillero Sumador', categoria: 'Colegio', institucion: 'Colegio Diocesano San José', peso_cohete: 250, altura_cohete: 50, diametro_cohete: 8.5, miembros: [] },
+            { id: 'equipo_10', numero_registro: '10', nombre_cohete: 'Fénix Solaris', nombre_equipo: 'Fénix Solaris', categoria: 'Colegio', institucion: 'Instituto educativo para el desarrollo integral “IEDI”', peso_cohete: 250, altura_cohete: 50, diametro_cohete: 8.5, miembros: [] },
+            { id: 'equipo_11', numero_registro: '11', nombre_cohete: 'BABY NUKE', nombre_equipo: 'BABY NUKE', categoria: 'Colegio', institucion: 'Colegio Diocesano San José', peso_cohete: 250, altura_cohete: 50, diametro_cohete: 8.5, miembros: [] },
+            { id: 'equipo_12', numero_registro: '12', nombre_cohete: 'ECO-SIRIO', nombre_equipo: 'ECO-SIRIO', categoria: 'Universidad', institucion: 'Universidad Sergio Arboleda (Sede Santa Marta)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_13', numero_registro: '13', nombre_cohete: 'Machu Picchu', nombre_equipo: 'Machu Picchu', categoria: 'Universidad', institucion: 'Universidad Sergio Arboleda (Sede Santa Marta)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_14', numero_registro: '14', nombre_cohete: 'El capataz taganguero', nombre_equipo: 'El capataz', categoria: 'Universidad', institucion: 'Institución Universitaria de Santa Marta (USM)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_15', numero_registro: '15', nombre_cohete: 'Halley', nombre_equipo: 'Cohete Halley', categoria: 'Universidad', institucion: 'Universidad Sergio Arboleda (Sede Santa Marta)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_16', numero_registro: '16', nombre_cohete: 'Aetheria 20.3', nombre_equipo: 'Terranova', categoria: 'Universidad', institucion: 'Universidad Sergio Arboleda (Sede Santa Marta)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_17', numero_registro: '17', nombre_cohete: 'El tumbatecho', nombre_equipo: 'El tumbatechos', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_18', numero_registro: '18', nombre_cohete: 'Shooting star', nombre_equipo: 'Astralis', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_19', numero_registro: '19', nombre_cohete: 'Apolo 3', nombre_equipo: 'Órbita verde', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_20', numero_registro: '20', nombre_cohete: 'Orbix Zero', nombre_equipo: 'S.N.G.S', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_21', numero_registro: '21', nombre_cohete: 'Vector X', nombre_equipo: 'ORBITRION', categoria: 'Universidad', institucion: 'Universidad Sergio Arboleda (Sede Santa Marta)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_22', numero_registro: '22', nombre_cohete: 'EXCELSIOR X', nombre_equipo: 'EXCÉLSIOR X', categoria: 'Universidad', institucion: 'Universidad Sergio Arboleda (Sede Santa Marta)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_23', numero_registro: '23', nombre_cohete: 'Electropatines', nombre_equipo: 'AESS UNIMAGDALENA', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_24', numero_registro: '24', nombre_cohete: 'El Token', nombre_equipo: 'Los polillones', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_25', numero_registro: '25', nombre_cohete: 'The Endurance', nombre_equipo: 'The endurance', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_26', numero_registro: '26', nombre_cohete: 'Quintus', nombre_equipo: 'Quinto elemento', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_27', numero_registro: '27', nombre_cohete: 'Electropatín', nombre_equipo: 'AESS UNIMAGDALENA', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_28', numero_registro: '28', nombre_cohete: 'TerraNova 2.0', nombre_equipo: 'Gtstars', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_29', numero_registro: '29', nombre_cohete: 'Ninguno', nombre_equipo: 'Astroponis', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_30', numero_registro: '30', nombre_cohete: 'AURA', nombre_equipo: 'Súper stars', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_31', numero_registro: '31', nombre_cohete: 'Ecorbit', nombre_equipo: 'Tahirianos', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_32', numero_registro: '32', nombre_cohete: 'El Maestro', nombre_equipo: 'SIPCET', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_33', numero_registro: '33', nombre_cohete: 'flying cat', nombre_equipo: 'Alt+ Tend', categoria: 'Universidad', institucion: 'Universidad del Magdalena (UNIMAGDALENA)', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] },
+            { id: 'equipo_34', numero_registro: '34', nombre_cohete: 'Apolo', nombre_equipo: 'Apolo', categoria: 'Universidad', institucion: 'Universidad Sergio Arboleda', peso_cohete: 300, altura_cohete: 55, diametro_cohete: 9.0, miembros: [] }
+        ],
+
+        // Sincronizar / Sembrar equipos oficiales directamente en la colección 'equipos' de Firestore
+        async syncOfficialTeamsToFirestore() {
+            if (this.isTestMode || this.isGuest) return;
+            try {
+                for (const team of this.officialTeamsCatalog) {
+                    await setDoc(doc(db, 'equipos', team.id), {
+                        numero_registro: team.numero_registro,
+                        nombre_equipo: team.nombre_equipo,
+                        nombre_cohete: team.nombre_cohete,
+                        categoria: team.categoria,
+                        institucion: team.institucion,
+                        peso_cohete: team.peso_cohete || 250,
+                        altura_cohete: team.altura_cohete || 50,
+                        diametro_cohete: team.diametro_cohete || 8.5,
+                        presion_psi: 60,
+                        tiempo_vuelo_cronometro: 0,
+                        distancia_cronometro: 0,
+                        fallo_lanzamiento: 0,
+                        miembros: team.miembros || [],
+                        createdAt: serverTimestamp()
+                    }, { merge: true });
                 }
-            ];
+                alert('✅ Los 34 equipos oficiales fueron sincronizados exitosamente en la colección "equipos" de Firestore.');
+            } catch (err) {
+                console.error("Error sincronizando equipos en Firestore:", err);
+                alert('❌ Error al sincronizar equipos: ' + err.message);
+            }
+        },
+
+        loadSampleTeams() {
+            this.teams = this.officialTeamsCatalog.map((t, idx) => ({
+                ...t,
+                tiempo_vuelo_cronometro: idx === 0 ? 14520 : idx === 1 ? 19800 : idx === 2 ? 24300 : 0,
+                distancia_cronometro: idx === 0 ? 42.5 : idx === 1 ? 61.2 : idx === 2 ? 85.0 : 0,
+                fallo_lanzamiento: 0,
+                foto_evidencia: null,
+                is_test: true
+            }));
         },
 
         loadSampleCalificaciones() {
@@ -811,11 +839,11 @@ function initTIRR() {
                 // ── Misión 1: Lanzamiento Vertical ──
                 {
                     id: 'test-cal-01',
-                    id_equipo: 'test-team-01',
+                    id_equipo: 'equipo_01',
                     id_juez: 'jurado1@tirr.com',
                     nombre_juez: 'Jurado 1',
-                    nombre_equipo: 'Apolo Robotics',
-                    nombre_cohete: 'Saturno-V',
+                    nombre_equipo: 'AQUASTRA',
+                    nombre_cohete: 'NEPTURION X',
                     categoria: 'Colegio',
                     ronda: 1,
                     tipo: 'Lanzamiento Vertical',
@@ -829,11 +857,11 @@ function initTIRR() {
                 },
                 {
                     id: 'test-cal-02',
-                    id_equipo: 'test-team-02',
+                    id_equipo: 'equipo_12',
                     id_juez: 'jurado1@tirr.com',
                     nombre_juez: 'Jurado 1',
-                    nombre_equipo: 'CyberNova Tech',
-                    nombre_cohete: 'Vanguard Alpha',
+                    nombre_equipo: 'ECO-SIRIO',
+                    nombre_cohete: 'ECO-SIRIO',
                     categoria: 'Universidad',
                     ronda: 1,
                     tipo: 'Lanzamiento Vertical',
@@ -847,11 +875,11 @@ function initTIRR() {
                 },
                 {
                     id: 'test-cal-03',
-                    id_equipo: 'test-team-03',
+                    id_equipo: 'equipo_02',
                     id_juez: 'jurado1@tirr.com',
                     nombre_juez: 'Jurado 1',
-                    nombre_equipo: 'Quantum Pioneers',
-                    nombre_cohete: 'Cosmos IX',
+                    nombre_equipo: 'ASTRA NOVA',
+                    nombre_cohete: 'HELIOS PRIME',
                     categoria: 'Colegio',
                     ronda: 1,
                     tipo: 'Lanzamiento Vertical',
@@ -863,14 +891,14 @@ function initTIRR() {
                     totalScore: 99,
                     is_test: true
                 },
-                // ── Misión 2: Tiro Parabólico (Para podio y resultados combinados) ──
+                // ── Misión 2: Tiro Parabólico ──
                 {
                     id: 'test-cal-04',
-                    id_equipo: 'test-team-01',
+                    id_equipo: 'equipo_01',
                     id_juez: 'jurado1@tirr.com',
                     nombre_juez: 'Jurado 1',
-                    nombre_equipo: 'Apolo Robotics',
-                    nombre_cohete: 'Saturno-V',
+                    nombre_equipo: 'AQUASTRA',
+                    nombre_cohete: 'NEPTURION X',
                     categoria: 'Colegio',
                     ronda: 1,
                     tipo: 'Tiro Parabólico',
@@ -884,11 +912,11 @@ function initTIRR() {
                 },
                 {
                     id: 'test-cal-05',
-                    id_equipo: 'test-team-02',
+                    id_equipo: 'equipo_12',
                     id_juez: 'jurado1@tirr.com',
                     nombre_juez: 'Jurado 1',
-                    nombre_equipo: 'CyberNova Tech',
-                    nombre_cohete: 'Vanguard Alpha',
+                    nombre_equipo: 'ECO-SIRIO',
+                    nombre_cohete: 'ECO-SIRIO',
                     categoria: 'Universidad',
                     ronda: 1,
                     tipo: 'Tiro Parabólico',
@@ -902,11 +930,11 @@ function initTIRR() {
                 },
                 {
                     id: 'test-cal-06',
-                    id_equipo: 'test-team-03',
+                    id_equipo: 'equipo_02',
                     id_juez: 'jurado1@tirr.com',
                     nombre_juez: 'Jurado 1',
-                    nombre_equipo: 'Quantum Pioneers',
-                    nombre_cohete: 'Cosmos IX',
+                    nombre_equipo: 'ASTRA NOVA',
+                    nombre_cohete: 'HELIOS PRIME',
                     categoria: 'Colegio',
                     ronda: 1,
                     tipo: 'Tiro Parabólico',
@@ -936,6 +964,15 @@ function initTIRR() {
             onSnapshot(q, (snap) => {
                 let list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
 
+                // Si Firestore está vacía en este momento, mostrar el catálogo oficial como base inmediata
+                if (list.length === 0) {
+                    list = this.officialTeamsCatalog.map(t => ({ ...t }));
+                    // Si el usuario es administrador, auto-sincronizar a Firestore en segundo plano
+                    if (this.userRole === 'ADMINISTRADOR') {
+                        this.syncOfficialTeamsToFirestore();
+                    }
+                }
+
                 // Ordenar numéricamente por número de registro o fecha
                 list.sort((a, b) => {
                     const numA = parseInt(a.numero_registro || 9999, 10);
@@ -949,6 +986,9 @@ function initTIRR() {
                 this.teams = list;
             }, (err) => {
                 console.warn("Firestore snapshot error (equipos):", err);
+                if (this.teams.length === 0) {
+                    this.teams = this.officialTeamsCatalog.map(t => ({ ...t }));
+                }
             });
 
             // Suscribirse a calificaciones globalmente para estados y badges
@@ -2129,9 +2169,7 @@ function initTIRR() {
                 return alert('Por favor, completa el nombre del equipo y el nombre del cohete.');
             }
 
-            if (!Alpine.store('app').isTestMode && !this.fotoFile) {
-                return alert('Por favor, sube una foto de evidencia.');
-            }
+            // Si no se adjunta foto, se usará una imagen predeterminada automáticamente.
 
             // BUG-02: Exigir las tres medidas antes de registrar (tanto en modo normal como en modo prueba)
             if (this.form.peso_cohete === '' || this.form.peso_cohete === null || this.form.peso_cohete === undefined ||
@@ -2186,11 +2224,13 @@ function initTIRR() {
             this.isSubmitting = true;
 
             try {
-                const storagePath = `evidencias_cohetes/${Date.now()}_${this.fotoFile.name}`;
-                const fileRef = storageRef(storage, storagePath);
-
-                const uploadResult = await uploadBytes(fileRef, this.fotoFile);
-                const downloadURL = await getDownloadURL(uploadResult.ref);
+                let downloadURL = 'js/public/Patricinadores/Robokids.png';
+                if (this.fotoFile) {
+                    const storagePath = `evidencias_cohetes/${Date.now()}_${this.fotoFile.name}`;
+                    const fileRef = storageRef(storage, storagePath);
+                    const uploadResult = await uploadBytes(fileRef, this.fotoFile);
+                    downloadURL = await getDownloadURL(uploadResult.ref);
+                }
 
                 await addDoc(collection(db, 'equipos'), {
                     ...this.form,
