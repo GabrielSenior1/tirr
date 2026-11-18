@@ -2,9 +2,11 @@
 // TIRR SCORING PLATFORM - Logic Controllers (Alpine.js Components)
 // ============================================================
 
-import { auth, db, rtdb, storage, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile,
-         collection, onSnapshot, query, orderBy, where, addDoc, doc, getDoc, getDocs, updateDoc, setDoc, deleteDoc,
-         ref, set, onValue, update, storageRef, uploadBytes, getDownloadURL, serverTimestamp } from './firebase-config.js';
+import {
+    auth, db, rtdb, storage, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile,
+    collection, onSnapshot, query, orderBy, where, addDoc, doc, getDoc, getDocs, updateDoc, setDoc, deleteDoc,
+    ref, set, onValue, update, storageRef, uploadBytes, getDownloadURL, serverTimestamp
+} from './firebase-config.js';
 
 // ── Control de Expiración de Sesión (2 Horas de Inactividad) ─
 const SESSION_TIMEOUT_MS = 2 * 60 * 60 * 1000; // 2 horas
@@ -145,9 +147,9 @@ function initTIRR() {
                 this.isTestMode = true;
                 this.isAuthenticated = true;
                 this.userRole = 'VISTA DE PRUEBA';
-                this.user = { 
-                    uid: 'tirr-test-user-vp', 
-                    email: 'prueba@tirr.com', 
+                this.user = {
+                    uid: 'tirr-test-user-vp',
+                    email: 'prueba@tirr.com',
                     displayName: 'Vista de Prueba',
                     initial: 'VP',
                     photoURL: null
@@ -167,9 +169,9 @@ function initTIRR() {
                 this.isTestMode = false;
                 this.isAuthenticated = true;
                 this.userRole = 'VISTA CRONOMETRO';
-                this.user = { 
-                    uid: 'tirr-vista-cronometro-user', 
-                    email: 'vistacronometro@tirr.com', 
+                this.user = {
+                    uid: 'tirr-vista-cronometro-user',
+                    email: 'vistacronometro@tirr.com',
                     displayName: 'Vista Cronómetro',
                     initial: 'VC',
                     photoURL: null
@@ -187,7 +189,7 @@ function initTIRR() {
                 this.misionSeleccionada = null;
                 try {
                     await signOut(auth);
-                } catch(e) { /* ignore */ }
+                } catch (e) { /* ignore */ }
             } else {
                 this.misionSeleccionada = localStorage.getItem('misionSeleccionada') || null;
                 touchSession();
@@ -202,7 +204,7 @@ function initTIRR() {
                 this.systemUsers = this.systemUsers.map(staticUser => {
                     const dynamicUser = liveUsers.find(u => u.email && u.email.toLowerCase() === staticUser.email.toLowerCase());
                     let merged = dynamicUser ? { ...staticUser, ...dynamicUser } : staticUser;
-                    
+
                     // Corrección explícita: Perfil Jurado 1 debe ser J1 (no J.E.D.)
                     if (merged.email.toLowerCase() === 'jurado1@tirr.com') {
                         merged.initial = 'J1';
@@ -429,7 +431,7 @@ function initTIRR() {
 
                 try {
                     await signOut(auth);
-                } catch(e) { /* ignore */ }
+                } catch (e) { /* ignore */ }
 
                 window.location.reload();
             } catch (error) {
@@ -443,7 +445,7 @@ function initTIRR() {
             // Asegurar que no quede usuario anterior en Firebase Auth
             try {
                 await signOut(auth);
-            } catch(e) { /* ignore */ }
+            } catch (e) { /* ignore */ }
 
             clearSessionData();
             this.isGuest = true;
@@ -464,16 +466,16 @@ function initTIRR() {
             console.log("🧪 Ingresando como Vista de Prueba (Modo Funcional / Auditoría IA)...");
             try {
                 await signOut(auth);
-            } catch(e) { /* ignore */ }
+            } catch (e) { /* ignore */ }
 
             clearSessionData();
             this.isGuest = false;
             this.isTestMode = true;
             this.isAuthenticated = true;
             this.userRole = 'VISTA DE PRUEBA';
-            this.user = { 
-                uid: 'tirr-test-user-vp', 
-                email: 'prueba@tirr.com', 
+            this.user = {
+                uid: 'tirr-test-user-vp',
+                email: 'prueba@tirr.com',
                 displayName: 'Vista de Prueba',
                 initial: 'VP',
                 photoURL: null
@@ -494,16 +496,16 @@ function initTIRR() {
             console.log("⏱️ Ingresando como Vista Cronómetro (Monitoreo de Telemetría)...");
             try {
                 await signOut(auth);
-            } catch(e) { /* ignore */ }
+            } catch (e) { /* ignore */ }
 
             clearSessionData();
             this.isGuest = false;
             this.isTestMode = false;
             this.isAuthenticated = true;
             this.userRole = 'VISTA CRONOMETRO';
-            this.user = { 
-                uid: 'tirr-vista-cronometro-user', 
-                email: 'vistacronometro@tirr.com', 
+            this.user = {
+                uid: 'tirr-vista-cronometro-user',
+                email: 'vistacronometro@tirr.com',
                 displayName: 'Vista Cronómetro',
                 initial: 'VC',
                 photoURL: null
@@ -528,7 +530,7 @@ function initTIRR() {
         exportEmergencyBackup() {
             const teams = this.teams || [];
             const calificaciones = this.allCalificaciones?.length ? this.allCalificaciones : (this.calificaciones || []);
-            
+
             const backupData = {
                 app: 'ZENITH_TIRR',
                 version: '5.0.0-Zenith',
@@ -692,7 +694,7 @@ function initTIRR() {
         // ── Reinicio General de Torneo (Puesta a Cero / Todo en Blanco) ──
         async resetPlatformToBlank() {
             const isTest = this.isTestMode;
-            
+
             const confirmMessage = isTest
                 ? '⚠️ [MODO PRUEBA] ¿Deseas reiniciar TODO a blanco?\nEsta acción eliminará todos los equipos y calificaciones para comenzar con la plataforma vacía.'
                 : '⚠️ ATENCIÓN: REINICIO MAESTRO DE PLATAFORMA\n\nEsta acción borrará de forma irreversible:\n• TODOS los equipos registrados\n• TODAS las calificaciones y notas de jurados\n• TODOS los tiempos y registros de vuelo\n\nLa base de datos quedará COMPLETAMENTE EN BLANCO para comenzar un torneo nuevo.\n\n¿Estás absolutamente seguro de continuar?';
@@ -1155,7 +1157,7 @@ function initTIRR() {
             const minutes = Math.floor(this.time_ms / 60000);
             const seconds = Math.floor((this.time_ms % 60000) / 1000);
             const centiseconds = Math.floor((this.time_ms % 1000) / 10);
-            return `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}.${String(centiseconds).padStart(2,'0')}`;
+            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(centiseconds).padStart(2, '0')}`;
         },
 
         // Aplicar tiempo escrito a mano por el cronometrista
@@ -1187,7 +1189,7 @@ function initTIRR() {
             }
             const mision = Alpine.store('app').misionSeleccionada || 'Lanzamiento Vertical';
             const missionPath = mision.replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            
+
             const launchRef = ref(rtdb, `active_launch_${missionPath}/${this.selectedTeam.id}`);
             await update(launchRef, {
                 fallos_cronometro: this.fallosReportados,
@@ -1264,7 +1266,7 @@ function initTIRR() {
                     updated_cronometro_at: serverTimestamp()
                 });
                 console.log("⏱️ Tiempo respaldado en Firestore para:", this.selectedTeam.id);
-            } catch(e) {
+            } catch (e) {
                 console.warn("No se pudo respaldar tiempo en Firestore (permisos o red):", e);
             }
         },
@@ -1302,11 +1304,11 @@ function initTIRR() {
             try {
                 // 1. Canal específico por equipo
                 const launchRef = ref(rtdb, `active_launch_${missionPath}/${this.selectedTeam.id}`);
-                set(launchRef, payload).catch(() => {});
+                set(launchRef, payload).catch(() => { });
 
                 // 2. Canal global de telemetría activa en plataforma
                 const globalRef = ref(rtdb, `current_live_launch_${missionPath}`);
-                set(globalRef, payload).catch(() => {});
+                set(globalRef, payload).catch(() => { });
             } catch (err) {
                 console.warn("RTDB sync error:", err);
             }
@@ -1341,7 +1343,7 @@ function initTIRR() {
                 const currentJudgeId = Alpine.store('app').currentJudgeId;
                 const mision = Alpine.store('app').misionSeleccionada;
                 teams = teams.filter(t => {
-                    return !Alpine.store('app').allCalificaciones.some(c => 
+                    return !Alpine.store('app').allCalificaciones.some(c =>
                         c.id_equipo === t.id && c.tipo === mision && c.id_juez === currentJudgeId
                     );
                 });
@@ -1351,17 +1353,17 @@ function initTIRR() {
 
         get total() {
             if (this.equipoDescalificado) return 0;
-            const base = (Number(this.scores.flight) || 0) + (Number(this.scores.design) || 0) + 
-                         (Number(this.scores.innovation) || 0) + (Number(this.scores.sustentation) || 0);
+            const base = (Number(this.scores.flight) || 0) + (Number(this.scores.design) || 0) +
+                (Number(this.scores.innovation) || 0) + (Number(this.scores.sustentation) || 0);
             return Math.max(0, base - (Number(this.penalties) || 0));
         },
 
         init() {
-            this.$watch('scores.flight', val => { if(val !== '' && val !== null) this.scores.flight = Math.min(40, Math.max(0, val)); });
-            this.$watch('scores.sustentation', val => { if(val !== '' && val !== null) this.scores.sustentation = Math.min(25, Math.max(0, val)); });
-            this.$watch('scores.innovation', val => { if(val !== '' && val !== null) this.scores.innovation = Math.min(20, Math.max(0, val)); });
-            this.$watch('scores.design', val => { if(val !== '' && val !== null) this.scores.design = Math.min(15, Math.max(0, val)); });
-            this.$watch('penalties', val => { if(val !== '' && val !== null) this.penalties = Math.max(0, val); });
+            this.$watch('scores.flight', val => { if (val !== '' && val !== null) this.scores.flight = Math.min(40, Math.max(0, val)); });
+            this.$watch('scores.sustentation', val => { if (val !== '' && val !== null) this.scores.sustentation = Math.min(25, Math.max(0, val)); });
+            this.$watch('scores.innovation', val => { if (val !== '' && val !== null) this.scores.innovation = Math.min(20, Math.max(0, val)); });
+            this.$watch('scores.design', val => { if (val !== '' && val !== null) this.scores.design = Math.min(15, Math.max(0, val)); });
+            this.$watch('penalties', val => { if (val !== '' && val !== null) this.penalties = Math.max(0, val); });
 
             this.$watch('selectedTeamId', async (id) => {
                 if (id) {
@@ -1467,9 +1469,9 @@ function initTIRR() {
                         createdAt: { seconds: Math.floor(Date.now() / 1000) },
                         is_test: true
                     };
-                    const existingIdx = Alpine.store('app').allCalificaciones.findIndex(c => 
-                        c.id_equipo === this.selectedTeamId && 
-                        c.id_juez === Alpine.store('app').currentJudgeId && 
+                    const existingIdx = Alpine.store('app').allCalificaciones.findIndex(c =>
+                        c.id_equipo === this.selectedTeamId &&
+                        c.id_juez === Alpine.store('app').currentJudgeId &&
                         c.tipo === mision
                     );
                     if (existingIdx >= 0) {
@@ -1512,9 +1514,9 @@ function initTIRR() {
             const currentJudgeId = Alpine.store('app').currentJudgeId;
 
             if (Alpine.store('app').isTestMode) {
-                const found = Alpine.store('app').allCalificaciones.find(c => 
-                    c.id_equipo === teamId && 
-                    c.id_juez === currentJudgeId && 
+                const found = Alpine.store('app').allCalificaciones.find(c =>
+                    c.id_equipo === teamId &&
+                    c.id_juez === currentJudgeId &&
                     c.tipo === mision
                 );
                 if (found) {
@@ -1718,7 +1720,7 @@ function initTIRR() {
             let drafts = {};
             try {
                 drafts = JSON.parse(localStorage.getItem(draftKey) || '{}');
-            } catch(e) {}
+            } catch (e) { }
 
             const map = {};
             Alpine.store('app').teams.forEach(team => {
@@ -1775,8 +1777,8 @@ function initTIRR() {
         calculateTotal(teamId) {
             const row = this.getRow(teamId);
             if (row.descalificado) return 0;
-            const base = (Number(row.flight) || 0) + (Number(row.design) || 0) + 
-                         (Number(row.innovation) || 0) + (Number(row.sustentation) || 0);
+            const base = (Number(row.flight) || 0) + (Number(row.design) || 0) +
+                (Number(row.innovation) || 0) + (Number(row.sustentation) || 0);
             return Math.max(0, base - (Number(row.penalties) || 0));
         },
 
@@ -1816,7 +1818,7 @@ function initTIRR() {
                 const drafts = JSON.parse(localStorage.getItem(draftKey) || '{}');
                 drafts[teamId] = { ...row };
                 localStorage.setItem(draftKey, JSON.stringify(drafts));
-            } catch(e) {}
+            } catch (e) { }
 
             const flightTime = Number(this.getTeamTime(team.id) || team.tiempo_vuelo_cronometro || 0);
             const flightDist = Number(this.getTeamDistance(team.id) || team.distancia_cronometro || 0);
@@ -1913,7 +1915,7 @@ function initTIRR() {
             // Filtro por búsqueda de texto
             if (this.searchQuery.trim()) {
                 const q = this.searchQuery.trim().toLowerCase();
-                list = list.filter(t => 
+                list = list.filter(t =>
                     (t.nombre_equipo && t.nombre_equipo.toLowerCase().includes(q)) ||
                     (t.nombre_cohete && t.nombre_cohete.toLowerCase().includes(q)) ||
                     (t.numero_registro && String(t.numero_registro).includes(q))
@@ -2020,7 +2022,7 @@ function initTIRR() {
             const minutes = Math.floor(ms / 60000);
             const seconds = Math.floor((ms % 60000) / 1000);
             const centiseconds = Math.floor((ms % 1000) / 10);
-            return `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}.${String(centiseconds).padStart(2,'0')}`;
+            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(centiseconds).padStart(2, '0')}`;
         },
 
         getTeamStatus(teamId) {
@@ -2040,7 +2042,7 @@ function initTIRR() {
 
             if (this.searchQuery && this.searchQuery.trim()) {
                 const q = this.searchQuery.toLowerCase().trim();
-                list = list.filter(t => 
+                list = list.filter(t =>
                     (t.nombre_equipo && t.nombre_equipo.toLowerCase().includes(q)) ||
                     (t.nombre_cohete && t.nombre_cohete.toLowerCase().includes(q)) ||
                     (t.institucion && t.institucion.toLowerCase().includes(q)) ||
@@ -2150,7 +2152,7 @@ function initTIRR() {
             this.nuevoMiembro = '';
             this.fotoFile = null;
             const fileInput = document.getElementById('foto_cohete');
-            if(fileInput) fileInput.value = '';
+            if (fileInput) fileInput.value = '';
         },
 
         addMiembro() {
@@ -2311,8 +2313,8 @@ function initTIRR() {
             });
 
             this.$watch('$store.app.teams', () => {
-                const cals = Alpine.store('app').isTestMode 
-                    ? (Alpine.store('app').allCalificaciones || []) 
+                const cals = Alpine.store('app').isTestMode
+                    ? (Alpine.store('app').allCalificaciones || [])
                     : this.rawCalificaciones;
                 if (cals.length > 0) {
                     this.procesarResultados(cals);
@@ -2320,8 +2322,8 @@ function initTIRR() {
             });
 
             this.$watch('$store.app.misionSeleccionada', () => {
-                const cals = Alpine.store('app').isTestMode 
-                    ? (Alpine.store('app').allCalificaciones || []) 
+                const cals = Alpine.store('app').isTestMode
+                    ? (Alpine.store('app').allCalificaciones || [])
                     : this.rawCalificaciones;
                 if (cals.length > 0) {
                     this.procesarResultados(cals);
@@ -2339,7 +2341,7 @@ function initTIRR() {
             const equiposBase = Alpine.store('app').teams;
 
             // Agrupar calificaciones por equipo y por juez
-            const juecesPorEquipo = {}; 
+            const juecesPorEquipo = {};
             const launchDataPorEquipo = {};
 
             cals.forEach(c => {
@@ -2371,9 +2373,9 @@ function initTIRR() {
             let lista = equiposBase.map(team => {
                 const teamCalsObj = juecesPorEquipo[team.id] || {};
                 const calsList = Object.values(teamCalsObj);
-                const ld = launchDataPorEquipo[team.id] || { 
-                    tiempo: team.tiempo_vuelo_cronometro || 0, 
-                    distancia: team.distancia_cronometro || 0 
+                const ld = launchDataPorEquipo[team.id] || {
+                    tiempo: team.tiempo_vuelo_cronometro || 0,
+                    distancia: team.distancia_cronometro || 0
                 };
 
                 let totalScoreSum = 0;
@@ -2493,8 +2495,8 @@ function initTIRR() {
             });
 
             this.$watch('$store.app.teams', () => {
-                const cals = Alpine.store('app').isTestMode 
-                    ? (Alpine.store('app').allCalificaciones || []) 
+                const cals = Alpine.store('app').isTestMode
+                    ? (Alpine.store('app').allCalificaciones || [])
                     : this.rawCalificaciones;
                 if (cals.length > 0) {
                     this.procesarResultadosCombinados(cals);
@@ -2544,8 +2546,8 @@ function initTIRR() {
                     if (c.descalificado) descalificadoV = true;
                     sumVert += Number(c.totalScore || 0);
                 });
-                const scoreVertical = (calsVert.length > 0 && !descalificadoV) 
-                    ? Math.round((sumVert / calsVert.length) * 10) / 10 
+                const scoreVertical = (calsVert.length > 0 && !descalificadoV)
+                    ? Math.round((sumVert / calsVert.length) * 10) / 10
                     : 0;
 
                 // Tiro Parabólico Promedio
@@ -2555,8 +2557,8 @@ function initTIRR() {
                     if (c.descalificado) descalificadoP = true;
                     sumPara += Number(c.totalScore || 0);
                 });
-                const scoreParabolico = (calsPara.length > 0 && !descalificadoP) 
-                    ? Math.round((sumPara / calsPara.length) * 10) / 10 
+                const scoreParabolico = (calsPara.length > 0 && !descalificadoP)
+                    ? Math.round((sumPara / calsPara.length) * 10) / 10
                     : 0;
 
                 const totalCombinado = Math.round((scoreVertical + scoreParabolico) * 10) / 10;
@@ -2630,9 +2632,9 @@ function initTIRR() {
             const currentUser = auth.currentUser;
             if (!currentUser) return alert('Debes estar autenticado.');
 
-            const targetUser = this.userToEdit || { 
-                email: currentUser.email, 
-                uid: currentUser.uid, 
+            const targetUser = this.userToEdit || {
+                email: currentUser.email,
+                uid: currentUser.uid,
                 name: currentUser.displayName || 'Usuario',
                 role: Alpine.store('app').userRole
             };
