@@ -2792,10 +2792,10 @@
                             <!-- Selector de Equipo Dinámico -->
                             <div class="relative flex-1 max-w-md">
                                 <select x-model="selectedTeamId"
-                                    class="w-full bg-black/60 border border-primary/30 px-6 py-4 rounded-2xl text-lg font-bold text-white focus:outline-none focus:border-primary text-center appearance-none cursor-pointer">
-                                    <option :value="null">Seleccionar Cohete...</option>
+                                    class="w-full bg-black/60 border border-primary/30 px-6 py-4 rounded-2xl text-base sm:text-lg font-bold text-white focus:outline-none focus:border-primary text-center appearance-none cursor-pointer">
+                                    <option :value="null">Seleccionar Cohete / Equipo...</option>
                                     <template x-for="team in filteredTeams" :key="team.id">
-                                        <option :value="team.id" x-text="team.nombre_equipo.toUpperCase()"></option>
+                                        <option :value="team.id" x-text="`${team.numero_registro ? '#' + team.numero_registro + ' ' : ''}${team.nombre_cohete || team.nombre_equipo} — ${team.nombre_equipo} (${team.institucion || team.categoria})`"></option>
                                     </template>
                                 </select>
                                 <div
@@ -2804,6 +2804,47 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Ficha Táctica Oficial para el Cronometrista: COHETE + EQUIPO + COLEGIO/INSTITUCIÓN -->
+                        <template x-if="selectedTeam">
+                            <div class="mb-8 p-5 sm:p-6 rounded-3xl bg-[#111e3d]/90 border border-primary/50 shadow-2xl backdrop-blur-md max-w-2xl mx-auto transition-all text-left">
+                                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-white/10 pb-4 mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 rounded-2xl bg-primary/20 border border-primary/40 flex items-center justify-center text-primary shadow-lg shadow-primary/20 shrink-0">
+                                            <span class="material-symbols-outlined text-2xl">rocket_launch</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-[9px] font-black uppercase tracking-widest text-primary block">1. Cohete Oficial</span>
+                                            <h3 class="text-xl sm:text-2xl font-black headline text-white uppercase tracking-tight"
+                                                x-text="selectedTeam.nombre_cohete || selectedTeam.nombre_equipo"></h3>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-[#0b1530] text-cyan-300 border border-cyan-500/30"
+                                            x-text="selectedTeam.numero_registro ? ('TURNO #' + selectedTeam.numero_registro) : 'TURNO ASIGNADO'"></span>
+                                        <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider"
+                                            :class="selectedTeam.categoria === 'Colegio' ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'"
+                                            x-text="selectedTeam.categoria || 'Colegio'"></span>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                    <!-- 2. Nombre del Equipo -->
+                                    <div class="bg-[#0b1530]/80 border border-white/10 rounded-2xl p-3.5">
+                                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 block mb-1">2. Equipo</span>
+                                        <div class="text-base sm:text-lg font-black headline text-white uppercase"
+                                            x-text="selectedTeam.nombre_equipo"></div>
+                                    </div>
+
+                                    <!-- 3. Colegio / Institución -->
+                                    <div class="bg-[#0b1530]/80 border border-white/10 rounded-2xl p-3.5">
+                                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 block mb-1">3. Colegio / Institución</span>
+                                        <div class="text-sm sm:text-base font-bold text-accent-gold"
+                                            x-text="selectedTeam.institucion || 'Institución no especificada'"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
 
                         <!-- TIEMPO DE VUELO (Lanzamiento Vertical) -->
                         <template x-if="$store.app.misionSeleccionada === 'Lanzamiento Vertical'">
