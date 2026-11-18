@@ -27,6 +27,7 @@ function clearSessionData() {
     localStorage.removeItem('tirr_last_active');
     localStorage.removeItem('zenith_last_active');
     localStorage.removeItem('tirr_test_mode');
+    localStorage.removeItem('tirr_vista_cronometro');
 }
 
 // Escuchar interacciones para renovar la marca de tiempo activa
@@ -79,6 +80,7 @@ function initTIRR() {
             { id: 7, name: 'Auxiliar 2', role: 'AUXILIAR JURADO', color: 'emerald', hex: '#10B981', initial: 'A2', email: 'auxiliar2@tirr.com' },
             { id: 11, name: 'Auxiliar 3', role: 'AUXILIAR JURADO', color: 'emerald', hex: '#10B981', initial: 'A3', email: 'auxiliar3@tirr.com' },
             { id: 8, name: 'Cronometrista', role: 'CRONOMETRISTA', color: 'cyan', hex: '#0EA5E9', initial: 'C1', email: 'cronometrista1@tirr.com' },
+            { id: 12, name: 'Vista Cronómetro', role: 'VISTA CRONOMETRO', color: 'cyan', hex: '#06B6D4', initial: 'VC', email: 'vistacronometro@tirr.com' },
             { id: 9, name: 'Vista de Prueba', role: 'VISTA DE PRUEBA', color: 'purple', hex: '#8B5CF6', initial: 'VP', email: 'prueba@tirr.com' }
         ],
 
@@ -153,6 +155,26 @@ function initTIRR() {
                 this.misionSeleccionada = localStorage.getItem('misionSeleccionada') || 'Lanzamiento Vertical';
                 if (this.teams.length === 0) this.loadSampleTeams();
                 if (this.allCalificaciones.length === 0) this.loadSampleCalificaciones();
+                this.subscribeTeams();
+                this.hideLoader();
+                return;
+            }
+
+            // Restaurar sesión de Vista Cronómetro si estaba activa y no ha expirado
+            if (localStorage.getItem('tirr_vista_cronometro') === 'true' && !isSessionExpired()) {
+                console.log("⏱️ Restaurando sesión de Vista Cronómetro...");
+                this.isGuest = false;
+                this.isTestMode = false;
+                this.isAuthenticated = true;
+                this.userRole = 'VISTA CRONOMETRO';
+                this.user = { 
+                    uid: 'tirr-vista-cronometro-user', 
+                    email: 'vistacronometro@tirr.com', 
+                    displayName: 'Vista Cronómetro',
+                    initial: 'VC',
+                    photoURL: null
+                };
+                this.misionSeleccionada = localStorage.getItem('misionSeleccionada') || 'Lanzamiento Vertical';
                 this.subscribeTeams();
                 this.hideLoader();
                 return;
@@ -282,13 +304,18 @@ function initTIRR() {
 
             if (role === 'ADMINISTRADOR') return true;
 
+            // Acceso para Vista de Cronómetro (Tiempos de Vuelo sin Calificaciones)
+            if (role === 'VISTA CRONOMETRO' || role === 'VISTA DE CRONOMETRO' || role === 'VISTA_CRONOMETRO') {
+                return ['dashboard', 'vista_cronometro', 'equipos', 'resultados', 'resultados_finales'].includes(module);
+            }
+
             // Acceso completo a módulos operativos para Vista de Prueba
             if (role === 'VISTA DE PRUEBA' || role === 'PRUEBA' || role === 'TEST' || role === 'DEMO') {
-                return ['dashboard', 'registro', 'cronometro', 'calificacion', 'calificacion_lista', 'equipos', 'resultados', 'resultados_finales'].includes(module);
+                return ['dashboard', 'vista_cronometro', 'registro', 'cronometro', 'calificacion', 'calificacion_lista', 'equipos', 'resultados', 'resultados_finales'].includes(module);
             }
 
             if (role === 'JURADO') {
-                return ['dashboard', 'calificacion', 'calificacion_lista', 'equipos', 'resultados', 'resultados_finales'].includes(module);
+                return ['dashboard', 'vista_cronometro', 'calificacion', 'calificacion_lista', 'equipos', 'resultados', 'resultados_finales'].includes(module);
             }
 
             if (role === 'AUX. JURADO' || role === 'AUXILIAR JURADO' || role === 'AUXILIAR_JURADO') {
@@ -296,7 +323,7 @@ function initTIRR() {
             }
 
             if (role === 'CRONOMETRISTA') {
-                return ['dashboard', 'cronometro', 'equipos', 'resultados', 'resultados_finales'].includes(module);
+                return ['dashboard', 'vista_cronometro', 'cronometro', 'equipos', 'resultados', 'resultados_finales'].includes(module);
             }
 
             if (role === 'INVITADO') {
@@ -340,6 +367,13 @@ function initTIRR() {
             // Acceso directo sin PIN obligatorio para Vista de Prueba
             if (this.selectedLoginUser.role === 'VISTA DE PRUEBA' || this.selectedLoginUser.email === 'prueba@tirr.com') {
                 await this.loginAsVistaPrueba();
+                this.closeModal();
+                return;
+            }
+
+            // Acceso directo sin PIN obligatorio para Vista Cronómetro
+            if (this.selectedLoginUser.role === 'VISTA CRONOMETRO' || this.selectedLoginUser.email === 'vistacronometro@tirr.com') {
+                await this.loginAsVistaCronometro();
                 this.closeModal();
                 return;
             }
@@ -449,6 +483,34 @@ function initTIRR() {
             localStorage.setItem('tirr_test_mode', 'true');
             this.loadSampleTeams();
             this.loadSampleCalificaciones();
+            touchSession();
+
+            document.dispatchEvent(new CustomEvent('guest:login'));
+            this.subscribeTeams();
+            this.hideLoader();
+        },
+
+        async loginAsVistaCronometro() {
+            console.log("⏱️ Ingresando como Vista Cronómetro (Monitoreo de Telemetría)...");
+            try {
+                await signOut(auth);
+            } catch(e) { /* ignore */ }
+
+            clearSessionData();
+            this.isGuest = false;
+            this.isTestMode = false;
+            this.isAuthenticated = true;
+            this.userRole = 'VISTA CRONOMETRO';
+            this.user = { 
+                uid: 'tirr-vista-cronometro-user', 
+                email: 'vistacronometro@tirr.com', 
+                displayName: 'Vista Cronómetro',
+                initial: 'VC',
+                photoURL: null
+            };
+            this.misionSeleccionada = 'Lanzamiento Vertical';
+            localStorage.setItem('activeTab', 'vista_cronometro');
+            localStorage.setItem('tirr_vista_cronometro', 'true');
             touchSession();
 
             document.dispatchEvent(new CustomEvent('guest:login'));
@@ -701,7 +763,7 @@ function initTIRR() {
                     numero_registro: '01',
                     nombre_equipo: 'Apolo Robotics',
                     nombre_cohete: 'Saturno-V',
-                    categoria: 'Exploradores',
+                    categoria: 'Colegio',
                     peso_cohete: 280,
                     altura_cohete: 55,
                     diametro_cohete: 8.5,
@@ -716,7 +778,7 @@ function initTIRR() {
                     numero_registro: '02',
                     nombre_equipo: 'CyberNova Tech',
                     nombre_cohete: 'Vanguard Alpha',
-                    categoria: 'Ingenieros',
+                    categoria: 'Universidad',
                     peso_cohete: 340,
                     altura_cohete: 65,
                     diametro_cohete: 10,
@@ -731,7 +793,7 @@ function initTIRR() {
                     numero_registro: '03',
                     nombre_equipo: 'Quantum Pioneers',
                     nombre_cohete: 'Cosmos IX',
-                    categoria: 'Masters',
+                    categoria: 'Colegio',
                     peso_cohete: 390,
                     altura_cohete: 72,
                     diametro_cohete: 12,
@@ -754,7 +816,7 @@ function initTIRR() {
                     nombre_juez: 'Jurado 1',
                     nombre_equipo: 'Apolo Robotics',
                     nombre_cohete: 'Saturno-V',
-                    categoria: 'Exploradores',
+                    categoria: 'Colegio',
                     ronda: 1,
                     tipo: 'Lanzamiento Vertical',
                     puntajes: { flight: 35, design: 18, innovation: 17, sustentation: 19 },
@@ -772,7 +834,7 @@ function initTIRR() {
                     nombre_juez: 'Jurado 1',
                     nombre_equipo: 'CyberNova Tech',
                     nombre_cohete: 'Vanguard Alpha',
-                    categoria: 'Ingenieros',
+                    categoria: 'Universidad',
                     ronda: 1,
                     tipo: 'Lanzamiento Vertical',
                     puntajes: { flight: 38, design: 19, innovation: 18, sustentation: 18 },
@@ -790,7 +852,7 @@ function initTIRR() {
                     nombre_juez: 'Jurado 1',
                     nombre_equipo: 'Quantum Pioneers',
                     nombre_cohete: 'Cosmos IX',
-                    categoria: 'Masters',
+                    categoria: 'Colegio',
                     ronda: 1,
                     tipo: 'Lanzamiento Vertical',
                     puntajes: { flight: 40, design: 20, innovation: 19, sustentation: 20 },
@@ -809,7 +871,7 @@ function initTIRR() {
                     nombre_juez: 'Jurado 1',
                     nombre_equipo: 'Apolo Robotics',
                     nombre_cohete: 'Saturno-V',
-                    categoria: 'Exploradores',
+                    categoria: 'Colegio',
                     ronda: 1,
                     tipo: 'Tiro Parabólico',
                     puntajes: { flight: 36, design: 18, innovation: 18, sustentation: 19 },
@@ -827,7 +889,7 @@ function initTIRR() {
                     nombre_juez: 'Jurado 1',
                     nombre_equipo: 'CyberNova Tech',
                     nombre_cohete: 'Vanguard Alpha',
-                    categoria: 'Ingenieros',
+                    categoria: 'Universidad',
                     ronda: 1,
                     tipo: 'Tiro Parabólico',
                     puntajes: { flight: 39, design: 19, innovation: 18, sustentation: 19 },
@@ -845,7 +907,7 @@ function initTIRR() {
                     nombre_juez: 'Jurado 1',
                     nombre_equipo: 'Quantum Pioneers',
                     nombre_cohete: 'Cosmos IX',
-                    categoria: 'Masters',
+                    categoria: 'Colegio',
                     ronda: 1,
                     tipo: 'Tiro Parabólico',
                     puntajes: { flight: 40, design: 20, innovation: 20, sustentation: 18 },
@@ -936,7 +998,7 @@ function initTIRR() {
                 const updatePayload = {
                     nombre_equipo: this.editingTeam.nombre_equipo || '',
                     nombre_cohete: this.editingTeam.nombre_cohete || '',
-                    categoria: this.editingTeam.categoria || 'Exploradores',
+                    categoria: this.editingTeam.categoria || 'Colegio',
                     numero_registro: String(this.editingTeam.numero_registro || '').padStart(2, '0'),
                     peso_cohete: Number(this.editingTeam.peso_cohete),
                     altura_cohete: Number(this.editingTeam.altura_cohete),
@@ -1753,7 +1815,7 @@ function initTIRR() {
                     nombre_juez: judgeName,
                     nombre_equipo: team.nombre_equipo || 'Cohete',
                     nombre_cohete: team.nombre_cohete || 'Cohete',
-                    categoria: team.categoria || 'Exploradores',
+                    categoria: team.categoria || 'Colegio',
                     ronda: 1,
                     tipo: mision,
                     puntajes: {
@@ -1822,6 +1884,134 @@ function initTIRR() {
         }
     }));
 
+    // ── Component: Vista Cronómetro (Tiempos de Vuelo Sin Calificaciones) ──
+    Alpine.data('vistaCronometroController', () => ({
+        filtroCategoria: 'TODAS',
+        searchQuery: '',
+        rtdbLaunches: {},
+        currentGlobalLaunch: null,
+        alertasFallosRTDB: {},
+
+        init() {
+            this.escucharTelemetriaEnVivo();
+
+            this.$watch('$store.app.misionSeleccionada', () => {
+                this.escucharTelemetriaEnVivo();
+            });
+
+            // Sincronización instantánea intra-pestaña
+            window.addEventListener('tirr-telemetria-sync', (e) => {
+                if (e.detail?.teamId) {
+                    this.rtdbLaunches[e.detail.teamId] = e.detail;
+                    this.currentGlobalLaunch = e.detail;
+                    if (e.detail.fallos_cronometro > 0) {
+                        this.alertasFallosRTDB[e.detail.teamId] = e.detail.fallos_cronometro;
+                    }
+                }
+            });
+        },
+
+        escucharTelemetriaEnVivo() {
+            const mision = Alpine.store('app').misionSeleccionada || 'Lanzamiento Vertical';
+            const missionPath = mision.replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+            // 1. Escuchar todos los equipos de la misión en RTDB en tiempo real
+            const launchesRef = ref(rtdb, `active_launch_${missionPath}`);
+            onValue(launchesRef, (snap) => {
+                if (snap.exists()) {
+                    const data = snap.val() || {};
+                    this.rtdbLaunches = data;
+                    const newAlerts = {};
+                    Object.keys(data).forEach(teamId => {
+                        if (data[teamId]?.fallos_cronometro > 0) {
+                            newAlerts[teamId] = data[teamId].fallos_cronometro;
+                        }
+                    });
+                    this.alertasFallosRTDB = newAlerts;
+                } else {
+                    this.rtdbLaunches = {};
+                    this.alertasFallosRTDB = {};
+                }
+            });
+
+            // 2. Escuchar lanzamiento global activo para la misión
+            const globalRef = ref(rtdb, `current_live_launch_${missionPath}`);
+            onValue(globalRef, (snap) => {
+                if (snap.exists()) {
+                    this.currentGlobalLaunch = snap.val();
+                } else {
+                    this.currentGlobalLaunch = null;
+                }
+            });
+        },
+
+        getTeamTime(teamId) {
+            const rtdbTeam = this.rtdbLaunches[teamId];
+            if (rtdbTeam && (rtdbTeam.time_ms > 0 || rtdbTeam.running)) {
+                return rtdbTeam.time_ms;
+            }
+            const team = Alpine.store('app').teams.find(t => t.id === teamId);
+            if (team && team.tiempo_vuelo_cronometro > 0) {
+                return team.tiempo_vuelo_cronometro;
+            }
+            const cal = Alpine.store('app').allCalificaciones.find(c => (c.id_equipo === teamId || c.equipo_id === teamId) && c.tiempo_vuelo > 0);
+            if (cal) return cal.tiempo_vuelo;
+            return 0;
+        },
+
+        isTeamRunning(teamId) {
+            return !!(this.rtdbLaunches[teamId]?.running);
+        },
+
+        getTeamDistance(teamId) {
+            const rtdbTeam = this.rtdbLaunches[teamId];
+            if (rtdbTeam && rtdbTeam.distancia > 0) return rtdbTeam.distancia;
+            const team = Alpine.store('app').teams.find(t => t.id === teamId);
+            return team?.distancia_cronometro || 0;
+        },
+
+        formatTimeSec(ms) {
+            if (!ms || isNaN(ms)) return '0.00s';
+            return (ms / 1000).toFixed(2) + 's';
+        },
+
+        formatTimeClock(ms) {
+            if (!ms || isNaN(ms)) return '00:00.00';
+            const minutes = Math.floor(ms / 60000);
+            const seconds = Math.floor((ms % 60000) / 1000);
+            const centiseconds = Math.floor((ms % 1000) / 10);
+            return `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}.${String(centiseconds).padStart(2,'0')}`;
+        },
+
+        getTeamStatus(teamId) {
+            if (this.isTeamRunning(teamId)) return 'EN_VUELO';
+            const t = this.getTeamTime(teamId);
+            const d = this.getTeamDistance(teamId);
+            if (t > 0 || d > 0) return 'REGISTRADO';
+            return 'PENDIENTE';
+        },
+
+        get visibleTeams() {
+            let list = Alpine.store('app').teams || [];
+
+            if (this.filtroCategoria !== 'TODAS' && this.filtroCategoria !== 'Todos') {
+                list = list.filter(t => Alpine.store('app').matchesCategoria(t.categoria, this.filtroCategoria));
+            }
+
+            if (this.searchQuery && this.searchQuery.trim()) {
+                const q = this.searchQuery.toLowerCase().trim();
+                list = list.filter(t => 
+                    (t.nombre_equipo && t.nombre_equipo.toLowerCase().includes(q)) ||
+                    (t.nombre_cohete && t.nombre_cohete.toLowerCase().includes(q)) ||
+                    (t.institucion && t.institucion.toLowerCase().includes(q)) ||
+                    (t.numero_registro && String(t.numero_registro).includes(q))
+                );
+            }
+
+            return list;
+        }
+    }));
+
     // ── Component: Login Precargado ───────────────────────────
     Alpine.data('loginController', () => ({
         usuarios: [
@@ -1835,6 +2025,7 @@ function initTIRR() {
             { id: 7, nombre: 'Auxiliar 2', rol: 'AUXILIAR JURADO', email: 'auxiliar2@tirr.com', hex: '#10B981', color: 'emerald', initial: 'A2' },
             { id: 11, nombre: 'Auxiliar 3', rol: 'AUXILIAR JURADO', email: 'auxiliar3@tirr.com', hex: '#10B981', color: 'emerald', initial: 'A3' },
             { id: 8, nombre: 'Cronometrista', rol: 'CRONOMETRISTA', email: 'cronometrista1@tirr.com', hex: '#00E5FF', color: 'cyan', initial: 'C1' },
+            { id: 12, nombre: 'Vista Cronómetro', rol: 'VISTA CRONOMETRO', email: 'vistacronometro@tirr.com', hex: '#06B6D4', color: 'cyan', initial: 'VC' },
             { id: 9, nombre: 'Vista de Prueba', rol: 'VISTA DE PRUEBA', email: 'prueba@tirr.com', hex: '#A855F7', color: 'purple', initial: 'VP' }
         ],
         usuarioActivo: null,
@@ -1881,7 +2072,7 @@ function initTIRR() {
             numero_registro: '',
             nombre_equipo: '',
             nombre_cohete: '',
-            categoria: 'Exploradores',
+            categoria: 'Colegio',
             peso_cohete: '',
             altura_cohete: '',
             diametro_cohete: '',
@@ -1909,7 +2100,7 @@ function initTIRR() {
                 numero_registro: '',
                 nombre_equipo: '',
                 nombre_cohete: '',
-                categoria: 'Exploradores',
+                categoria: 'Colegio',
                 peso_cohete: '',
                 altura_cohete: '',
                 diametro_cohete: '',
