@@ -74,8 +74,10 @@ function initTIRR() {
             { id: 3, name: 'Jurado 2', role: 'JURADO', color: 'yellow', hex: '#F59E0B', initial: 'J2', email: 'jurado2@tirr.com' },
             { id: 4, name: 'Jurado 3', role: 'JURADO', color: 'yellow', hex: '#F59E0B', initial: 'J3', email: 'jurado3@tirr.com' },
             { id: 5, name: 'Jurado 4', role: 'JURADO', color: 'yellow', hex: '#F59E0B', initial: 'J4', email: 'jurado4@tirr.com' },
+            { id: 10, name: 'Jurado 5', role: 'JURADO', color: 'yellow', hex: '#F59E0B', initial: 'J5', email: 'jurado5@tirr.com' },
             { id: 6, name: 'Auxiliar 1', role: 'AUXILIAR JURADO', color: 'emerald', hex: '#10B981', initial: 'A1', email: 'auxiliar1@tirr.com' },
             { id: 7, name: 'Auxiliar 2', role: 'AUXILIAR JURADO', color: 'emerald', hex: '#10B981', initial: 'A2', email: 'auxiliar2@tirr.com' },
+            { id: 11, name: 'Auxiliar 3', role: 'AUXILIAR JURADO', color: 'emerald', hex: '#10B981', initial: 'A3', email: 'auxiliar3@tirr.com' },
             { id: 8, name: 'Cronometrista', role: 'CRONOMETRISTA', color: 'cyan', hex: '#0EA5E9', initial: 'C1', email: 'cronometrista1@tirr.com' },
             { id: 9, name: 'Vista de Prueba', role: 'VISTA DE PRUEBA', color: 'purple', hex: '#8B5CF6', initial: 'VP', email: 'prueba@tirr.com' }
         ],
@@ -1596,8 +1598,10 @@ function initTIRR() {
             { id: 3, nombre: 'Jurado 2', rol: 'JURADO', email: 'jurado2@tirr.com', hex: '#FFD700', color: 'yellow', initial: 'J2' },
             { id: 4, nombre: 'Jurado 3', rol: 'JURADO', email: 'jurado3@tirr.com', hex: '#FFD700', color: 'yellow', initial: 'J3' },
             { id: 5, nombre: 'Jurado 4', rol: 'JURADO', email: 'jurado4@tirr.com', hex: '#FFD700', color: 'yellow', initial: 'J4' },
+            { id: 10, nombre: 'Jurado 5', rol: 'JURADO', email: 'jurado5@tirr.com', hex: '#FFD700', color: 'yellow', initial: 'J5' },
             { id: 6, nombre: 'Auxiliar 1', rol: 'AUXILIAR JURADO', email: 'auxiliar1@tirr.com', hex: '#10B981', color: 'emerald', initial: 'A1' },
             { id: 7, nombre: 'Auxiliar 2', rol: 'AUXILIAR JURADO', email: 'auxiliar2@tirr.com', hex: '#10B981', color: 'emerald', initial: 'A2' },
+            { id: 11, nombre: 'Auxiliar 3', rol: 'AUXILIAR JURADO', email: 'auxiliar3@tirr.com', hex: '#10B981', color: 'emerald', initial: 'A3' },
             { id: 8, nombre: 'Cronometrista', rol: 'CRONOMETRISTA', email: 'cronometrista1@tirr.com', hex: '#00E5FF', color: 'cyan', initial: 'C1' },
             { id: 9, nombre: 'Vista de Prueba', rol: 'VISTA DE PRUEBA', email: 'prueba@tirr.com', hex: '#A855F7', color: 'purple', initial: 'VP' }
         ],
