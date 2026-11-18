@@ -462,6 +462,238 @@ function initTIRR() {
             alert('🔄 Entorno de prueba restablecido con datos de simulación frescos.');
         },
 
+        // ── Copia de Seguridad y Respaldo de Emergencia ─────────────
+        exportEmergencyBackup() {
+            const teams = this.teams || [];
+            const calificaciones = this.allCalificaciones?.length ? this.allCalificaciones : (this.calificaciones || []);
+            
+            const backupData = {
+                app: 'ZENITH_TIRR',
+                version: '5.0.0-Zenith',
+                timestamp: new Date().toISOString(),
+                exportedBy: this.user?.email || this.userRole || 'admin',
+                totalTeams: teams.length,
+                totalCalificaciones: calificaciones.length,
+                teams: teams,
+                calificaciones: calificaciones,
+                activeLaunch: this.activeLaunch || null
+            };
+
+            const jsonStr = JSON.stringify(backupData, null, 2);
+
+            try {
+                localStorage.setItem('zenith_emergency_backup_last', jsonStr);
+                localStorage.setItem('zenith_emergency_backup_date', new Date().toISOString());
+            } catch (e) {
+                console.warn("Storage quota exceeded for local backup copy", e);
+            }
+
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const now = new Date();
+            const dateStr = now.toISOString().slice(0, 10);
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}-${String(now.getMinutes()).padStart(2, '0')}`;
+            const filename = `zenith_respaldo_emergencia_${dateStr}_${timeStr}.json`;
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            alert(`💾 RESPALDO DE EMERGENCIA DESCARGADO:\n\n• Archivo: ${filename}\n• Equipos respaldados: ${teams.length}\n• Calificaciones respaldadas: ${calificaciones.length}\n\nGuarda este archivo en un lugar seguro.`);
+        },
+
+        hasLocalEmergencyBackup() {
+            return !!localStorage.getItem('zenith_emergency_backup_last');
+        },
+
+        getLocalEmergencyBackupInfo() {
+            const raw = localStorage.getItem('zenith_emergency_backup_last');
+            if (!raw) return null;
+            try {
+                const d = JSON.parse(raw);
+                return {
+                    date: d.timestamp ? new Date(d.timestamp).toLocaleString() : 'Reciente',
+                    totalTeams: d.totalTeams || d.teams?.length || 0,
+                    totalCalificaciones: d.totalCalificaciones || d.calificaciones?.length || 0
+                };
+            } catch {
+                return null;
+            }
+        },
+
+        async restoreLastLocalBackup() {
+            const raw = localStorage.getItem('zenith_emergency_backup_last');
+            if (!raw) {
+                alert('No se encontró ninguna copia local previa en este navegador.');
+                return;
+            }
+            try {
+                const data = JSON.parse(raw);
+                const teamsCount = data.teams?.length || 0;
+                const calCount = data.calificaciones?.length || 0;
+                const backupDate = data.timestamp ? new Date(data.timestamp).toLocaleString() : 'Fecha desconocida';
+
+                if (!confirm(`⚠️ ¿Restaurar la última copia guardada localmente?\n• Fecha: ${backupDate}\n• ${teamsCount} Equipos\n• ${calCount} Calificaciones`)) return;
+
+                if (this.isTestMode) {
+                    this.teams = data.teams || [];
+                    this.calificaciones = data.calificaciones || [];
+                    this.allCalificaciones = data.calificaciones || [];
+                    sessionStorage.setItem('tirr_test_teams', JSON.stringify(data.teams || []));
+                    sessionStorage.setItem('tirr_test_calificaciones', JSON.stringify(data.calificaciones || []));
+                    alert('✅ Respaldo local restaurado con éxito.');
+                } else {
+                    for (const team of (data.teams || [])) {
+                        const teamId = team.id || String(team.codigo || Date.now());
+                        await setDoc(doc(db, 'equipos', teamId), team, { merge: true });
+                    }
+                    for (const cal of (data.calificaciones || [])) {
+                        const calId = cal.id || `${cal.equipo_id}_${cal.jurado_email || Date.now()}`;
+                        await setDoc(doc(db, 'calificaciones', calId), cal, { merge: true });
+                    }
+                    alert('✅ Respaldo local restaurado en Firestore.');
+                    window.location.reload();
+                }
+            } catch (e) {
+                alert('❌ Error al procesar respaldo local: ' + e.message);
+            }
+        },
+
+        async restoreEmergencyBackup(event) {
+            const file = event?.target?.files?.[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const content = e.target.result;
+                    const data = JSON.parse(content);
+
+                    if (!data.teams || !Array.isArray(data.teams)) {
+                        throw new Error("El archivo no contiene una lista válida de equipos de ZENITH.");
+                    }
+
+                    const teamsCount = data.teams.length;
+                    const calCount = (data.calificaciones && Array.isArray(data.calificaciones)) ? data.calificaciones.length : 0;
+                    const backupDate = data.timestamp ? new Date(data.timestamp).toLocaleString() : 'Fecha desconocida';
+
+                    const confirmMsg = `⚠️ RESTAURACIÓN DE COPIA DE SEGURIDAD\n\nSe recuperarán:\n• ${teamsCount} Equipos\n• ${calCount} Calificaciones de Jurados\n• Fecha del archivo: ${backupDate}\n\n¿Deseas proceder?`;
+                    if (!confirm(confirmMsg)) {
+                        if (event.target) event.target.value = '';
+                        return;
+                    }
+
+                    if (this.isTestMode) {
+                        this.teams = data.teams;
+                        this.calificaciones = data.calificaciones || [];
+                        this.allCalificaciones = data.calificaciones || [];
+                        if (data.activeLaunch) this.activeLaunch = data.activeLaunch;
+
+                        sessionStorage.setItem('tirr_test_teams', JSON.stringify(data.teams));
+                        sessionStorage.setItem('tirr_test_calificaciones', JSON.stringify(data.calificaciones || []));
+                        localStorage.setItem('tirr_test_teams', JSON.stringify(data.teams));
+                        localStorage.setItem('tirr_test_calificaciones', JSON.stringify(data.calificaciones || []));
+
+                        alert(`✅ [Modo Prueba] Respaldo restaurado con éxito:\n• ${teamsCount} Equipos restaurados\n• ${calCount} Calificaciones restauradas.`);
+                    } else {
+                        console.log("Restaurando datos en Firestore desde archivo de respaldo...");
+
+                        for (const team of data.teams) {
+                            const teamId = team.id || String(team.codigo || Date.now());
+                            await setDoc(doc(db, 'equipos', teamId), team, { merge: true });
+                        }
+
+                        if (data.calificaciones && Array.isArray(data.calificaciones)) {
+                            for (const cal of data.calificaciones) {
+                                const calId = cal.id || `${cal.equipo_id}_${cal.jurado_email || Date.now()}`;
+                                await setDoc(doc(db, 'calificaciones', calId), cal, { merge: true });
+                            }
+                        }
+
+                        alert(`✅ RESPALDO RESTAURADO CON ÉXITO EN FIRESTORE:\n• ${teamsCount} Equipos recuperados\n• ${calCount} Calificaciones recuperadas.`);
+                        window.location.reload();
+                    }
+                } catch (err) {
+                    console.error("Error al restaurar respaldo:", err);
+                    alert("❌ Error al restaurar respaldo: " + err.message);
+                } finally {
+                    if (event.target) event.target.value = '';
+                }
+            };
+            reader.readAsText(file);
+        },
+
+        // ── Reinicio General de Torneo (Puesta a Cero / Todo en Blanco) ──
+        async resetPlatformToBlank() {
+            const isTest = this.isTestMode;
+            
+            const confirmMessage = isTest
+                ? '⚠️ [MODO PRUEBA] ¿Deseas reiniciar TODO a blanco?\nEsta acción eliminará todos los equipos y calificaciones para comenzar con la plataforma vacía.'
+                : '⚠️ ATENCIÓN: REINICIO MAESTRO DE PLATAFORMA\n\nEsta acción borrará de forma irreversible:\n• TODOS los equipos registrados\n• TODAS las calificaciones y notas de jurados\n• TODOS los tiempos y registros de vuelo\n\nLa base de datos quedará COMPLETAMENTE EN BLANCO para comenzar un torneo nuevo.\n\n¿Estás absolutamente seguro de continuar?';
+
+            if (!confirm(confirmMessage)) return;
+
+            const securityWord = isTest ? 'REINICIAR' : prompt('Para confirmar la puesta a cero total, escribe "REINICIAR":');
+            if (securityWord !== 'REINICIAR') {
+                alert('Operación cancelada. No se modificó ningún dato.');
+                return;
+            }
+
+            try {
+                if (isTest) {
+                    this.teams = [];
+                    this.calificaciones = [];
+                    this.allCalificaciones = [];
+                    this.activeLaunch = null;
+                    sessionStorage.removeItem('tirr_test_teams');
+                    sessionStorage.removeItem('tirr_test_calificaciones');
+                    sessionStorage.removeItem('tirr_test_active_launch');
+                    localStorage.removeItem('tirr_test_teams');
+                    localStorage.removeItem('tirr_test_calificaciones');
+                    localStorage.removeItem('tirr_test_active_launch');
+                    alert('✅ Sistema de pruebas puesto a cero. Todos los equipos y calificaciones fueron eliminados.');
+                    return;
+                }
+
+                console.log("Iniciando purga total de datos en producción...");
+
+                // 1. Limpiar Equipos
+                const equiposSnap = await getDocs(collection(db, 'equipos'));
+                for (const d of equiposSnap.docs) {
+                    await deleteDoc(doc(db, 'equipos', d.id));
+                }
+
+                // 2. Limpiar Calificaciones
+                const calSnap = await getDocs(collection(db, 'calificaciones'));
+                for (const d of calSnap.docs) {
+                    await deleteDoc(doc(db, 'calificaciones', d.id));
+                }
+
+                // 3. Limpiar RTDB Active Launch
+                await set(ref(rtdb, 'active_launch'), null);
+                await set(ref(rtdb, 'active_launch_Lanzamiento_Vertical'), null);
+                await set(ref(rtdb, 'active_launch_Tiro_Parabolico'), null);
+
+                // 4. Limpiar estado local
+                this.teams = [];
+                this.calificaciones = [];
+                this.allCalificaciones = [];
+                this.activeLaunch = null;
+                clearSessionData();
+                localStorage.clear();
+
+                alert('✅ PUESTA A CERO COMPLETADA CON ÉXITO.\nLa base de datos está totalmente vacía y lista para un nuevo torneo.');
+                window.location.reload();
+            } catch (err) {
+                console.error("Error en reinicio total:", err);
+                alert('❌ Error durante el reinicio: ' + err.message);
+            }
+        },
+
         loadSampleTeams() {
             this.teams = [
                 {
@@ -2242,61 +2474,30 @@ function initTIRR() {
             }
         },
 
+        exportBackup() {
+            Alpine.store('app').exportEmergencyBackup();
+        },
+
+        restoreBackup(event) {
+            Alpine.store('app').restoreEmergencyBackup(event);
+        },
+
+        restoreLastLocalBackup() {
+            Alpine.store('app').restoreLastLocalBackup();
+        },
+
+        hasLocalBackup() {
+            return Alpine.store('app').hasLocalEmergencyBackup();
+        },
+
+        getLocalBackupInfo() {
+            return Alpine.store('app').getLocalEmergencyBackupInfo();
+        },
+
         async resetPlatformData() {
-            // HARD-01: Proteger contra borrado si se ejecuta en modo prueba
-            if (Alpine.store('app').isTestMode) {
-                alert('⚠️ [VISTA DE PRUEBA] El reinicio total de la plataforma en Firestore está deshabilitado en modo prueba.');
-                return;
-            }
-
-            if (!confirm('⚠️ ¿ESTÁS SEGURO? Esta acción borrará TODOS los equipos, calificaciones y resets de perfiles. El sistema quedará vacío.')) return;
-            const confirm2 = prompt('Para confirmar, escribe "REINICIAR":');
-            if (confirm2 !== 'REINICIAR') return;
-
             this.isUpdating = true;
             try {
-                console.log("Iniciando purga total de datos...");
-
-                // 1. Limpiar Equipos
-                const equiposSnap = await getDocs(collection(db, 'equipos'));
-                for (const d of equiposSnap.docs) {
-                    await deleteDoc(doc(db, 'equipos', d.id));
-                }
-
-                // 2. Limpiar Calificaciones
-                const calSnap = await getDocs(collection(db, 'calificaciones'));
-                for (const d of calSnap.docs) {
-                    await deleteDoc(doc(db, 'calificaciones', d.id));
-                }
-
-                // 3. Limpiar fotos de perfil en Firestore (systemUsers)
-                const usersSnap = await getDocs(collection(db, 'systemUsers'));
-                for (const d of usersSnap.docs) {
-                    await updateDoc(doc(db, 'systemUsers', d.id), {
-                        photoURL: null,
-                        updatedAt: serverTimestamp()
-                    });
-                }
-
-                // 4. Limpiar fotos en Firebase Auth (usuario actual)
-                if (auth.currentUser) {
-                    await updateProfile(auth.currentUser, { photoURL: null });
-                }
-
-                // 5. Limpiar RTDB Active Launch en todas las ramas de misiones
-                await set(ref(rtdb, 'active_launch'), null);
-                await set(ref(rtdb, 'active_launch_Lanzamiento_Vertical'), null);
-                await set(ref(rtdb, 'active_launch_Tiro_Parabolico'), null);
-
-                // 6. Limpiar Cache Local
-                clearSessionData();
-                localStorage.clear();
-
-                alert('✅ Sistema reiniciado con éxito. La plataforma está totalmente limpia.');
-                window.location.reload();
-            } catch (err) {
-                console.error("Error en reset crítico:", err);
-                alert('❌ Error al reiniciar: ' + err.message);
+                await Alpine.store('app').resetPlatformToBlank();
             } finally {
                 this.isUpdating = false;
             }

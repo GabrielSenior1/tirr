@@ -991,11 +991,11 @@
 
             <!-- SideNavBar Anchor -->
             <aside
-                class="h-screen w-64 fixed left-0 top-0 bg-[#091126] border-r border-cyan-500/25 shadow-2xl flex flex-col py-6 px-4 z-[60] peer-checked:translate-x-0 transition-transform duration-300 -translate-x-full lg:translate-x-0">
-                <div class="mb-10 px-2 flex justify-between items-center">
+                class="h-screen max-h-screen w-64 fixed left-0 top-0 bg-[#091126] border-r border-cyan-500/25 shadow-2xl flex flex-col py-4 px-3 z-[60] peer-checked:translate-x-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 justify-between overflow-hidden">
+                <div class="mb-3 px-2 flex justify-between items-center shrink-0">
                     <div>
-                        <span class="text-2xl font-bold tracking-tighter text-primary font-headline">ZENITH</span>
-                        <p class="text-[10px] uppercase tracking-widest text-accent-gold font-body mt-1">Torneo de Cohetes
+                        <span class="text-xl font-bold tracking-tighter text-primary font-headline">ZENITH</span>
+                        <p class="text-[9px] uppercase tracking-widest text-accent-gold font-body mt-0.5">Torneo de Cohetes
                         </p>
                     </div>
                     <label class="lg:hidden text-slate-400 cursor-pointer" for="mobile-menu-checkbox">
@@ -1003,19 +1003,19 @@
                     </label>
                 </div>
 
-                <nav class="flex-1 space-y-1.5">
+                <nav class="flex-1 min-h-0 overflow-y-auto custom-scrollbar space-y-1 py-1 pr-1">
                     <button @click="activeTab = 'dashboard'" data-testid="nav-dashboard"
                         :class="activeTab === 'dashboard' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
-                        class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
-                        <span class="material-symbols-outlined transition-colors group-hover:text-white"
+                        class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm transition-all group">
+                        <span class="material-symbols-outlined text-[18px] transition-colors group-hover:text-white"
                             data-icon="dashboard">dashboard</span>
                         <span class="font-headline">Panel Principal</span>
                     </button>
                     <template x-if="$store.app.hasAccess('registro')">
                         <button @click="activeTab = 'registro'" data-testid="nav-registro"
                             :class="activeTab === 'registro' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
-                            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
-                            <span class="material-symbols-outlined transition-colors group-hover:text-white"
+                            class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm transition-all group">
+                            <span class="material-symbols-outlined text-[18px] transition-colors group-hover:text-white"
                                 data-icon="how_to_reg">how_to_reg</span>
                             <span class="font-headline">Registro de Equipos</span>
                         </button>
@@ -1023,8 +1023,8 @@
                     <template x-if="$store.app.hasAccess('resultados')">
                         <button @click="activeTab = 'resultados'" data-testid="nav-resultados"
                             :class="activeTab === 'resultados' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
-                            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
-                            <span class="material-symbols-outlined transition-colors group-hover:text-white"
+                            class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm transition-all group">
+                            <span class="material-symbols-outlined text-[18px] transition-colors group-hover:text-white"
                                 data-icon="emoji_events">emoji_events</span>
                             <span class="font-headline">Podio y Resultados</span>
                         </button>
@@ -1032,8 +1032,8 @@
                     <template x-if="$store.app.hasAccess('calificacion')">
                         <button @click="activeTab = 'calificacion_lista'" data-testid="nav-calificacion-lista"
                             :class="activeTab === 'calificacion_lista' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
-                            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
-                            <span class="material-symbols-outlined transition-colors group-hover:text-white"
+                            class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm transition-all group">
+                            <span class="material-symbols-outlined text-[18px] transition-colors group-hover:text-white"
                                 data-icon="format_list_numbered">format_list_numbered</span>
                             <span class="font-headline">Evaluación Jurados</span>
                         </button>
@@ -1041,8 +1041,8 @@
                     <template x-if="$store.app.hasAccess('cronometro')">
                         <button @click="activeTab = 'cronometro'" data-testid="nav-cronometro"
                             :class="activeTab === 'cronometro' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
-                            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
-                            <span class="material-symbols-outlined transition-colors group-hover:text-white"
+                            class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm transition-all group">
+                            <span class="material-symbols-outlined text-[18px] transition-colors group-hover:text-white"
                                 data-icon="monitoring">monitoring</span>
                             <span class="font-headline">Cronometría</span>
                         </button>
@@ -1050,8 +1050,8 @@
                     <template x-if="$store.app.hasAccess('equipos')">
                         <button @click="activeTab = 'equipos'" data-testid="nav-equipos"
                             :class="activeTab === 'equipos' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
-                            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
-                            <span class="material-symbols-outlined transition-colors group-hover:text-white"
+                            class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm transition-all group">
+                            <span class="material-symbols-outlined text-[18px] transition-colors group-hover:text-white"
                                 data-icon="groups">groups</span>
                             <span class="font-headline">Equipos</span>
                         </button>
@@ -1059,8 +1059,8 @@
                     <template x-if="$store.app.hasAccess('resultados_finales')">
                         <button @click="activeTab = 'resultados_finales'" data-testid="nav-resultados-finales"
                             :class="activeTab === 'resultados_finales' ? 'text-emerald-400 font-bold border-r-4 border-emerald-500 bg-emerald-500/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
-                            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
-                            <span class="material-symbols-outlined transition-colors group-hover:text-white"
+                            class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm transition-all group">
+                            <span class="material-symbols-outlined text-[18px] transition-colors group-hover:text-white"
                                 data-icon="military_tech">military_tech</span>
                             <span class="font-headline">Resultados Finales</span>
                         </button>
@@ -1068,33 +1068,33 @@
 
                     <button @click="activeTab = 'creditos'" data-testid="nav-creditos"
                         :class="activeTab === 'creditos' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
-                        class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
-                        <span class="material-symbols-outlined transition-colors group-hover:text-white"
+                        class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm transition-all group">
+                        <span class="material-symbols-outlined text-[18px] transition-colors group-hover:text-white"
                             data-icon="workspace_premium">workspace_premium</span>
                         <span class="font-headline">Créditos</span>
                     </button>
 
-                    <template x-if="$store.app.user?.email === 'admin@tirr.com'">
+                    <template x-if="$store.app.user?.email === 'admin@tirr.com' || $store.app.userRole === 'ADMINISTRADOR'">
                         <button @click="activeTab = 'configuracion'" data-testid="nav-configuracion"
                             :class="activeTab === 'configuracion' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
-                            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
-                            <span class="material-symbols-outlined transition-colors group-hover:text-white"
+                            class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm transition-all group">
+                            <span class="material-symbols-outlined text-[18px] transition-colors group-hover:text-white"
                                 data-icon="settings">settings</span>
                             <span class="font-headline">Configuración</span>
                         </button>
                     </template>
                 </nav>
 
-                <div class="mt-auto space-y-3">
+                <div class="mt-auto pt-3 pb-6 shrink-0 space-y-2 border-t border-white/10 z-10 bg-[#091126]">
                     <template x-if="!$store.app.isGuest">
                         <button @click="$store.app.setMision(null)"
-                            class="w-full border border-white/10 hover:bg-white/5 text-slate-400 py-3 rounded-xl font-bold font-headline flex items-center justify-center gap-2 transition-all active:scale-95 text-xs text-center">
-                            <span class="material-symbols-outlined text-[18px]">sync</span>
+                            class="w-full border border-white/15 hover:bg-white/5 text-slate-300 py-2 rounded-xl font-bold font-headline flex items-center justify-center gap-2 transition-all active:scale-95 text-xs text-center cursor-pointer">
+                            <span class="material-symbols-outlined text-[16px]">sync</span>
                             Cambiar Misión
                         </button>
                     </template>
-                    <button @click="$store.app.logout()"
-                        class="w-full border border-primary/20 hover:bg-primary/10 text-primary py-3 rounded-xl font-bold font-headline flex items-center justify-center gap-2 transition-all active:scale-95 text-xs text-center">
+                    <button @click="$store.app.logout()" data-testid="sidebar-logout"
+                        class="w-full bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/40 text-rose-300 hover:text-white py-2.5 rounded-xl font-bold font-headline flex items-center justify-center gap-2 transition-all active:scale-95 text-xs text-center shadow-md shadow-rose-950/40 cursor-pointer">
                         <span class="material-symbols-outlined text-[18px]">logout</span>
                         Cerrar Sesión
                     </button>
@@ -1266,6 +1266,54 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- BANNER DE CONTROL MAESTRO Y EMERGENCIAS (ADMIN ONLY) -->
+                    <template x-if="$store.app.user?.email === 'admin@tirr.com' || $store.app.userRole === 'ADMINISTRADOR'">
+                        <div class="mb-8 p-5 sm:p-6 rounded-3xl bg-[#111e3d]/90 border border-cyan-500/40 shadow-xl relative overflow-hidden backdrop-blur-md">
+                            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 relative z-10">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-primary/20 border border-primary/40 flex items-center justify-center text-primary shrink-0 shadow-lg shadow-primary/20">
+                                        <span class="material-symbols-outlined text-2xl">admin_panel_settings</span>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-[10px] font-black uppercase tracking-widest text-primary font-headline">Control Maestro TIRR</span>
+                                            <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white/10 text-slate-300 border border-white/10">Admin & Emergencias</span>
+                                        </div>
+                                        <h3 class="text-lg md:text-xl font-black text-white headline tracking-tight">Consola de Emergencia y Respaldo</h3>
+                                        <p class="text-xs text-slate-300">Guardado de respaldo, recuperación de emergencia y puesta a cero del torneo.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Botones de Acción Rápida -->
+                                <div class="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
+                                    <!-- Botón Guardar / Descargar Respaldo -->
+                                    <button @click="$store.app.exportEmergencyBackup()"
+                                        title="Descargar archivo JSON con todos los datos"
+                                        class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-500/30 border border-cyan-400/50 text-cyan-300 hover:text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer">
+                                        <span class="material-symbols-outlined text-[18px]">download</span>
+                                        <span>Guardar Respaldo (.JSON)</span>
+                                    </button>
+
+                                    <!-- Botón Restaurar Respaldo -->
+                                    <label title="Cargar archivo JSON de respaldo"
+                                        class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-slate-200 hover:text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer">
+                                        <span class="material-symbols-outlined text-[18px]">upload_file</span>
+                                        <span>Restaurar Respaldo</span>
+                                        <input type="file" accept=".json" class="hidden" @change="$store.app.restoreEmergencyBackup($event)">
+                                    </label>
+
+                                    <!-- Botón Reinicio General Todo en Blanco -->
+                                    <button @click="$store.app.resetPlatformToBlank()"
+                                        title="Vaciar todos los equipos y calificaciones para comenzar de nuevo"
+                                        class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-rose-600/20 hover:bg-rose-600/35 border border-rose-500/50 text-rose-300 hover:text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer">
+                                        <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                                        <span>Reinicio General (Todo en Blanco)</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
 
                     <!-- Bento Grid of Interactive Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mb-12">
@@ -3040,27 +3088,149 @@
                 </section>
 
                 <!-- SECCIÓN DE CONFIGURACIÓN (ADMIN ONLY) -->
-                <section class="p-12 pt-28 md:pt-32" x-show="activeTab === 'configuracion'" x-transition>
-                    <div class="max-w-5xl mx-auto">
-                        <div class="mb-12">
-                            <h2 class="text-4xl font-black headline text-white uppercase tracking-tighter">Configuración
-                                de Flota</h2>
-                            <p class="text-[10px] text-gray-500 font-black uppercase tracking-[0.4em] mt-2">Gestión de
-                                Perfiles y Credenciales</p>
+                <section class="p-6 md:p-12 pt-28 md:pt-32" x-show="activeTab === 'configuracion'" x-transition>
+                    <div class="max-w-6xl mx-auto" x-data="headerController">
+                        <!-- Cabecera de Configuración -->
+                        <div class="mb-10">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-primary/20 text-primary border border-primary/30">
+                                    Panel de Control Maestro
+                                </span>
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">
+                                    Admin & Seguridad
+                                </span>
+                            </div>
+                            <h2 class="text-3xl md:text-5xl font-black headline text-white uppercase tracking-tighter">
+                                Control Maestro y Flota
+                            </h2>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">
+                                Respaldos de Emergencia • Puesta a Cero de Torneo • Perfiles y Credenciales
+                            </p>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12" x-data="headerController">
+                        <!-- PANEL DE EMERGENCIA Y CONTROL DE DATOS (2 TARJETAS DESTACADAS) -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+                            <!-- TARJETA 1: RESPALDO Y RECUPERACIÓN DE EMERGENCIA -->
+                            <div class="rounded-3xl p-6 md:p-8 bg-[#111e3d]/90 border border-cyan-500/40 shadow-xl relative overflow-hidden backdrop-blur-md flex flex-col justify-between">
+                                <div class="relative z-10">
+                                    <div class="flex items-center justify-between gap-4 mb-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shadow-md">
+                                                <span class="material-symbols-outlined text-2xl">shield</span>
+                                            </div>
+                                            <div>
+                                                <span class="text-[10px] font-mono font-bold tracking-widest text-cyan-300 bg-cyan-500/15 px-2 py-0.5 rounded border border-cyan-500/30">
+                                                    SEGURIDAD Y DATOS
+                                                </span>
+                                                <h3 class="text-xl font-bold headline text-white mt-1">Copia de Seguridad de Emergencia</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                                        Descarga un archivo <strong class="text-cyan-300">.JSON</strong> con todos los equipos, notas de jurados y tiempos de vuelo. Si ocurre una emergencia técnica o corte de red, puedes restaurar la plataforma en segundos.
+                                    </p>
+
+                                    <!-- Datos actuales en memoria -->
+                                    <div class="flex items-center gap-4 py-2.5 px-4 rounded-xl bg-black/30 border border-white/10 mb-6 text-xs text-slate-300">
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                                            <span>Equipos: <strong class="text-white" x-text="$store.app.teams.length">0</strong></span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full bg-teal-400"></span>
+                                            <span>Calificaciones: <strong class="text-white" x-text="$store.app.allCalificaciones.length || $store.app.calificaciones.length">0</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Botones de Respaldo -->
+                                <div class="space-y-3 relative z-10 pt-2 border-t border-white/10">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <button @click="exportBackup()"
+                                            class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold headline py-3 px-4 rounded-xl transition-all shadow-lg shadow-cyan-600/20 text-xs flex items-center justify-center gap-2 active:scale-95 cursor-pointer">
+                                            <span class="material-symbols-outlined text-[18px]">download</span>
+                                            <span>Descargar Respaldo JSON</span>
+                                        </button>
+
+                                        <label
+                                            class="w-full bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold headline py-3 px-4 rounded-xl transition-all text-xs flex items-center justify-center gap-2 active:scale-95 cursor-pointer text-center">
+                                            <span class="material-symbols-outlined text-[18px]">upload_file</span>
+                                            <span>Cargar Respaldo (.JSON)</span>
+                                            <input type="file" accept=".json" class="hidden" @change="restoreBackup($event)">
+                                        </label>
+                                    </div>
+
+                                    <template x-if="hasLocalBackup()">
+                                        <button @click="restoreLastLocalBackup()"
+                                            class="w-full bg-teal-500/10 hover:bg-teal-500/20 border border-teal-500/30 text-teal-300 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
+                                            <span class="material-symbols-outlined text-[16px]">history</span>
+                                            <span>Restaurar Última Copia Local en Caché</span>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- TARJETA 2: REINICIO GENERAL DE TODO EN BLANCO -->
+                            <div class="rounded-3xl p-6 md:p-8 bg-[#111e3d]/90 border border-rose-500/40 shadow-xl relative overflow-hidden backdrop-blur-md flex flex-col justify-between">
+                                <div class="relative z-10">
+                                    <div class="flex items-center justify-between gap-4 mb-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-12 h-12 rounded-2xl bg-rose-500/20 border border-rose-400/40 flex items-center justify-center text-rose-300 shadow-md">
+                                                <span class="material-symbols-outlined text-2xl">restart_alt</span>
+                                            </div>
+                                            <div>
+                                                <span class="text-[10px] font-mono font-bold tracking-widest text-rose-300 bg-rose-500/15 px-2 py-0.5 rounded border border-rose-500/30">
+                                                    PUESTA A CERO DEL TORNEO
+                                                </span>
+                                                <h3 class="text-xl font-bold headline text-white mt-1">Reinicio General: Todo en Blanco</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                                        Elimina de forma irreversible todos los equipos inscritos, notas de jurados y telemetría de vuelos. Deja la plataforma <strong class="text-rose-300">completamente en blanco</strong> para iniciar un nuevo torneo oficial desde cero.
+                                    </p>
+
+                                    <div class="py-2.5 px-4 rounded-xl bg-rose-950/30 border border-rose-500/20 mb-6 text-xs text-rose-200 flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-[18px] text-rose-400 shrink-0">lock_reset</span>
+                                        <span>Requiere confirmación de seguridad escribiendo <strong>REINICIAR</strong>. Las cuentas de usuario se conservan.</span>
+                                    </div>
+                                </div>
+
+                                <!-- Botón de Reinicio General -->
+                                <div class="relative z-10 pt-2 border-t border-white/10">
+                                    <button @click="resetPlatformData()" :disabled="isUpdating"
+                                        class="w-full bg-rose-600 hover:bg-rose-500 text-white font-black headline py-3.5 px-4 rounded-xl transition-all shadow-lg shadow-rose-600/30 text-xs uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-50 active:scale-95 cursor-pointer">
+                                        <span x-show="!isUpdating" class="flex items-center justify-center gap-2">
+                                            <span class="material-symbols-outlined text-[18px]">delete_forever</span>
+                                            <span>Reinicio General (Poner Todo en Blanco)</span>
+                                        </span>
+                                        <span x-show="isUpdating"
+                                            class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto block"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN 2: GESTIÓN DE PERFILES Y AVATARES -->
+                        <div class="mb-6">
+                            <h3 class="text-xl font-black headline text-white uppercase tracking-tight">Gestión de Perfiles y Credenciales</h3>
+                            <p class="text-xs text-slate-400">Personalización de fotos y roles para el equipo de jurados y administradores.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <!-- Lista de Usuarios -->
                             <div
-                                class="bg-white/5 border border-white/10 rounded-[3rem] p-10 max-h-[550px] overflow-y-auto custom-scrollbar">
-                                <h3 class="text-lg font-black headline text-white uppercase mb-8 tracking-tighter">
+                                class="bg-white/5 border border-white/10 rounded-[2.5rem] p-8 max-h-[550px] overflow-y-auto custom-scrollbar">
+                                <h3 class="text-base font-black headline text-white uppercase mb-6 tracking-wider">
                                     Usuarios Registrados</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-3">
                                     <template x-for="user in $store.app.systemUsers" :key="user.id">
                                         <div @click="userToEdit = user"
-                                            class="flex items-center justify-between p-4 rounded-2xl border transition-all group cursor-pointer"
+                                            class="flex items-center justify-between p-3.5 rounded-2xl border transition-all group cursor-pointer"
                                             :class="userToEdit?.email === user.email ? 'bg-primary/10 border-primary/40' : 'bg-black/20 border-white/5 hover:border-primary/30'">
-                                            <div class="flex items-center gap-4">
+                                            <div class="flex items-center gap-3.5">
                                                 <div :style="'background-color: ' + user.hex"
                                                     class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs text-black shadow-lg">
                                                     <template x-if="user.photoURL">
@@ -3080,7 +3250,7 @@
                                                         x-text="'Nivel: ' + user.role"></p>
                                                 </div>
                                             </div>
-                                            <span class="material-symbols-outlined transition-colors"
+                                            <span class="material-symbols-outlined transition-colors text-sm"
                                                 :class="userToEdit?.email === user.email ? 'text-primary' : 'text-gray-700'"
                                                 x-text="userToEdit?.email === user.email ? 'check_circle' : 'security'">
                                             </span>
@@ -3091,8 +3261,8 @@
 
                             <!-- Panel de Avatar -->
                             <div
-                                class="flex flex-col items-center justify-center bg-primary/5 border border-primary/20 rounded-[3.5rem] p-12 text-center">
-                                <div class="w-48 h-48 rounded-full bg-black/40 border-4 border-primary/30 flex items-center justify-center mb-8 relative group overflow-hidden shadow-2xl"
+                                class="flex flex-col items-center justify-center bg-primary/5 border border-primary/20 rounded-[2.5rem] p-8 text-center">
+                                <div class="w-40 h-40 rounded-full bg-black/40 border-4 border-primary/30 flex items-center justify-center mb-6 relative group overflow-hidden shadow-2xl"
                                     :class="isUpdating ? 'cursor-wait' : 'cursor-pointer'"
                                     @click="!isUpdating && $refs.avatarFile.click()">
 
@@ -3100,7 +3270,7 @@
                                     <div x-show="isUpdating"
                                         class="absolute inset-0 bg-black/40 backdrop-blur-sm z-20 flex items-center justify-center">
                                         <div
-                                            class="w-12 h-12 border-4 border-white/20 border-t-primary rounded-full animate-spin">
+                                            class="w-10 h-10 border-4 border-white/20 border-t-primary rounded-full animate-spin">
                                         </div>
                                     </div>
 
@@ -3113,29 +3283,28 @@
                                     <template x-if="!(userToEdit || $store.app.user)?.photoURL">
                                         <div class="w-full h-full flex items-center justify-center bg-gray-900">
                                             <span
-                                                class="material-symbols-outlined text-6xl text-primary opacity-50">person</span>
+                                                class="material-symbols-outlined text-5xl text-primary opacity-50">person</span>
                                         </div>
                                     </template>
 
                                     <div
                                         class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-all cursor-pointer z-10">
                                         <span x-show="!isUpdating"
-                                            class="material-symbols-outlined text-3xl mb-2">photo_camera</span>
+                                            class="material-symbols-outlined text-2xl mb-1">photo_camera</span>
                                         <span x-show="!isUpdating"
-                                            class="text-[10px] font-black uppercase tracking-widest">Cambiar Foto</span>
+                                            class="text-[9px] font-black uppercase tracking-widest">Cambiar Foto</span>
                                     </div>
 
                                     <input x-ref="avatarFile" type="file" class="hidden" accept="image/*"
                                         @change="this.newAvatarFile = $event.target.files[0]; if(this.newAvatarFile) updateAvatar()">
                                 </div>
 
-                                <h4 class="text-2xl font-black headline text-white uppercase tracking-tighter"
+                                <h4 class="text-xl font-black headline text-white uppercase tracking-tighter"
                                     x-text="userToEdit ? 'Modificar a ' + userToEdit.name : 'Mi Perfil' "></h4>
-                                <p class="text-xs text-gray-500 font-bold mt-2 leading-relaxed px-4">
+                                <p class="text-xs text-gray-400 font-medium mt-1 leading-relaxed px-4">
                                     <template x-if="userToEdit">
-                                        <span>Estás editando el perfil de <strong class="text-primary"
-                                                x-text="userToEdit.name"></strong>. La foto se actualizará en la base de
-                                            datos global.</span>
+                                        <span>Editando perfil de <strong class="text-primary"
+                                                x-text="userToEdit.name"></strong>. La foto se guardará en la nube.</span>
                                     </template>
                                     <template x-if="!userToEdit">
                                         <span>Selecciona un usuario de la lista para modificar su foto o pulsa aquí para
@@ -3145,38 +3314,10 @@
 
                                 <template x-if="userToEdit">
                                     <button @click="userToEdit = null"
-                                        class="mt-6 text-[9px] font-black uppercase tracking-[0.3em] text-primary hover:text-white transition-colors">
+                                        class="mt-4 text-[9px] font-black uppercase tracking-[0.3em] text-primary hover:text-white transition-colors">
                                         &lt; Volver a mi perfil
                                     </button>
                                 </template>
-                            </div>
-
-                            <!-- ZONA DE PELIGRO: REINICIO DEL SISTEMA -->
-                            <div class="mt-16 pt-8 border-t border-white/5 md:col-span-2">
-                                <div
-                                    class="bg-primary/5 border border-primary/20 rounded-[2.5rem] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative">
-                                    <div
-                                        class="absolute -right-10 -bottom-10 text-[120px] font-black text-primary/5 select-none pointer-events-none headline">
-                                        RESET</div>
-
-                                    <div class="text-center md:text-left relative z-10">
-                                        <h3
-                                            class="text-primary headline font-black text-xl md:text-2xl uppercase tracking-tighter">
-                                            Zona de Peligro: Reinicio Maestro</h3>
-                                        <p class="text-xs text-gray-400 mt-2 max-w-lg leading-relaxed">Esta acción
-                                            eliminará de forma irreversible todos los equipos, calificaciones y fotos de
-                                            perfil. Se conservarán las cuentas de usuario y sus roles.</p>
-                                    </div>
-                                    <button @click="resetPlatformData()" :disabled="isUpdating"
-                                        class="w-full md:w-64 bg-primary hover:bg-[#D30000] text-white font-black headline py-5 rounded-2xl transition-all shadow-lg shadow-primary/20 uppercase tracking-widest text-xs disabled:opacity-50 relative z-10 group overflow-hidden">
-                                        <span x-show="!isUpdating" class="flex items-center justify-center gap-2">
-                                            Limpiar Plataforma <span
-                                                class="material-symbols-outlined text-sm">delete_forever</span>
-                                        </span>
-                                        <span x-show="isUpdating"
-                                            class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto block"></span>
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
