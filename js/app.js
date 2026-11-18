@@ -69,15 +69,15 @@ function initTIRR() {
         loginError: null,
         loginLoading: false,
         systemUsers: [
-            { id: 1, name: 'Admin TIRR', role: 'ADMINISTRADOR', color: 'red', hex: '#D30000', initial: 'AT', email: 'admin@tirr.com' },
-            { id: 2, name: 'Jurado 1', role: 'JURADO', color: 'yellow', hex: '#FFD700', initial: 'J1', email: 'jurado1@tirr.com' },
-            { id: 3, name: 'Jurado 2', role: 'JURADO', color: 'yellow', hex: '#FFD700', initial: 'J2', email: 'jurado2@tirr.com' },
-            { id: 4, name: 'Jurado 3', role: 'JURADO', color: 'yellow', hex: '#FFD700', initial: 'J3', email: 'jurado3@tirr.com' },
-            { id: 5, name: 'Jurado 4', role: 'JURADO', color: 'yellow', hex: '#FFD700', initial: 'J4', email: 'jurado4@tirr.com' },
+            { id: 1, name: 'Admin TIRR', role: 'ADMINISTRADOR', color: 'red', hex: '#E24A4A', initial: 'AT', email: 'admin@tirr.com' },
+            { id: 2, name: 'Jurado 1', role: 'JURADO', color: 'yellow', hex: '#F59E0B', initial: 'J1', email: 'jurado1@tirr.com' },
+            { id: 3, name: 'Jurado 2', role: 'JURADO', color: 'yellow', hex: '#F59E0B', initial: 'J2', email: 'jurado2@tirr.com' },
+            { id: 4, name: 'Jurado 3', role: 'JURADO', color: 'yellow', hex: '#F59E0B', initial: 'J3', email: 'jurado3@tirr.com' },
+            { id: 5, name: 'Jurado 4', role: 'JURADO', color: 'yellow', hex: '#F59E0B', initial: 'J4', email: 'jurado4@tirr.com' },
             { id: 6, name: 'Auxiliar 1', role: 'AUXILIAR JURADO', color: 'emerald', hex: '#10B981', initial: 'A1', email: 'auxiliar1@tirr.com' },
             { id: 7, name: 'Auxiliar 2', role: 'AUXILIAR JURADO', color: 'emerald', hex: '#10B981', initial: 'A2', email: 'auxiliar2@tirr.com' },
-            { id: 8, name: 'Cronometrista', role: 'CRONOMETRISTA', color: 'cyan', hex: '#00E5FF', initial: 'C1', email: 'cronometrista1@tirr.com' },
-            { id: 9, name: 'Vista de Prueba', role: 'VISTA DE PRUEBA', color: 'purple', hex: '#A855F7', initial: 'VP', email: 'prueba@tirr.com' }
+            { id: 8, name: 'Cronometrista', role: 'CRONOMETRISTA', color: 'cyan', hex: '#0EA5E9', initial: 'C1', email: 'cronometrista1@tirr.com' },
+            { id: 9, name: 'Vista de Prueba', role: 'VISTA DE PRUEBA', color: 'purple', hex: '#8B5CF6', initial: 'VP', email: 'prueba@tirr.com' }
         ],
 
         get currentJudgeId() {
@@ -1022,9 +1022,9 @@ function initTIRR() {
 
         init() {
             this.$watch('scores.flight', val => { if(val !== '' && val !== null) this.scores.flight = Math.min(40, Math.max(0, val)); });
-            this.$watch('scores.design', val => { if(val !== '' && val !== null) this.scores.design = Math.min(20, Math.max(0, val)); });
+            this.$watch('scores.sustentation', val => { if(val !== '' && val !== null) this.scores.sustentation = Math.min(25, Math.max(0, val)); });
             this.$watch('scores.innovation', val => { if(val !== '' && val !== null) this.scores.innovation = Math.min(20, Math.max(0, val)); });
-            this.$watch('scores.sustentation', val => { if(val !== '' && val !== null) this.scores.sustentation = Math.min(20, Math.max(0, val)); });
+            this.$watch('scores.design', val => { if(val !== '' && val !== null) this.scores.design = Math.min(15, Math.max(0, val)); });
             this.$watch('penalties', val => { if(val !== '' && val !== null) this.penalties = Math.max(0, val); });
 
             this.$watch('selectedTeamId', async (id) => {
@@ -1464,9 +1464,9 @@ function initTIRR() {
 
             // Validar límites
             row.flight = Math.min(40, Math.max(0, Number(row.flight) || 0));
-            row.design = Math.min(20, Math.max(0, Number(row.design) || 0));
+            row.sustentation = Math.min(25, Math.max(0, Number(row.sustentation) || 0));
             row.innovation = Math.min(20, Math.max(0, Number(row.innovation) || 0));
-            row.sustentation = Math.min(20, Math.max(0, Number(row.sustentation) || 0));
+            row.design = Math.min(15, Math.max(0, Number(row.design) || 0));
             row.penalties = Math.max(0, Number(row.penalties) || 0);
 
             const total = this.calculateTotal(teamId);

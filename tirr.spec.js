@@ -234,11 +234,11 @@ test.describe('F4 Evaluación tipo lista', () => {
     await expect(campo(page, 'design')).toHaveValue('0');
   });
 
-  test('F4-ERR Diseño=21 se limita a 20', async ({ page }) => {
+  test('F4-ERR Diseño=21 se limita a 15', async ({ page }) => {
     await abrir(page);
     await campo(page, 'design').fill('21');
     await campo(page, 'design').press('Tab');
-    await expect(campo(page, 'design')).toHaveValue('20');
+    await expect(campo(page, 'design')).toHaveValue('15');
   });
 });
 

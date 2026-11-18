@@ -26,56 +26,56 @@
             theme: {
                 extend: {
                     "colors": {
-                        "surface-container-low": "#1c1b1b",
-                        "surface-container-high": "#2a2a2a",
-                        "secondary-container": "#ffdb3c",
-                        "on-surface-variant": "#e8bcb5",
-                        "on-primary-container": "#ffe2dd",
-                        "on-tertiary-container": "#e8e8e8",
-                        "surface-bright": "#393939",
-                        "tertiary-container": "#676868",
-                        "surface-tint": "#ffb4a8",
-                        "on-error": "#690005",
-                        "on-error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#c6c6c7",
-                        "on-surface": "#e5e2e1",
-                        "outline-variant": "#5e3f3a",
-                        "background": "#131313",
-                        "secondary-fixed-dim": "#e9c400",
-                        "secondary-fixed": "#ffe16d",
-                        "on-secondary-fixed": "#221b00",
-                        "primary-fixed-dim": "#ffb4a8",
-                        "tertiary-fixed": "#e2e2e2",
-                        "on-secondary": "#3a3000",
-                        "inverse-surface": "#e5e2e1",
-                        "outline": "#af8881",
-                        "tertiary": "#c6c6c7",
-                        "error": "#ffb4ab",
-                        "surface-container": "#201f1f",
-                        "on-secondary-container": "#725f00",
-                        "secondary": "#fff9ef",
-                        "primary-fixed": "#ffdad4",
-                        "surface-container-highest": "#353534",
-                        "on-primary": "#690000",
-                        "on-tertiary-fixed": "#1a1c1c",
-                        "inverse-primary": "#c00000",
-                        "on-tertiary": "#2f3131",
-                        "on-secondary-fixed-variant": "#544600",
-                        "on-tertiary-fixed-variant": "#454747",
-                        "surface-container-lowest": "#0e0e0e",
-                        "primary": "#D30000",
-                        "primary-light": "#ffb4a8",
-                        "accent-gold": "#FFD700",
-                        "peach": "#e8bcb5",
-                        "surface": "#131313",
-                        "inverse-on-surface": "#313030",
-                        "on-primary-fixed-variant": "#930100",
-                        "surface-dim": "#131313",
-                        "on-background": "#e5e2e1",
-                        "primary-container": "#d30000",
-                        "error-container": "#93000a",
-                        "on-primary-fixed": "#410000",
-                        "surface-variant": "#353534"
+                        "surface-container-low": "#10131B",
+                        "surface-container-high": "#23293A",
+                        "secondary-container": "#F59E0B",
+                        "on-surface-variant": "#94A3B8",
+                        "on-primary-container": "#FEE2E2",
+                        "on-tertiary-container": "#E2E8F0",
+                        "surface-bright": "#2E374E",
+                        "tertiary-container": "#334155",
+                        "surface-tint": "#F87171",
+                        "on-error": "#FFFFFF",
+                        "on-error-container": "#FEE2E2",
+                        "tertiary-fixed-dim": "#94A3B8",
+                        "on-surface": "#F1F5F9",
+                        "outline-variant": "#334155",
+                        "background": "#141721",
+                        "secondary-fixed-dim": "#D97706",
+                        "secondary-fixed": "#F59E0B",
+                        "on-secondary-fixed": "#1E1B4B",
+                        "primary-fixed-dim": "#FCA5A5",
+                        "tertiary-fixed": "#CBD5E1",
+                        "on-secondary": "#1E1B4B",
+                        "inverse-surface": "#F1F5F9",
+                        "outline": "#475569",
+                        "tertiary": "#94A3B8",
+                        "error": "#EF4444",
+                        "surface-container": "#1E2433",
+                        "on-secondary-container": "#78350F",
+                        "secondary": "#FEF3C7",
+                        "primary-fixed": "#FEE2E2",
+                        "surface-container-highest": "#2E374E",
+                        "on-primary": "#FFFFFF",
+                        "on-tertiary-fixed": "#0F172A",
+                        "inverse-primary": "#EF4444",
+                        "on-tertiary": "#1E293B",
+                        "on-secondary-fixed-variant": "#92400E",
+                        "on-tertiary-fixed-variant": "#334155",
+                        "surface-container-lowest": "#0D0F17",
+                        "primary": "#E24A4A",
+                        "primary-light": "#F87171",
+                        "accent-gold": "#F59E0B",
+                        "peach": "#CBD5E1",
+                        "surface": "#1B202D",
+                        "inverse-on-surface": "#1E293B",
+                        "on-primary-fixed-variant": "#991B1B",
+                        "surface-dim": "#141721",
+                        "on-background": "#F1F5F9",
+                        "primary-container": "#E24A4A",
+                        "error-container": "#7F1D1D",
+                        "on-primary-fixed": "#7F1D1D",
+                        "surface-variant": "#23293A"
                     },
                     "borderRadius": {
                         "DEFAULT": "0.125rem",
@@ -110,8 +110,8 @@
 
         body {
             font-family: 'Manrope', sans-serif;
-            background-color: #131313;
-            color: #e5e2e1;
+            background-color: #141721;
+            color: #F1F5F9;
         }
 
         .headline {
@@ -124,16 +124,17 @@
         }
 
         .glass-panel {
-            background: rgba(53, 53, 52, 0.4);
+            background: rgba(28, 34, 48, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* User Selector Grid & Cards (Ultra-stable layout on all mobile & tablets) */
+        /* User Selector Grid & Cards (Comfortable, eye-pleasing aerospace layout) */
         .user-grid {
             display: grid !important;
             grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-            gap: 8px !important;
+            gap: 10px !important;
             width: 100% !important;
             max-width: 80rem !important;
             margin-left: auto !important;
@@ -147,7 +148,7 @@
         @media (min-width: 640px) {
             .user-grid {
                 grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-                gap: 12px !important;
+                gap: 14px !important;
                 padding-left: 16px !important;
                 padding-right: 16px !important;
                 max-width: 44rem !important;
@@ -162,29 +163,31 @@
         }
 
         .user-card {
-            background: rgba(22, 22, 22, 0.8) !important;
+            background: #1C2230 !important;
             border: 1px solid rgba(255, 255, 255, 0.08) !important;
             border-radius: 1.25rem !important;
-            padding: 14px 6px 12px 6px !important;
+            padding: 16px 8px 14px 8px !important;
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
             justify-content: center !important;
             cursor: pointer !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
             position: relative !important;
             overflow: hidden !important;
             backdrop-filter: blur(8px) !important;
             -webkit-backdrop-filter: blur(8px) !important;
             box-sizing: border-box !important;
-            min-height: 105px !important;
+            min-height: 110px !important;
             width: 100% !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
         }
 
         .user-card:hover {
             transform: translateY(-2px) !important;
-            border-color: rgba(255, 255, 255, 0.25) !important;
-            background: rgba(32, 32, 32, 0.9) !important;
+            border-color: rgba(255, 255, 255, 0.22) !important;
+            background: #232A3B !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
         }
 
         .user-card:active {
@@ -211,9 +214,9 @@
 
         .user-role-text {
             font-family: 'Space Grotesk', sans-serif !important;
-            font-size: 10px !important;
-            font-weight: 800 !important;
-            color: #ffffff !important;
+            font-size: 10.5px !important;
+            font-weight: 700 !important;
+            color: #F1F5F9 !important;
             text-align: center !important;
             letter-spacing: -0.01em !important;
             width: 100% !important;
@@ -232,11 +235,11 @@
 
         .user-name-text {
             font-family: 'Manrope', sans-serif !important;
-            font-size: 8px !important;
-            font-weight: 700 !important;
-            color: #e8bcb5 !important;
+            font-size: 8.5px !important;
+            font-weight: 600 !important;
+            color: #94A3B8 !important;
             text-align: center !important;
-            letter-spacing: 0.08em !important;
+            letter-spacing: 0.04em !important;
             text-transform: uppercase !important;
             width: 100% !important;
             overflow: hidden !important;
@@ -244,7 +247,6 @@
             white-space: nowrap !important;
             line-height: 1.2 !important;
             margin: 0 !important;
-            opacity: 0.85 !important;
         }
 
         @media (min-width: 640px) {
@@ -254,78 +256,76 @@
         }
 
         .kinetic-glow:hover {
-            box-shadow: 0 0 25px rgba(211, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(226, 74, 74, 0.2);
         }
 
-        /* Tactical glows */
+        /* Tactical soft glows (non-fluorescent, eye-friendly) */
         .hover-glow-red:hover {
-            box-shadow: 0 0 30px rgba(211, 0, 0, 0.3);
-            border-color: rgba(211, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(226, 74, 74, 0.25);
+            border-color: rgba(226, 74, 74, 0.4);
         }
 
         .hover-glow-yellow:hover {
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+            border-color: rgba(245, 158, 11, 0.4);
         }
 
         .hover-glow-emerald:hover {
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
-            border-color: rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+            border-color: rgba(16, 185, 129, 0.4);
         }
 
         .hover-glow-cyan:hover {
-            box-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
-            border-color: rgba(0, 229, 255, 0.5);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.25);
+            border-color: rgba(14, 165, 233, 0.4);
         }
 
         .neon-glow-red {
-            filter: drop-shadow(0 0 10px rgba(211, 0, 0, 0.8));
-            color: #ff3333 !important;
+            color: #F87171 !important;
         }
 
         .neon-glow-gold {
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
-            color: #fff1aa !important;
+            color: #FBBF24 !important;
         }
 
         .active-nav {
-            background: linear-gradient(to right, rgba(211, 0, 0, 0.15) 0%, transparent 100%);
-            border-right: 4px solid #D30000;
-            color: #D30000 !important;
+            background: linear-gradient(to right, rgba(226, 74, 74, 0.12) 0%, transparent 100%);
+            border-right: 4px solid #E24A4A;
+            color: #E24A4A !important;
         }
 
         .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
+            width: 5px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #0e0e0e;
+            background: #11141C;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #353534;
+            background: #23293A;
             border-radius: 10px;
         }
 
         .glass-card {
-            background: rgba(53, 53, 52, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: #1C2230;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .red-glow {
-            box-shadow: 0 0 15px rgba(211, 0, 0, 0.2);
+            box-shadow: 0 0 15px rgba(226, 74, 74, 0.15);
         }
 
         .yellow-glow {
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
         }
 
         .green-glow {
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
         }
 
         .cyan-glow {
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.15);
         }
 
         .headline-font {
@@ -343,18 +343,18 @@
     </style>
 </head>
 
-<body class="custom-scrollbar overflow-x-hidden antialiased bg-[#0c0c0c] text-white" x-cloak
+<body class="custom-scrollbar overflow-x-hidden antialiased bg-[#141721] text-[#F1F5F9]" x-cloak
     x-data="{ activeTab: localStorage.getItem('activeTab') || 'dashboard' }"
     x-init="$watch('activeTab', val => { if(val) localStorage.setItem('activeTab', val); else localStorage.removeItem('activeTab'); }); document.addEventListener('guest:login', () => { activeTab = 'dashboard'; }); if (!localStorage.getItem('zenith_last_active')) { activeTab = 'dashboard'; }">
 
     <!-- Loader Inicial: controlado por JS puro, sin Alpine -->
     <div id="loading-screen"
-        style="display:flex; position:fixed; inset:0; z-index:9999; background:#0c0c0c; flex-direction:column; align-items:center; justify-content:center; transition:opacity 0.4s;">
+        style="display:flex; position:fixed; inset:0; z-index:9999; background:#141721; flex-direction:column; align-items:center; justify-content:center; transition:opacity 0.4s;">
         <div style="display:flex; flex-direction:column; align-items:center; gap:16px;">
             <div
-                style="width:48px;height:48px;border:4px solid rgba(211,0,0,0.15);border-top-color:#D30000;border-radius:50%;animation:spin 0.8s linear infinite;">
+                style="width:48px;height:48px;border:4px solid rgba(226,74,74,0.15);border-top-color:#E24A4A;border-radius:50%;animation:spin 0.8s linear infinite;">
             </div>
-            <p style="font-size:10px;font-weight:900;letter-spacing:0.5em;color:#D30000;text-transform:uppercase;">
+            <p style="font-size:10px;font-weight:900;letter-spacing:0.5em;color:#E24A4A;text-transform:uppercase;">
                 Iniciando Sistemas ZENITH</p>
         </div>
     </div>
@@ -368,7 +368,7 @@
 
     <!-- PANTALLA 1: LOGIN TÁCTICO (SELECCIÓN DE PERSONAL) -->
     <template x-if="!$store.app.isAuthenticated && !$store.app.isLoadingInitial">
-        <div class="bg-[#0c0c0c] text-white h-screen flex flex-col items-center justify-between pb-24 px-6 overflow-y-auto overflow-x-hidden relative custom-scrollbar"
+        <div class="bg-[#141721] text-[#F1F5F9] min-h-screen w-full flex flex-col items-center justify-between pb-16 px-4 sm:px-6 overflow-y-auto overflow-x-hidden relative custom-scrollbar"
             x-data="{ 
                 selectedSponsor: null, 
                 showSponsorModal: false,
@@ -420,12 +420,12 @@
 
             <div class="text-center mb-4 mt-6 md:mt-12 relative z-10 shrink-0 px-4">
                 <p
-                    class="text-[#FF6B00] font-bold tracking-[0.4em] sm:tracking-[0.6em] text-[9px] sm:text-[10px] md:text-[11px] mb-1 uppercase headline opacity-90">
+                    class="text-accent-gold font-bold tracking-[0.4em] sm:tracking-[0.6em] text-[9px] sm:text-[10px] md:text-[11px] mb-1 uppercase headline opacity-90">
                     Torneo Internacional de Lanzamiento de Cohetes</p>
                 <h1
                     class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black headline tracking-tighter text-white leading-none">
-                    <span class="text-white">SISTEMA</span> <span class="text-[#D30000]">ZEN</span><span
-                        class="text-secondary-fixed">ITH</span>
+                    <span class="text-white">SISTEMA</span> <span class="text-primary">ZEN</span><span
+                        class="text-accent-gold">ITH</span>
                 </h1>
                 <div class="h-1 w-20 bg-gradient-to-r from-primary to-transparent mx-auto mt-3"></div>
             </div>
@@ -436,17 +436,18 @@
 
                         <!-- Ambient background light matching user color -->
                         <div :style="'background: ' + user.hex"
-                            class="absolute -top-10 -right-10 w-20 h-20 blur-2xl opacity-15 pointer-events-none group-hover:opacity-30 transition-opacity">
+                            class="absolute -top-10 -right-10 w-20 h-20 blur-2xl opacity-10 pointer-events-none group-hover:opacity-25 transition-opacity">
                         </div>
 
-                        <!-- Fixed Avatar Circle (Immune to WebKit stretching) -->
+                        <!-- Fixed Avatar Circle (Aerospace translucent ring, eye-comfortable) -->
                         <div class="user-avatar-circle"
-                            :style="'background-color: ' + user.hex + '; box-shadow: 0 4px 14px ' + user.hex + '50;'">
+                            :style="'background-color: ' + user.hex + '18; border: 1.5px solid ' + user.hex + '60; color: ' + user.hex + ';'">
                             <template x-if="user.photoURL">
                                 <img :src="user.photoURL" class="w-full h-full object-cover rounded-full">
                             </template>
                             <template x-if="!user.photoURL">
-                                <span class="material-symbols-outlined text-black font-black select-none text-[22px]"
+                                <span class="material-symbols-outlined font-black select-none text-[22px]"
+                                    :style="'color: ' + user.hex"
                                     x-text="user.role.includes('CRONOMETRISTA') ? 'timer' : user.role.includes('PRUEBA') ? 'science' : user.role.includes('AUXILIAR') ? 'engineering' : user.role.includes('ADMIN') ? 'admin_panel_settings' : 'gavel'"></span>
                             </template>
                         </div>
@@ -463,7 +464,7 @@
                 <!-- BOTÓN 1: VISTA DE PRUEBA (Para personas externas y revisión sistemática IA) -->
                 <button @click="openLoginForm($store.app.systemUsers.find(u => u.role === 'VISTA DE PRUEBA'))"
                     id="btn-vista-prueba" data-testid="login-vista-prueba"
-                    class="bg-gradient-to-r from-purple-950/40 via-purple-900/20 to-black/60 border border-purple-500/30 hover:border-purple-400 p-4 md:p-5 rounded-[2rem] flex items-center justify-between gap-4 cursor-pointer transition-all duration-500 hover:-translate-y-1 group backdrop-blur-sm shadow-[0_0_30px_rgba(168,85,247,0.15)] text-left">
+                    class="bg-[#1C2230] border border-purple-500/30 hover:border-purple-400/60 p-4 md:p-5 rounded-2xl flex items-center justify-between gap-4 cursor-pointer transition-all duration-300 hover:-translate-y-1 group shadow-lg text-left">
                     <div class="flex items-center gap-4">
                         <div
                             class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center group-hover:bg-purple-500/30 group-hover:scale-110 transition-all text-purple-400 shrink-0">
@@ -480,7 +481,7 @@
                                 </span>
                             </div>
                             <p
-                                class="text-[9px] md:text-[10px] font-bold tracking-[0.15em] text-purple-300/60 uppercase">
+                                class="text-[9px] md:text-[10px] font-bold tracking-[0.15em] text-slate-400 uppercase">
                                 Pruebas completas • Cronometría, Calificaciones y Registro interactivo
                             </p>
                         </div>
@@ -491,62 +492,62 @@
 
                 <!-- BOTÓN 2: INVITADO (Solo Lectura) -->
                 <button @click="$store.app.loginAsGuest()" id="btn-invitado" data-testid="login-invitado"
-                    class="bg-white/[0.03] border border-white/10 hover:border-white/30 p-4 md:p-5 rounded-[2rem] flex items-center justify-between gap-4 cursor-pointer transition-all duration-500 hover:-translate-y-1 group backdrop-blur-sm text-left">
+                    class="bg-[#1C2230] border border-white/10 hover:border-white/25 p-4 md:p-5 rounded-2xl flex items-center justify-between gap-4 cursor-pointer transition-all duration-300 hover:-translate-y-1 group shadow-lg text-left">
                     <div class="flex items-center gap-4">
                         <div
                             class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center group-hover:bg-white/20 transition-all shrink-0">
                             <span
-                                class="material-symbols-outlined text-xl md:text-2xl text-white/60 group-hover:text-white transition-colors">visibility</span>
+                                class="material-symbols-outlined text-xl md:text-2xl text-slate-300 group-hover:text-white transition-colors">visibility</span>
                         </div>
                         <div>
                             <div class="flex items-center gap-2">
                                 <h3
-                                    class="text-sm md:text-base font-black headline text-white/80 group-hover:text-white transition-colors tracking-tight">
+                                    class="text-sm md:text-base font-black headline text-slate-200 group-hover:text-white transition-colors tracking-tight">
                                     INGRESAR COMO INVITADO</h3>
                                 <span
-                                    class="bg-white/10 text-gray-300 border border-white/20 text-[8px] md:text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">
+                                    class="bg-white/10 text-slate-300 border border-white/20 text-[8px] md:text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">
                                     Solo Lectura
                                 </span>
                             </div>
-                            <p class="text-[9px] md:text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">
+                            <p class="text-[9px] md:text-[10px] font-bold tracking-[0.2em] text-slate-400 uppercase">
                                 Visualización del torneo • Podio y resultados en vivo
                             </p>
                         </div>
                     </div>
                     <span
-                        class="material-symbols-outlined text-white/30 group-hover:text-white/60 transition-colors shrink-0">arrow_forward</span>
+                        class="material-symbols-outlined text-slate-400 group-hover:text-white transition-colors shrink-0">arrow_forward</span>
                 </button>
             </div>
 
             <!-- SECCIÓN DE PATROCINADORES -->
             <div
-                class="relative w-full max-w-5xl p-6 sm:p-8 md:p-10 border border-white/10 rounded-3xl sm:rounded-[3rem] bg-[#131313]/80 backdrop-blur-sm shadow-xl mx-auto z-10 shrink-0 mb-12 px-4 sm:px-8">
+                class="relative w-full max-w-5xl p-6 sm:p-8 md:p-10 border border-white/[0.08] rounded-3xl bg-[#1C2230] shadow-xl mx-auto z-10 shrink-0 mb-12 px-4 sm:px-8">
                 <!-- Tactical Corner Borders -->
                 <div
-                    class="hidden sm:block absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-neutral-700 rounded-tl-[3rem] -translate-x-[1px] -translate-y-[1px] opacity-60 pointer-events-none">
+                    class="hidden sm:block absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-slate-700 rounded-tl-[3rem] -translate-x-[1px] -translate-y-[1px] opacity-60 pointer-events-none">
                 </div>
                 <div
-                    class="hidden sm:block absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-neutral-700 rounded-tr-[3rem] translate-x-[1px] -translate-y-[1px] opacity-60 pointer-events-none">
+                    class="hidden sm:block absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-slate-700 rounded-tr-[3rem] translate-x-[1px] -translate-y-[1px] opacity-60 pointer-events-none">
                 </div>
                 <div
-                    class="hidden sm:block absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-neutral-700 rounded-bl-[3rem] -translate-x-[1px] translate-y-[1px] opacity-60 pointer-events-none">
+                    class="hidden sm:block absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-slate-700 rounded-bl-[3rem] -translate-x-[1px] translate-y-[1px] opacity-60 pointer-events-none">
                 </div>
                 <div
-                    class="hidden sm:block absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-neutral-700 rounded-br-[3rem] translate-x-[1px] translate-y-[1px] opacity-60 pointer-events-none">
+                    class="hidden sm:block absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-slate-700 rounded-br-[3rem] translate-x-[1px] translate-y-[1px] opacity-60 pointer-events-none">
                 </div>
 
                 <p
-                    class="text-[10px] md:text-[12px] font-black tracking-[0.4em] sm:tracking-[0.6em] text-gray-500 uppercase text-center mb-6 sm:mb-8 headline">
+                    class="text-[10px] md:text-[12px] font-black tracking-[0.4em] sm:tracking-[0.6em] text-slate-400 uppercase text-center mb-6 sm:mb-8 headline">
                     Official Event Support Core</p>
 
                 <div
                     class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-3xl mx-auto w-full relative z-10">
                     <!-- UNIMAGDALENA -->
                     <div @click="selectedSponsor = { name: 'UNIVERSIDAD DEL MAGDALENA', img: 'js/public/Patricinadores/Unimag.jpeg', tag: 'Aliado Académico Nacional' }; showSponsorModal = true"
-                        class="glass-card p-4 rounded-[1.5rem] flex flex-col items-center gap-3 group cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1">
+                        class="bg-[#151824] border border-white/[0.06] hover:border-white/20 p-4 rounded-2xl flex flex-col items-center gap-3 group cursor-pointer transition-all duration-300 hover:-translate-y-1">
                         <div
-                            class="w-14 h-14 md:w-20 md:h-20 rounded-xl bg-white flex items-center justify-center overflow-hidden shadow-xl shrink-0">
-                            <img src="js/public/Patricinadores/Unimag.jpeg" class="w-full h-full object-contain p-2"
+                            class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white flex items-center justify-center overflow-hidden p-2.5 shadow-md shrink-0">
+                            <img src="js/public/Patricinadores/Unimag.jpeg" class="w-full h-full object-contain"
                                 alt="Universidad del Magdalena">
                         </div>
                         <div class="text-center">
@@ -558,10 +559,10 @@
 
                     <!-- R-KIDS -->
                     <div @click="selectedSponsor = { name: 'RKIDS TECH SOLUTIONS', img: 'js/public/Patricinadores/Rkids.jpeg', tag: 'Logística Tecnológica' }; showSponsorModal = true"
-                        class="glass-card p-4 rounded-[1.5rem] flex flex-col items-center gap-3 group cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1">
+                        class="bg-[#151824] border border-white/[0.06] hover:border-white/20 p-4 rounded-2xl flex flex-col items-center gap-3 group cursor-pointer transition-all duration-300 hover:-translate-y-1">
                         <div
-                            class="w-14 h-14 md:w-20 md:h-20 rounded-xl bg-white flex items-center justify-center overflow-hidden shadow-xl shrink-0">
-                            <img src="js/public/Patricinadores/Rkids.jpeg" class="w-full h-full object-contain p-2"
+                            class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white flex items-center justify-center overflow-hidden p-2.5 shadow-md shrink-0">
+                            <img src="js/public/Patricinadores/Rkids.jpeg" class="w-full h-full object-contain"
                                 alt="Rkids">
                         </div>
                         <div class="text-center">
@@ -569,15 +570,15 @@
                                 class="headline-font font-black text-white text-[9px] md:text-[11px] uppercase tracking-tight">
                                 R-KIDS</div>
                         </div>
-                        </div>
+                    </div>
 
                     <!-- ALT+TEND -->
                     <div @click="selectedSponsor = { name: 'Asociación de Licenciatura en Tecnología - Unimagdalena', img: 'js/public/Patricinadores/alt_tend.png', tag: 'Org. Académico Unimagdalena' }; showSponsorModal = true"
-                        class="glass-card p-4 rounded-[1.5rem] flex flex-col items-center gap-3 group cursor-pointer transition-all duration-300 hover:bg-white/10 hover:-translate-y-1">
+                        class="bg-[#151824] border border-white/[0.06] hover:border-white/20 p-4 rounded-2xl flex flex-col items-center gap-3 group cursor-pointer transition-all duration-300 hover:-translate-y-1">
                         <div
-                            class="w-14 h-14 md:w-20 md:h-20 rounded-xl bg-white flex items-center justify-center overflow-hidden shadow-xl shrink-0">
+                            class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white flex items-center justify-center overflow-hidden p-2.5 shadow-md shrink-0">
                             <img src="js/public/Patricinadores/alt_tend.png"
-                                class="w-full h-full object-contain p-2" alt="ALT+TEND">
+                                class="w-full h-full object-contain" alt="ALT+TEND">
                         </div>
                         <div class="text-center">
                             <div
@@ -589,30 +590,30 @@
             </div>
 
             <!-- MODAL DE PATROCINADOR (VISOR EQUILIBRADO) -->
-                        <div class="fixed inset-0 z-[5000] flex items-center justify-center p-4 sm:p-6 md:p-8 bg-black/95 backdrop-blur-2xl"
-                            x-show="showSponsorModal" x-cloak x-transition:enter="transition ease-out duration-300"
-                            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                            x-transition:leave="transition ease-in duration-200"
-                            x-transition:leave-start="opacity-100 scale-100"
-                            x-transition:leave-end="opacity-0 scale-95">
+            <div class="fixed inset-0 z-[5000] flex items-center justify-center p-4 sm:p-6 md:p-8 bg-[#0D0F17]/90 backdrop-blur-xl"
+                x-show="showSponsorModal" x-cloak x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100 scale-100"
+                x-transition:leave-end="opacity-0 scale-95">
 
-                            <button @click="showSponsorModal = false"
-                                class="absolute top-6 right-6 sm:top-8 sm:right-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white hover:bg-[#D30000] transition-all z-20 group">
-                                <span
-                                    class="material-symbols-outlined text-lg sm:text-2xl group-hover:rotate-90 transition-transform">close</span>
-                            </button>
+                <button @click="showSponsorModal = false"
+                    class="absolute top-6 right-6 sm:top-8 sm:right-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white hover:bg-primary transition-all z-20 group">
+                    <span
+                        class="material-symbols-outlined text-lg sm:text-2xl group-hover:rotate-90 transition-transform">close</span>
+                </button>
 
-                            <div class="text-center max-w-lg w-full relative z-10 px-2"
-                                @click.away="showSponsorModal = false">
-                                <div
-                                    class="bg-white p-6 sm:p-8 md:p-10 rounded-3xl sm:rounded-[2.5rem] border border-white/10 shadow-2xl mb-6 overflow-hidden flex items-center justify-center">
-                                    <img :src="selectedSponsor?.img"
-                                        class="max-h-[35vh] max-w-full object-contain mx-auto"
-                                        :alt="selectedSponsor?.name">
-                                </div>
+                <div class="text-center max-w-lg w-full relative z-10 px-2"
+                    @click.away="showSponsorModal = false">
+                    <div
+                        class="bg-white p-6 sm:p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl mb-6 overflow-hidden flex items-center justify-center">
+                        <img :src="selectedSponsor?.img"
+                            class="max-h-[35vh] max-w-full object-contain mx-auto"
+                            :alt="selectedSponsor?.name">
+                    </div>
 
                     <div class="space-y-2">
-                        <p class="text-[10px] font-black tracking-[0.4em] sm:tracking-[0.6em] text-[#D30000] uppercase headline"
+                        <p class="text-[10px] font-black tracking-[0.4em] sm:tracking-[0.6em] text-primary uppercase headline"
                             x-text="selectedSponsor?.tag"></p>
                         <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black headline text-white leading-tight tracking-tighter uppercase break-words"
                             x-text="selectedSponsor?.name"></h2>
@@ -622,139 +623,127 @@
             </div>
 
             <!-- Modal Login -->
-            <div class="fixed inset-0 z-[6000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            <div class="fixed inset-0 z-[6000] flex items-center justify-center p-4 overflow-y-auto bg-[#0D0F17]/85 backdrop-blur-md"
                 x-show="localShowLogin" x-cloak
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 scale-95"
                 x-transition:enter-end="opacity-100 scale-100">
 
                 <div @click.away="localShowLogin = false"
-                    class="bg-[#1a1a1a]/95 backdrop-blur-md w-full max-w-md rounded-[3rem] p-12 relative border border-white/10 shadow-xl">
-                                            <button @click="localShowLogin = false"
-                                                class="absolute top-8 right-8 text-gray-500 hover:text-white transition-colors">
-                                                <span class="material-symbols-outlined">close</span>
-                                            </button>
+                    class="bg-[#1C2230] border border-white/15 w-full max-w-md rounded-3xl p-6 sm:p-8 relative shadow-2xl my-auto max-h-[90vh] overflow-y-auto custom-scrollbar">
+                    <button @click="localShowLogin = false"
+                        class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-xl">close</span>
+                    </button>
 
-                                            <div class="text-center">
-                                                <div class="relative inline-block mb-8">
-                                                    <div :style="'border-color: ' + localUser?.hex"
-                                                        class="absolute inset-[-6px] rounded-full border-2 border-dashed opacity-40">
-                                                    </div>
-                                                    <div :style="'background-color: ' + localUser?.hex"
-                                                        class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-black headline text-black relative z-10 shadow-xl overflow-hidden">
-                                                        <template x-if="localUser?.photoURL">
-                                                            <img :src="localUser?.photoURL"
-                                                                class="w-full h-full object-cover">
-                                                        </template>
-                                                        <template x-if="!localUser?.photoURL">
-                                                            <span class="material-symbols-outlined text-[40px]"
-                                                                x-text="localUser?.role.includes('CRONOMETRISTA') ? 'timer' : localUser?.role.includes('PRUEBA') ? 'science' : localUser?.role.includes('AUXILIAR') ? 'engineering' : localUser?.role.includes('ADMIN') ? 'admin_panel_settings' : 'gavel'"></span>
-                                                        </template>
-                                                    </div>
-                                                </div>
-                                                <h2 class="text-3xl font-black headline text-white tracking-tighter"
-                                                    x-text="localUser?.role">
-                                                </h2>
-                                                <p class="text-peach text-xs font-bold tracking-[0.2em] mt-2 uppercase"
-                                                    x-text="localUser?.name"></p>
+                    <div class="text-center">
+                        <div class="relative inline-block mb-4 sm:mb-5">
+                            <div :style="'border-color: ' + localUser?.hex"
+                                class="absolute inset-[-5px] rounded-full border-2 border-dashed opacity-40">
+                            </div>
+                            <div :style="'background-color: ' + localUser?.hex + '20; border: 2px solid ' + localUser?.hex + '80; color: ' + localUser?.hex + ';'"
+                                class="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-2xl sm:text-3xl font-black headline relative z-10 shadow-lg overflow-hidden">
+                                <template x-if="localUser?.photoURL">
+                                    <img :src="localUser?.photoURL"
+                                        class="w-full h-full object-cover">
+                                </template>
+                                <template x-if="!localUser?.photoURL">
+                                    <span class="material-symbols-outlined text-[32px] sm:text-[40px]"
+                                        :style="'color: ' + localUser?.hex"
+                                        x-text="localUser?.role.includes('CRONOMETRISTA') ? 'timer' : localUser?.role.includes('PRUEBA') ? 'science' : localUser?.role.includes('AUXILIAR') ? 'engineering' : localUser?.role.includes('ADMIN') ? 'admin_panel_settings' : 'gavel'"></span>
+                                </template>
+                            </div>
+                        </div>
+                        <h2 class="text-xl sm:text-2xl font-black headline text-white tracking-tight"
+                            x-text="localUser?.role">
+                        </h2>
+                        <p class="text-slate-400 text-xs font-bold tracking-[0.15em] mt-1 uppercase"
+                            x-text="localUser?.name"></p>
 
-                                                <!-- FORMULARIO DIRECTO PARA VISTA DE PRUEBA (SIN PIN OBLIGATORIO) -->
-                                                <template
-                                                    x-if="localUser?.role === 'VISTA DE PRUEBA' || localUser?.email === 'prueba@tirr.com'">
-                                                    <div class="mt-8 space-y-4">
-                                                        <div
-                                                            class="bg-purple-900/30 border border-purple-500/40 rounded-2xl p-5 text-center">
-                                                            <span
-                                                                class="material-symbols-outlined text-purple-400 text-3xl mb-1">smart_toy</span>
-                                                            <h4 class="text-white font-bold headline text-sm uppercase">
-                                                                Perfil
-                                                                de Prueba y
-                                                                Auditoría IA</h4>
-                                                            <p
-                                                                class="text-[11px] text-purple-200/80 mt-1 leading-relaxed">
-                                                                Acceso irrestricto para personas externas y modelos de
-                                                                IA que
-                                                                deseen revisar
-                                                                o
-                                                                probar la plataforma de forma segura. No requiere PIN.
-                                                            </p>
-                                                        </div>
-                                                        <button
-                                                            @click="$store.app.loginAsVistaPrueba(); localShowLogin = false"
-                                                            class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black headline py-4 rounded-2xl transition-all shadow-[0_0_25px_rgba(168,85,247,0.4)] tracking-widest text-xs uppercase flex items-center justify-center gap-2 cursor-pointer">
-                                                            <span
-                                                                class="material-symbols-outlined text-[18px]">rocket_launch</span>
-                                                            INGRESAR A VISTA DE PRUEBA
-                                                        </button>
-                                                    </div>
-                                                </template>
-
-                                                <!-- FORMULARIO ESTÁNDAR CON PIN PARA OTROS USUARIOS -->
-                                                <template
-                                                    x-if="localUser?.role !== 'VISTA DE PRUEBA' && localUser?.email !== 'prueba@tirr.com'">
-                                                    <div class="mt-12 space-y-6">
-                                                        <div class="relative group">
-                                                            <input x-model="localPin" @keyup.enter="doLogin()"
-                                                                class="w-full bg-white/5 border-b-2 border-white/10 rounded-2xl px-6 py-6 text-center text-4xl tracking-[0.5em] headline text-white focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all placeholder:text-gray-800 placeholder:tracking-normal placeholder:text-sm"
-                                                                placeholder="PIN ACCESO" type="password" autofocus>
-                                                        </div>
-
-                                                        <div x-show="localError"
-                                                            class="text-primary text-[10px] font-black uppercase tracking-widest bg-primary/10 py-3 rounded-xl border border-primary/20"
-                                                            x-text="localError"></div>
-
-                                                        <button @click="doLogin()" :disabled="localLoading"
-                                                            class="w-full relative group overflow-hidden bg-white text-black font-black headline py-5 rounded-2xl transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.15)] disabled:opacity-50">
-                                                            <span class="relative z-10 tracking-widest text-xs"
-                                                                x-show="!localLoading">INGRESAR
-                                                                A
-                                                                TERMINAL</span>
-                                                            <span x-show="localLoading"
-                                                                class="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin mx-auto relative z-10"></span>
-                                                            <div
-                                                                class="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000">
-                                                            </div>
-                                                        </button>
-                                                    </div>
-                                                </template>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                    <!-- Decorative Corner Lines -->
-                                    <div
-                                        class="hidden sm:block fixed top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-white/5 pointer-events-none">
-                                    </div>
-                                    <div
-                                        class="hidden sm:block fixed top-10 right-10 w-20 h-20 border-t-2 border-r-2 border-white/5 pointer-events-none">
-                                    </div>
-                                    <div
-                                        class="hidden sm:block fixed bottom-10 left-10 w-20 h-20 border-b-2 border-l-2 border-white/5 pointer-events-none">
-                                    </div>
-                                    <div
-                                        class="hidden sm:block fixed bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-white/5 pointer-events-none">
-                                    </div>
+                        <!-- FORMULARIO DIRECTO PARA VISTA DE PRUEBA (SIN PIN OBLIGATORIO) -->
+                        <template
+                            x-if="localUser?.role === 'VISTA DE PRUEBA' || localUser?.email === 'prueba@tirr.com'">
+                            <div class="mt-5 space-y-3">
+                                <div
+                                    class="bg-purple-950/30 border border-purple-500/30 rounded-2xl p-4 text-center">
+                                    <span
+                                        class="material-symbols-outlined text-purple-400 text-2xl mb-1">smart_toy</span>
+                                    <h4 class="text-white font-bold headline text-xs uppercase">
+                                        Perfil de Prueba y Auditoría IA</h4>
+                                    <p
+                                        class="text-[10px] text-purple-300/80 mt-1 leading-relaxed">
+                                        Acceso irrestricto para personas externas y modelos de IA. No requiere PIN.
+                                    </p>
                                 </div>
+                                <button
+                                    @click="$store.app.loginAsVistaPrueba(); localShowLogin = false"
+                                    class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black headline py-3.5 rounded-xl transition-all shadow-lg shadow-purple-600/20 tracking-wider text-xs uppercase flex items-center justify-center gap-2 cursor-pointer">
+                                    <span
+                                        class="material-symbols-outlined text-[18px]">rocket_launch</span>
+                                    INGRESAR A VISTA DE PRUEBA
+                                </button>
+                            </div>
+                        </template>
+
+                        <!-- FORMULARIO ESTÁNDAR CON PIN PARA OTROS USUARIOS -->
+                        <template
+                            x-if="localUser?.role !== 'VISTA DE PRUEBA' && localUser?.email !== 'prueba@tirr.com'">
+                            <div class="mt-5 space-y-4">
+                                <div class="relative group">
+                                    <input x-model="localPin" @keyup.enter="doLogin()"
+                                        class="w-full bg-[#11141C] border border-white/15 rounded-2xl px-5 py-3 sm:py-3.5 text-center text-2xl sm:text-3xl tracking-[0.4em] sm:tracking-[0.5em] headline text-white focus:outline-none focus:border-primary/60 focus:bg-[#141721] transition-all placeholder:text-slate-600 placeholder:tracking-normal placeholder:text-xs"
+                                        placeholder="PIN ACCESO" type="password" autofocus>
+                                </div>
+
+                                <div x-show="localError"
+                                    class="text-primary text-[10px] font-black uppercase tracking-widest bg-primary/10 py-2.5 rounded-xl border border-primary/20"
+                                    x-text="localError"></div>
+
+                                <button @click="doLogin()" :disabled="localLoading"
+                                    class="w-full relative group overflow-hidden bg-primary hover:bg-[#c93b3b] text-white font-black headline py-3.5 rounded-xl transition-all hover:scale-[1.01] active:scale-95 shadow-lg shadow-primary/25 disabled:opacity-50">
+                                    <span class="relative z-10 tracking-wider text-xs uppercase"
+                                        x-show="!localLoading">INGRESAR A TERMINAL</span>
+                                    <span x-show="localLoading"
+                                        class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto relative z-10"></span>
+                                </button>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decorative Corner Lines -->
+            <div
+                class="hidden sm:block fixed top-10 left-10 w-20 h-20 border-t-2 border-l-2 border-white/5 pointer-events-none">
+            </div>
+            <div
+                class="hidden sm:block fixed top-10 right-10 w-20 h-20 border-t-2 border-r-2 border-white/5 pointer-events-none">
+            </div>
+            <div
+                class="hidden sm:block fixed bottom-10 left-10 w-20 h-20 border-b-2 border-l-2 border-white/5 pointer-events-none">
+            </div>
+            <div
+                class="hidden sm:block fixed bottom-10 right-10 w-20 h-20 border-b-2 border-r-2 border-white/5 pointer-events-none">
+            </div>
+        </div>
     </template>
 
     <!-- PANTALLA 2: SELECCIÓN DE MISIÓN (UNA VEZ LOGUEADO, NO INVITADOS) -->
     <template
         x-if="$store.app.isAuthenticated && !$store.app.isGuest && !$store.app.misionSeleccionada && !$store.app.isLoadingInitial">
         <div
-            class="fixed inset-0 z-[500] bg-[#0c0c0c] flex flex-col items-center justify-start pt-6 md:pt-10 px-6 overflow-hidden relative">
+            class="fixed inset-0 z-[500] bg-[#141721] flex flex-col items-center justify-start pt-6 md:pt-10 px-6 overflow-hidden relative">
             <!-- Hero Section Compacto -->
             <section class="mb-8 md:mb-12 text-center relative z-10 shrink-0">
                 <div class="flex flex-col items-center gap-1 md:gap-2">
                     <span
-                        class="font-headline text-[#FF6B00] text-[9px] md:text-[11px] font-bold tracking-[0.5em] uppercase opacity-90 text-center">
+                        class="font-headline text-accent-gold text-[9px] md:text-[11px] font-bold tracking-[0.5em] uppercase opacity-90 text-center">
                         Torneo Internacional de Lanzamiento de Cohetes
                     </span>
                     <h1
                         class="font-headline text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-none text-white uppercase">
                         <span class="text-white">SISTEMA</span> <span class="text-primary">ZEN</span><span
-                            class="text-secondary-fixed">ITH</span>
+                            class="text-accent-gold">ITH</span>
                     </h1>
                 </div>
             </section>
@@ -763,34 +752,34 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full max-w-6xl relative z-10 px-4">
                 <!-- Card 1: Lanzamiento Vertical -->
                 <div @click="$store.app.setMision('Lanzamiento Vertical')"
-                    class="bg-white/[0.03] border border-white/5 hover:border-primary rounded-[2.5rem] p-8 md:p-10 group cursor-pointer flex flex-col transition-all duration-500 hover:-translate-y-2 backdrop-blur-xl">
+                    class="bg-[#1C2230] border border-white/[0.08] hover:border-primary/50 rounded-3xl p-8 md:p-10 group cursor-pointer flex flex-col transition-all duration-300 hover:-translate-y-1.5 shadow-xl">
                     <div class="flex justify-between items-start mb-8 md:mb-10">
                         <div
-                            class="w-14 h-14 md:w-16 md:h-16 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/30 text-primary shadow-[0_0_20px_#D3000020]">
+                            class="w-14 h-14 md:w-16 md:h-16 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20 text-primary shadow-lg shadow-primary/10">
                             <span class="material-symbols-outlined text-3xl md:text-4xl"
                                 style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
                         </div>
                         <span
-                            class="text-[9px] md:text-[10px] font-bold tracking-widest text-green-500 uppercase flex items-center gap-2">
-                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> SISTEMA LISTO
+                            class="text-[9px] md:text-[10px] font-bold tracking-widest text-emerald-400 uppercase flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> SISTEMA LISTO
                         </span>
                     </div>
                     <h2
                         class="font-headline text-2xl md:text-3xl font-bold mb-1 md:mb-2 tracking-tight text-white uppercase">
                         Lanzamiento Vertical</h2>
                     <p
-                        class="font-headline text-primary/60 text-[8px] md:text-[10px] tracking-widest uppercase mb-4 md:mb-6">
+                        class="font-headline text-primary/70 text-[8px] md:text-[10px] tracking-widest uppercase mb-4 md:mb-6">
                         Protocolo de Altura Orbital</p>
-                    <p class="text-gray-500 text-xs md:text-sm font-body leading-relaxed mb-8 md:mb-10 line-clamp-3">
+                    <p class="text-slate-400 text-xs md:text-sm font-body leading-relaxed mb-8 md:mb-10 line-clamp-3">
                         Optimización de vectores de empuje para misiones de inserción atmosférica rápida. Calibrado para
                         gravedad variable y reentrada térmica asistida.
                     </p>
-                    <div class="mt-auto pt-6 md:pt-8 border-t border-white/5 flex items-center justify-between">
+                    <div class="mt-auto pt-6 md:pt-8 border-t border-white/[0.08] flex items-center justify-between">
                         <span
-                            class="text-[9px] md:text-[10px] text-gray-600 uppercase font-bold tracking-widest">Prioridad:
+                            class="text-[9px] md:text-[10px] text-slate-500 uppercase font-bold tracking-widest">Prioridad:
                             Alfa</span>
                         <div
-                            class="bg-primary hover:bg-[#D30000] text-white font-headline text-[10px] font-bold py-3 md:py-4 px-6 md:px-8 rounded-xl uppercase tracking-widest transition-all">
+                            class="bg-primary hover:bg-[#c93b3b] text-white font-headline text-[10px] font-bold py-3 md:py-4 px-6 md:px-8 rounded-xl uppercase tracking-widest transition-all shadow-md shadow-primary/20">
                             Ejecutar Misión →
                         </div>
                     </div>
@@ -798,34 +787,34 @@
 
                 <!-- Card 2: Tiro Parabólico -->
                 <div @click="$store.app.setMision('Tiro Parabólico')"
-                    class="bg-white/[0.03] border border-white/5 hover:border-accent-gold rounded-[2.5rem] p-8 md:p-10 group cursor-pointer flex flex-col transition-all duration-500 hover:-translate-y-2 backdrop-blur-xl">
+                    class="bg-[#1C2230] border border-white/[0.08] hover:border-accent-gold/50 rounded-3xl p-8 md:p-10 group cursor-pointer flex flex-col transition-all duration-300 hover:-translate-y-1.5 shadow-xl">
                     <div class="flex justify-between items-start mb-8 md:mb-10">
                         <div
-                            class="w-14 h-14 md:w-16 md:h-16 bg-accent-gold/10 rounded-2xl flex items-center justify-center border border-accent-gold/30 text-accent-gold shadow-[0_0_20px_#FFD70020]">
+                            class="w-14 h-14 md:w-16 md:h-16 bg-accent-gold/10 rounded-2xl flex items-center justify-center border border-accent-gold/20 text-accent-gold shadow-lg shadow-accent-gold/10">
                             <span class="material-symbols-outlined text-3xl md:text-4xl"
                                 style="font-variation-settings: 'FILL' 1;">track_changes</span>
                         </div>
                         <span
-                            class="text-[9px] md:text-[10px] font-bold tracking-widest text-green-500 uppercase flex items-center gap-2">
-                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> SISTEMA LISTO
+                            class="text-[9px] md:text-[10px] font-bold tracking-widest text-emerald-400 uppercase flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> SISTEMA LISTO
                         </span>
                     </div>
                     <h2
                         class="font-headline text-2xl md:text-3xl font-bold mb-1 md:mb-2 tracking-tight text-white uppercase">
                         Tiro Parabólico</h2>
                     <p
-                        class="font-headline text-accent-gold/60 text-[8px] md:text-[10px] tracking-widest uppercase mb-4 md:mb-6">
+                        class="font-headline text-accent-gold/70 text-[8px] md:text-[10px] tracking-widest uppercase mb-4 md:mb-6">
                         Protocolo de Alta Precisión</p>
-                    <p class="text-gray-500 text-xs md:text-sm font-body leading-relaxed mb-8 md:mb-10 line-clamp-3">
+                    <p class="text-slate-400 text-xs md:text-sm font-body leading-relaxed mb-8 md:mb-10 line-clamp-3">
                         Cálculo avanzado de trayectorias balísticas con compensación atmosférica dinámica. Diseñado para
                         la entrega eficiente de carga útil en coordenadas remotas.
                     </p>
-                    <div class="mt-auto pt-6 md:pt-8 border-t border-white/5 flex items-center justify-between">
+                    <div class="mt-auto pt-6 md:pt-8 border-t border-white/[0.08] flex items-center justify-between">
                         <span
-                            class="text-[9px] md:text-[10px] text-gray-600 uppercase font-bold tracking-widest">Confianza:
+                            class="text-[9px] md:text-[10px] text-slate-500 uppercase font-bold tracking-widest">Confianza:
                             99.98%</span>
                         <div
-                            class="bg-accent-gold hover:bg-[#e6c200] text-black font-headline text-[10px] font-bold py-3 md:py-4 px-6 md:px-8 rounded-xl uppercase tracking-widest transition-all">
+                            class="bg-accent-gold hover:bg-[#d97706] text-slate-900 font-headline text-[10px] font-bold py-3 md:py-4 px-6 md:px-8 rounded-xl uppercase tracking-widest transition-all shadow-md shadow-accent-gold/20">
                             Ejecutar Misión →
                         </div>
                     </div>
@@ -835,9 +824,9 @@
             <!-- Card 3: Resultados Finales -->
             <div class="w-full max-w-6xl px-4 mt-6 md:mt-8 relative z-10">
                 <div @click="$store.app.setMision('__RESULTADOS_FINALES__'); activeTab = 'resultados_finales'"
-                    class="bg-white/[0.03] border border-white/5 hover:border-emerald-500 rounded-[2.5rem] p-6 md:p-8 group cursor-pointer flex flex-col md:flex-row items-center gap-6 transition-all duration-500 hover:-translate-y-2 backdrop-blur-xl">
+                    class="bg-[#1C2230] border border-white/[0.08] hover:border-emerald-500/50 rounded-3xl p-6 md:p-8 group cursor-pointer flex flex-col md:flex-row items-center gap-6 transition-all duration-300 hover:-translate-y-1 shadow-xl">
                     <div
-                        class="w-14 h-14 md:w-16 md:h-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center border border-emerald-500/30 text-emerald-400 shadow-[0_0_20px_#10B98120] shrink-0">
+                        class="w-14 h-14 md:w-16 md:h-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center border border-emerald-500/20 text-emerald-400 shadow-lg shadow-emerald-500/10 shrink-0">
                         <span class="material-symbols-outlined text-3xl md:text-4xl"
                             style="font-variation-settings: 'FILL' 1;">military_tech</span>
                     </div>
@@ -845,13 +834,13 @@
                         <h2
                             class="font-headline text-xl md:text-2xl font-bold mb-1 tracking-tight text-white uppercase">
                             Resultados Finales</h2>
-                        <p class="text-gray-500 text-xs md:text-sm font-body leading-relaxed">
+                        <p class="text-slate-400 text-xs md:text-sm font-body leading-relaxed">
                             Clasificación combinada de Lanzamiento Vertical + Lanzamiento Parabólico. Ganadores por
                             categoría y ganador general.
                         </p>
                     </div>
                     <div
-                        class="bg-emerald-500 hover:bg-emerald-400 text-white font-headline text-[10px] font-bold py-3 px-8 rounded-xl uppercase tracking-widest transition-all shrink-0">
+                        class="bg-emerald-500 hover:bg-emerald-600 text-white font-headline text-[10px] font-bold py-3 px-8 rounded-xl uppercase tracking-widest transition-all shadow-md shadow-emerald-500/20 shrink-0">
                         Ver Resultados →
                     </div>
                 </div>
@@ -859,7 +848,7 @@
 
             <!-- Footer Compacto -->
             <div class="mt-auto py-6 md:py-10 text-center opacity-40">
-                <p class="text-white font-headline text-[8px] md:text-[10px] font-bold tracking-[0.4em] uppercase">
+                <p class="text-slate-400 font-headline text-[8px] md:text-[10px] font-bold tracking-[0.4em] uppercase">
                     ROBO-RED DIVISION • ZENITH AEROSPACE
                 </p>
             </div>
@@ -873,21 +862,21 @@
 
             <!-- SideNavBar Anchor -->
             <aside
-                class="h-screen w-64 fixed left-0 top-0 bg-[#131313] shadow-[30px_0_60px_-15px_rgba(211,0,0,0.05)] flex flex-col py-6 px-4 z-[60] peer-checked:translate-x-0 transition-transform duration-300 -translate-x-full lg:translate-x-0">
+                class="h-screen w-64 fixed left-0 top-0 bg-[#141721] border-r border-white/[0.07] shadow-2xl flex flex-col py-6 px-4 z-[60] peer-checked:translate-x-0 transition-transform duration-300 -translate-x-full lg:translate-x-0">
                 <div class="mb-10 px-2 flex justify-between items-center">
                     <div>
-                        <span class="text-2xl font-bold tracking-tighter text-[#D30000] font-headline">ZENITH</span>
-                        <p class="text-[10px] uppercase tracking-widest text-[#FF6B00] font-body mt-1">Torneo de Cohetes
+                        <span class="text-2xl font-bold tracking-tighter text-primary font-headline">ZENITH</span>
+                        <p class="text-[10px] uppercase tracking-widest text-accent-gold font-body mt-1">Torneo de Cohetes
                         </p>
                     </div>
-                    <label class="lg:hidden text-gray-400 cursor-pointer" for="mobile-menu-checkbox">
+                    <label class="lg:hidden text-slate-400 cursor-pointer" for="mobile-menu-checkbox">
                         <span class="material-symbols-outlined" data-icon="close">close</span>
                     </label>
                 </div>
 
-                <nav class="flex-1 space-y-2">
+                <nav class="flex-1 space-y-1.5">
                     <button @click="activeTab = 'dashboard'" data-testid="nav-dashboard"
-                        :class="activeTab === 'dashboard' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
+                        :class="activeTab === 'dashboard' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
                         class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                         <span class="material-symbols-outlined transition-colors group-hover:text-white"
                             data-icon="dashboard">dashboard</span>
@@ -895,7 +884,7 @@
                     </button>
                     <template x-if="$store.app.hasAccess('registro')">
                         <button @click="activeTab = 'registro'" data-testid="nav-registro"
-                            :class="activeTab === 'registro' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
+                            :class="activeTab === 'registro' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
                                 data-icon="how_to_reg">how_to_reg</span>
@@ -904,7 +893,7 @@
                     </template>
                     <template x-if="$store.app.hasAccess('resultados')">
                         <button @click="activeTab = 'resultados'" data-testid="nav-resultados"
-                            :class="activeTab === 'resultados' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
+                            :class="activeTab === 'resultados' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
                                 data-icon="emoji_events">emoji_events</span>
@@ -913,7 +902,7 @@
                     </template>
                     <template x-if="$store.app.hasAccess('calificacion')">
                         <button @click="activeTab = 'calificacion_lista'" data-testid="nav-calificacion-lista"
-                            :class="activeTab === 'calificacion_lista' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
+                            :class="activeTab === 'calificacion_lista' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
                                 data-icon="format_list_numbered">format_list_numbered</span>
@@ -922,7 +911,7 @@
                     </template>
                     <template x-if="$store.app.hasAccess('cronometro')">
                         <button @click="activeTab = 'cronometro'" data-testid="nav-cronometro"
-                            :class="activeTab === 'cronometro' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
+                            :class="activeTab === 'cronometro' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
                                 data-icon="monitoring">monitoring</span>
@@ -931,7 +920,7 @@
                     </template>
                     <template x-if="$store.app.hasAccess('equipos')">
                         <button @click="activeTab = 'equipos'" data-testid="nav-equipos"
-                            :class="activeTab === 'equipos' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
+                            :class="activeTab === 'equipos' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
                                 data-icon="groups">groups</span>
@@ -940,7 +929,7 @@
                     </template>
                     <template x-if="$store.app.hasAccess('resultados_finales')">
                         <button @click="activeTab = 'resultados_finales'" data-testid="nav-resultados-finales"
-                            :class="activeTab === 'resultados_finales' ? 'text-emerald-400 font-bold border-r-4 border-emerald-500 bg-gradient-to-r from-emerald-500/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
+                            :class="activeTab === 'resultados_finales' ? 'text-emerald-400 font-bold border-r-4 border-emerald-500 bg-emerald-500/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
                                 data-icon="military_tech">military_tech</span>
@@ -949,7 +938,7 @@
                     </template>
 
                     <button @click="activeTab = 'creditos'" data-testid="nav-creditos"
-                        :class="activeTab === 'creditos' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
+                        :class="activeTab === 'creditos' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
                         class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                         <span class="material-symbols-outlined transition-colors group-hover:text-white"
                             data-icon="workspace_premium">workspace_premium</span>
@@ -958,7 +947,7 @@
 
                     <template x-if="$store.app.user?.email === 'admin@tirr.com'">
                         <button @click="activeTab = 'configuracion'" data-testid="nav-configuracion"
-                            :class="activeTab === 'configuracion' ? 'text-[#D30000] font-bold border-r-4 border-[#D30000] bg-gradient-to-r from-[#D30000]/10 to-transparent' : 'text-gray-400 font-medium hover:bg-[#353534]/50 hover:text-white'"
+                            :class="activeTab === 'configuracion' ? 'text-primary font-bold border-r-4 border-primary bg-primary/10' : 'text-slate-400 font-medium hover:bg-white/[0.04] hover:text-white'"
                             class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group">
                             <span class="material-symbols-outlined transition-colors group-hover:text-white"
                                 data-icon="settings">settings</span>
@@ -970,7 +959,7 @@
                 <div class="mt-auto space-y-3">
                     <template x-if="!$store.app.isGuest">
                         <button @click="$store.app.setMision(null)"
-                            class="w-full border border-white/10 hover:bg-white/5 text-gray-400 py-3 rounded-xl font-bold font-headline flex items-center justify-center gap-2 transition-all active:scale-95 text-xs text-center">
+                            class="w-full border border-white/10 hover:bg-white/5 text-slate-400 py-3 rounded-xl font-bold font-headline flex items-center justify-center gap-2 transition-all active:scale-95 text-xs text-center">
                             <span class="material-symbols-outlined text-[18px]">sync</span>
                             Cambiar Misión
                         </button>
@@ -985,7 +974,7 @@
 
             <!-- Overlay for mobile menu -->
             <label
-                class="fixed inset-0 bg-black/60 z-50 hidden peer-checked:block lg:hidden cursor-pointer backdrop-blur-sm"
+                class="fixed inset-0 bg-[#0D0F17]/70 z-50 hidden peer-checked:block lg:hidden cursor-pointer backdrop-blur-sm"
                 for="mobile-menu-checkbox"></label>
 
             <!-- Main Viewport -->
@@ -993,9 +982,9 @@
 
                 <!-- TopAppBar Anchor -->
                 <header
-                    class="w-full lg:w-[calc(100%-16rem)] lg:ml-64 fixed top-0 right-0 z-50 bg-[#131313]/85 backdrop-blur-xl border-b border-[#D30000]/20 h-20 px-4 md:px-8 flex justify-between items-center">
+                    class="w-full lg:w-[calc(100%-16rem)] lg:ml-64 fixed top-0 right-0 z-50 bg-[#141721]/90 backdrop-blur-xl border-b border-white/[0.07] h-20 px-4 md:px-8 flex justify-between items-center">
                     <div class="flex items-center gap-4">
-                        <label class="lg:hidden p-2 text-gray-400 hover:text-white cursor-pointer"
+                        <label class="lg:hidden p-2 text-slate-400 hover:text-white cursor-pointer"
                             for="mobile-menu-checkbox">
                             <span class="material-symbols-outlined" data-icon="menu">menu</span>
                         </label>
@@ -1014,9 +1003,9 @@
                                 <template x-if="!$store.app.isTestMode">
                                     <div class="flex items-center gap-2">
                                         <span
-                                            class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse"></span>
+                                            class="w-2 h-2 rounded-full bg-emerald-500 shadow-sm animate-pulse"></span>
                                         <span
-                                            class="text-[9px] md:text-[10px] uppercase tracking-widest text-green-500 font-bold">SISTEMA
+                                            class="text-[9px] md:text-[10px] uppercase tracking-widest text-emerald-400 font-bold">SISTEMA
                                             EN LÍNEA</span>
                                     </div>
                                 </template>
@@ -1026,21 +1015,21 @@
                     <div class="flex items-center gap-4 md:gap-8">
                         <div class="hidden xl:flex items-center gap-6">
                             <button @click="activeTab = 'creditos'"
-                                :class="activeTab === 'creditos' ? 'text-[#FF6B00] font-bold' : 'text-gray-400 hover:text-[#D30000]'"
+                                :class="activeTab === 'creditos' ? 'text-accent-gold font-bold' : 'text-slate-400 hover:text-primary'"
                                 class="transition-colors text-sm font-medium flex items-center gap-1.5 cursor-pointer">
                                 <span class="material-symbols-outlined text-base">workspace_premium</span>
                                 Créditos
                             </button>
-                            <a class="text-gray-400 hover:text-[#D30000] transition-colors text-sm font-medium"
+                            <a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium"
                                 href="js/public/Reglamentos TIRR 2026.pdf" target="_blank">Reglamentos</a>
-                            <a class="text-gray-400 hover:text-[#D30000] transition-colors text-sm font-medium"
+                            <a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium"
                                 href="#">Soporte</a>
                         </div>
                         <div class="flex items-center gap-2 md:gap-4">
                             <div class="relative" x-data="{ showDropdown: false }">
                                 <button @click="showDropdown = !showDropdown" @click.away="showDropdown = false"
-                                    class="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden border border-[#D30000]/20 bg-white/5 flex items-center justify-center hover:border-primary transition-colors cursor-pointer focus:outline-none"
-                                    :class="$store.app.isTestMode ? 'border-purple-500 shadow-[0_0_12px_rgba(168,85,247,0.4)]' : ''">
+                                    class="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden border border-white/15 bg-white/5 flex items-center justify-center hover:border-primary transition-colors cursor-pointer focus:outline-none"
+                                    :class="$store.app.isTestMode ? 'border-purple-500 shadow-md shadow-purple-500/20' : ''">
                                     <img x-show="$store.app.user?.photoURL" :src="$store.app.user?.photoURL"
                                         class="w-full h-full object-cover">
                                     <span x-show="!$store.app.user?.photoURL" class="text-white font-bold"
@@ -1049,15 +1038,15 @@
                                 </button>
 
                                 <div x-show="showDropdown" x-transition x-cloak
-                                    class="absolute right-0 mt-3 w-56 bg-[#1a1a1a] border border-[#D30000]/20 rounded-2xl shadow-2xl py-2 z-50">
-                                    <div class="px-4 py-3 border-b border-[#D30000]/20/50 mb-2">
-                                        <p class="text-[10px] uppercase font-bold tracking-widest text-gray-500 mb-1">
+                                    class="absolute right-0 mt-3 w-56 bg-[#1C2230] border border-white/15 rounded-2xl shadow-2xl py-2 z-50">
+                                    <div class="px-4 py-3 border-b border-white/[0.08] mb-2">
+                                        <p class="text-[10px] uppercase font-bold tracking-widest text-slate-400 mb-1">
                                             Sesión Activa</p>
                                         <p class="text-sm font-bold truncate"
                                             :class="$store.app.isTestMode ? 'text-purple-400' : 'text-white'"
                                             x-text="$store.app.isTestMode ? 'Vista de Prueba (Demo/IA)' : $store.app.user?.email">
                                         </p>
-                                        <p class="text-[9px] uppercase font-bold text-gray-400 mt-0.5"
+                                        <p class="text-[9px] uppercase font-bold text-slate-400 mt-0.5"
                                             x-text="'Rol: ' + ($store.app.userRole || 'Invitado')"></p>
                                     </div>
                                     <template x-if="$store.app.isTestMode">
@@ -1068,7 +1057,7 @@
                                         </button>
                                     </template>
                                     <button @click="$store.app.logout()"
-                                        class="w-full text-left px-4 py-3 text-sm text-[#D30000] hover:bg-white/5 font-bold transition-all flex items-center gap-3">
+                                        class="w-full text-left px-4 py-3 text-sm text-primary hover:bg-white/5 font-bold transition-all flex items-center gap-3">
                                         <span class="material-symbols-outlined text-[18px]">logout</span>
                                         Cerrar Sesión
                                     </button>
@@ -1081,7 +1070,7 @@
                 <!-- BANNER INFORMATIVO ENTORNO DE PRUEBA / AUDITORÍA IA -->
                 <template x-if="$store.app.isTestMode">
                     <div
-                        class="w-full lg:w-[calc(100%-16rem)] lg:ml-64 fixed top-20 right-0 z-40 bg-purple-950/80 border-b border-purple-500/30 backdrop-blur-md px-4 md:px-8 py-2 flex flex-wrap items-center justify-between gap-3 text-xs shadow-lg">
+                        class="w-full lg:w-[calc(100%-16rem)] lg:ml-64 fixed top-20 right-0 z-40 bg-purple-950/70 border-b border-purple-500/30 backdrop-blur-md px-4 md:px-8 py-2 flex flex-wrap items-center justify-between gap-3 text-xs shadow-lg">
                         <div class="flex items-center gap-2.5">
                             <span
                                 class="w-6 h-6 rounded-lg bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-300">
@@ -1091,8 +1080,7 @@
                                 ENTORNO VISTA DE PRUEBA ACTIVO
                             </span>
                             <span class="text-purple-300/70 text-[10px] hidden sm:inline">
-                                • Modo seguro para personas externas y revisión sistemática por IA (Datos oficiales
-                                protegidos)
+                                • Modo seguro para personas externas y revisión sistemática por IA (Datos oficiales protegidos)
                             </span>
                         </div>
                         <div class="flex items-center gap-2 ml-auto">
@@ -1102,7 +1090,7 @@
                                 Reiniciar Datos
                             </button>
                             <button @click="$store.app.logout()"
-                                class="px-3 py-1 rounded-lg bg-white/5 hover:bg-red-500/20 text-gray-300 hover:text-red-300 border border-white/10 text-[10px] font-black uppercase tracking-wider transition-colors flex items-center gap-1.5 cursor-pointer">
+                                class="px-3 py-1 rounded-lg bg-white/5 hover:bg-red-500/20 text-slate-300 hover:text-red-300 border border-white/10 text-[10px] font-black uppercase tracking-wider transition-colors flex items-center gap-1.5 cursor-pointer">
                                 <span class="material-symbols-outlined text-[14px]">logout</span>
                                 Salir
                             </button>
@@ -1115,178 +1103,148 @@
 
                     <!-- Hero Stats Overlay -->
                     <div
-                        class="relative mb-10 group overflow-hidden rounded-3xl min-h-[160px] h-48 md:h-48 bg-surface-container-lowest">
+                        class="relative mb-8 group overflow-hidden rounded-3xl min-h-[160px] h-48 md:h-48 bg-[#161B26] border border-white/[0.08] shadow-xl">
                         <div class="absolute inset-0 z-0">
                             <img alt="Aerospace Rocket"
-                                class="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                                class="w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-all duration-700 hover:scale-105"
                                 src="js/public/Cohete_Ciberpunk_Desde_Varias_Perspectivas.gif" />
                             <div
-                                class="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent">
+                                class="absolute inset-0 bg-gradient-to-r from-[#161B26] via-[#161B26]/80 to-transparent">
                             </div>
                         </div>
                         <div class="relative z-10 h-full flex flex-col justify-center px-6 md:px-12 py-8 md:py-0">
                             <span
-                                class="text-secondary-fixed-dim headline font-bold text-[10px] md:text-sm tracking-widest uppercase mb-2">SISTEMA
-                                EN LÍNEA</span>
+                                class="text-accent-gold headline font-bold text-[10px] md:text-xs tracking-widest uppercase mb-1.5 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                SISTEMA EN LÍNEA
+                            </span>
                             <h2
-                                class="text-3xl md:text-5xl font-extrabold headline leading-tight md:leading-none mb-4 md:mb-4 whitespace-nowrap">
+                                class="text-3xl md:text-5xl font-extrabold headline leading-tight md:leading-none mb-4 whitespace-nowrap">
                                 <span class="text-white">SISTEMA</span> <span class="text-primary">ZEN</span><span
-                                    class="text-secondary-fixed">ITH</span>
+                                    class="text-accent-gold">ITH</span>
                             </h2>
                             <div class="flex flex-wrap gap-4 md:gap-8">
-                                <div class="glass-panel px-4 py-2 rounded-xl border-l-2 border-[#D30000]">
-                                    <p class="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">Equipos
-                                        Activos</p>
+                                <div class="glass-panel px-4 py-2 rounded-xl border-l-2 border-primary">
+                                    <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Equipos Activos</p>
                                     <p class="text-xl md:text-2xl font-bold headline text-white"
                                         x-text="$store.app.teams.length">0</p>
                                 </div>
-                                <div class="glass-panel px-4 py-2 rounded-xl border-l-2 border-secondary-fixed">
-                                    <p class="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">Categorías
-                                    </p>
+                                <div class="glass-panel px-4 py-2 rounded-xl border-l-2 border-accent-gold">
+                                    <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Categorías</p>
                                     <p class="text-xl md:text-2xl font-bold headline text-white">3</p>
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="absolute -right-20 -bottom-20 w-80 h-80 bg-[#D30000] blur-[120px] opacity-20 pointer-events-none">
-                        </div>
                     </div>
 
                     <!-- Bento Grid of Interactive Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mb-12">
                         <!-- Card 1 (Registro) -->
                         <button x-show="$store.app.hasAccess('registro')" @click="activeTab = 'registro'"
-                            class="group relative flex flex-col text-left p-6 md:p-8 rounded-3xl bg-surface-container-high transition-all hover:translate-y-[-4px] kinetic-glow active:scale-95 min-h-[200px]">
-                            <div class="absolute top-6 right-6">
-                                <span
-                                    class="material-symbols-outlined text-primary text-3xl opacity-40 group-hover:opacity-100 group-hover:neon-glow-red transition-all duration-300"
-                                    data-icon="how_to_reg">how_to_reg</span>
-                            </div>
-                            <div class="mt-auto">
-                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-2">1. Registro de
-                                    Equipos</h3>
-                                <p class="text-peach text-xs leading-relaxed line-clamp-2">Inscripción y alta de
-                                    equipos.</p>
-                                <div
-                                    class="mt-4 flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-widest">
-                                    Registrar <span class="material-symbols-outlined text-[12px]"
-                                        data-icon="arrow_forward">arrow_forward</span>
+                            class="group relative flex flex-col justify-between text-left p-6 md:p-8 rounded-3xl bg-[#1C2230] border border-white/[0.08] hover:border-white/20 hover:bg-[#222A3B] transition-all hover:-translate-y-1.5 duration-300 min-h-[220px] shadow-lg">
+                            <div class="flex items-center justify-between w-full mb-4">
+                                <span class="text-[10px] font-mono font-bold tracking-widest text-slate-400 bg-white/[0.04] px-2.5 py-1 rounded-md border border-white/[0.06]">01 // REGISTRO</span>
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+                                    <span class="material-symbols-outlined text-2xl" data-icon="how_to_reg">how_to_reg</span>
                                 </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-2">1. Registro de Equipos</h3>
+                                <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Inscripción y alta técnica de equipos oficiales.</p>
+                            </div>
+                            <div class="mt-6 flex items-center gap-1.5 text-primary font-bold text-[11px] uppercase tracking-wider group-hover:text-red-400 transition-colors">
+                                Registrar <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
                             </div>
                         </button>
 
                         <!-- Card 2 (Cronómetro) -->
                         <button x-show="$store.app.hasAccess('cronometro')" @click="activeTab = 'cronometro'"
-                            class="group relative flex flex-col text-left p-6 md:p-8 rounded-3xl bg-surface-container-lowest border border-[#D30000]/20 transition-all hover:translate-y-[-4px] kinetic-glow active:scale-95 min-h-[200px] overflow-hidden">
-                            <div class="absolute top-6 right-6 z-20">
-                                <span
-                                    class="material-symbols-outlined text-[#D30000] text-3xl opacity-60 group-hover:opacity-100 group-hover:scale-110 group-hover:neon-glow-red transition-all duration-300"
-                                    data-icon="timer">timer</span>
-                            </div>
-                            <div class="mt-auto relative z-10 w-full pr-4">
-                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-1">2. Cronometrización
-                                </h3>
-                                <p class="text-peach text-xs leading-relaxed mb-4 line-clamp-1">Control de tiempo de
-                                    vuelo en vivo.</p>
-                                <div
-                                    class="bg-[#D30000] hover:bg-[#b00000] text-white text-center py-2.5 rounded-xl headline font-bold tracking-tight text-sm md:text-base shadow-lg shadow-[#D30000]/25 transition-all">
-                                    CONSOLA LIVE
+                            class="group relative flex flex-col justify-between text-left p-6 md:p-8 rounded-3xl bg-[#1C2230] border border-primary/30 hover:border-primary/60 hover:bg-[#222A3B] transition-all hover:-translate-y-1.5 duration-300 min-h-[220px] shadow-lg overflow-hidden">
+                            <div class="flex items-center justify-between w-full mb-4">
+                                <span class="text-[10px] font-mono font-bold tracking-widest text-primary bg-primary/10 px-2.5 py-1 rounded-md border border-primary/20">02 // TELEMETRÍA LIVE</span>
+                                <div class="w-10 h-10 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+                                    <span class="material-symbols-outlined text-2xl" data-icon="timer">timer</span>
                                 </div>
                             </div>
-                            <div
-                                class="absolute -left-10 -bottom-10 w-32 h-32 bg-[#D30000]/10 rounded-full blur-3xl group-hover:bg-[#D30000]/20 transition-all pointer-events-none">
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-1">2. Cronometrización</h3>
+                                <p class="text-slate-400 text-xs leading-relaxed line-clamp-1">Control de tiempo de vuelo en tiempo real.</p>
+                            </div>
+                            <div class="mt-6 bg-primary hover:bg-[#c93b3b] text-white text-center py-2.5 rounded-xl headline font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-primary/25">
+                                CONSOLA LIVE →
                             </div>
                         </button>
 
                         <!-- Card 3 (Calificación Continua Tipo Lista) -->
                         <button x-show="$store.app.hasAccess('calificacion')" @click="activeTab = 'calificacion_lista'"
-                            class="group relative flex flex-col text-left p-6 md:p-8 rounded-3xl bg-surface-container-high transition-all hover:translate-y-[-4px] kinetic-glow active:scale-95 min-h-[200px]">
-                            <div class="absolute top-6 right-6">
-                                <span
-                                    class="material-symbols-outlined text-secondary-fixed text-3xl opacity-40 group-hover:opacity-100 group-hover:neon-glow-gold transition-all duration-300"
-                                    data-icon="format_list_numbered">format_list_numbered</span>
-                            </div>
-                            <div class="mt-auto">
-                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-2">3. Evaluación (Lista)
-                                </h3>
-                                <p class="text-peach text-xs leading-relaxed line-clamp-2">Evaluación continua tipo
-                                    lista con autoguardado.
-                                </p>
-                                <div
-                                    class="mt-4 flex items-center gap-2 text-secondary-fixed font-bold text-[10px] uppercase tracking-widest">
-                                    Evaluar Lista <span class="material-symbols-outlined text-[12px]"
-                                        data-icon="arrow_forward">arrow_forward</span>
+                            class="group relative flex flex-col justify-between text-left p-6 md:p-8 rounded-3xl bg-[#1C2230] border border-white/[0.08] hover:border-accent-gold/40 hover:bg-[#222A3B] transition-all hover:-translate-y-1.5 duration-300 min-h-[220px] shadow-lg">
+                            <div class="flex items-center justify-between w-full mb-4">
+                                <span class="text-[10px] font-mono font-bold tracking-widest text-accent-gold bg-accent-gold/10 px-2.5 py-1 rounded-md border border-accent-gold/20">03 // JURADOS</span>
+                                <div class="w-10 h-10 rounded-xl bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center text-accent-gold group-hover:scale-105 transition-transform">
+                                    <span class="material-symbols-outlined text-2xl" data-icon="format_list_numbered">format_list_numbered</span>
                                 </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-2">3. Evaluación (Lista)</h3>
+                                <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Evaluación continua tipo lista con autoguardado y telemetría en vivo.</p>
+                            </div>
+                            <div class="mt-6 flex items-center gap-1.5 text-accent-gold font-bold text-[11px] uppercase tracking-wider group-hover:text-amber-300 transition-colors">
+                                Evaluar Lista <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
                             </div>
                         </button>
 
                         <!-- Card 4 (Listado/Equipos) -->
                         <button x-show="$store.app.hasAccess('equipos')" @click="activeTab = 'equipos'"
-                            class="group relative flex flex-col text-left p-6 md:p-8 rounded-3xl bg-surface-container-high transition-all hover:translate-y-[-4px] kinetic-glow active:scale-95 min-h-[200px] overflow-hidden">
-                            <div class="absolute top-6 right-6 z-20">
-                                <span
-                                    class="material-symbols-outlined text-[#D30000] text-3xl opacity-40 group-hover:opacity-100 group-hover:neon-glow-red transition-all duration-300"
-                                    data-icon="database">database</span>
-                            </div>
-                            <div class="mt-auto w-full relative z-20">
-                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-2">4. Listado de Equipos
-                                </h3>
-                                <p class="text-peach text-xs leading-relaxed mb-4 line-clamp-1">Base de datos inscrita.
-                                </p>
-                                <div
-                                    class="flex items-center gap-2 text-[#D30000] font-bold text-[10px] uppercase tracking-widest">
-                                    Explorar <span class="material-symbols-outlined text-[12px]"
-                                        data-icon="arrow_forward">arrow_forward</span>
+                            class="group relative flex flex-col justify-between text-left p-6 md:p-8 rounded-3xl bg-[#1C2230] border border-white/[0.08] hover:border-white/20 hover:bg-[#222A3B] transition-all hover:-translate-y-1.5 duration-300 min-h-[220px] shadow-lg">
+                            <div class="flex items-center justify-between w-full mb-4">
+                                <span class="text-[10px] font-mono font-bold tracking-widest text-slate-400 bg-white/[0.04] px-2.5 py-1 rounded-md border border-white/[0.06]">04 // BASE DE DATOS</span>
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+                                    <span class="material-symbols-outlined text-2xl" data-icon="database">database</span>
                                 </div>
                             </div>
-                            <div
-                                class="absolute bottom-0 right-0 w-32 h-32 bg-[#D30000]/5 rounded-full blur-[60px] pointer-events-none">
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-2">4. Listado de Equipos</h3>
+                                <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Registro e historial de equipos participantes.</p>
+                            </div>
+                            <div class="mt-6 flex items-center gap-1.5 text-primary font-bold text-[11px] uppercase tracking-wider group-hover:text-red-400 transition-colors">
+                                Explorar <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
                             </div>
                         </button>
 
                         <!-- Card 5 (Resultados) -->
                         <button x-show="$store.app.hasAccess('resultados')" @click="activeTab = 'resultados'"
-                            class="group relative flex flex-col text-left p-6 md:p-8 rounded-3xl bg-surface-container-high transition-all hover:translate-y-[-4px] kinetic-glow active:scale-95 min-h-[200px]">
-                            <div class="absolute top-6 right-6">
-                                <span
-                                    class="material-symbols-outlined text-secondary-fixed text-3xl opacity-40 group-hover:opacity-100 group-hover:neon-glow-gold transition-all duration-300"
-                                    data-icon="emoji_events">emoji_events</span>
-                            </div>
-                            <div class="mt-auto">
-                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-2">5. Resultados y Podio
-                                </h3>
-                                <p class="text-peach text-xs leading-relaxed line-clamp-2">Clasificación global.</p>
-                                <div
-                                    class="mt-4 flex items-center gap-2 text-secondary-fixed font-bold text-[10px] uppercase tracking-widest">
-                                    Ver Podio <span class="material-symbols-outlined text-[12px]"
-                                        data-icon="arrow_forward">arrow_forward</span>
+                            class="group relative flex flex-col justify-between text-left p-6 md:p-8 rounded-3xl bg-[#1C2230] border border-white/[0.08] hover:border-accent-gold/40 hover:bg-[#222A3B] transition-all hover:-translate-y-1.5 duration-300 min-h-[220px] shadow-lg">
+                            <div class="flex items-center justify-between w-full mb-4">
+                                <span class="text-[10px] font-mono font-bold tracking-widest text-accent-gold bg-accent-gold/10 px-2.5 py-1 rounded-md border border-accent-gold/20">05 // PODIO GLOBAL</span>
+                                <div class="w-10 h-10 rounded-xl bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center text-accent-gold group-hover:scale-105 transition-transform">
+                                    <span class="material-symbols-outlined text-2xl" data-icon="emoji_events">emoji_events</span>
                                 </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-2">5. Resultados y Podio</h3>
+                                <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Clasificación en tiempo real y podio de la misión.</p>
+                            </div>
+                            <div class="mt-6 flex items-center gap-1.5 text-accent-gold font-bold text-[11px] uppercase tracking-wider group-hover:text-amber-300 transition-colors">
+                                Ver Podio <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
                             </div>
                         </button>
 
                         <!-- Card 6 (Resultados Finales) -->
                         <button x-show="$store.app.hasAccess('resultados_finales')"
                             @click="activeTab = 'resultados_finales'"
-                            class="group relative flex flex-col text-left p-6 md:p-8 rounded-3xl bg-surface-container-high border border-emerald-500/10 transition-all hover:translate-y-[-4px] hover:border-emerald-500/40 active:scale-95 min-h-[200px] overflow-hidden">
-                            <div class="absolute top-6 right-6">
-                                <span
-                                    class="material-symbols-outlined text-emerald-400 text-3xl opacity-40 group-hover:opacity-100 transition-all duration-300"
-                                    style="filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.8));"
-                                    data-icon="military_tech">military_tech</span>
-                            </div>
-                            <div class="mt-auto">
-                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-2">6. Resultados Finales
-                                </h3>
-                                <p class="text-peach text-xs leading-relaxed line-clamp-2">Clasificación combinada de
-                                    ambas misiones.</p>
-                                <div
-                                    class="mt-4 flex items-center gap-2 text-emerald-400 font-bold text-[10px] uppercase tracking-widest">
-                                    Ver Finales <span class="material-symbols-outlined text-[12px]"
-                                        data-icon="arrow_forward">arrow_forward</span>
+                            class="group relative flex flex-col justify-between text-left p-6 md:p-8 rounded-3xl bg-[#1C2230] border border-emerald-500/20 hover:border-emerald-500/50 hover:bg-[#222A3B] transition-all hover:-translate-y-1.5 duration-300 min-h-[220px] shadow-lg">
+                            <div class="flex items-center justify-between w-full mb-4">
+                                <span class="text-[10px] font-mono font-bold tracking-widest text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">06 // CLASIFICACIÓN FINAL</span>
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+                                    <span class="material-symbols-outlined text-2xl" data-icon="military_tech">military_tech</span>
                                 </div>
                             </div>
-                            <div
-                                class="absolute bottom-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-[60px] pointer-events-none">
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold headline text-white mb-2">6. Resultados Finales</h3>
+                                <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Clasificación combinada de ambas misiones oficiales.</p>
+                            </div>
+                            <div class="mt-6 flex items-center gap-1.5 text-emerald-400 font-bold text-[11px] uppercase tracking-wider group-hover:text-emerald-300 transition-colors">
+                                Ver Finales <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
                             </div>
                         </button>
                     </div>
@@ -1294,18 +1252,18 @@
                     <!-- Full-Width Banner: Cuadro de Honor & Reconocimientos -->
                     <div class="mb-10 w-full">
                         <button @click="activeTab = 'creditos'"
-                            class="w-full text-left p-6 sm:p-8 rounded-3xl glass-card border border-[#D30000]/25 hover:border-[#D30000]/60 transition-all duration-300 hover:translate-y-[-2px] group relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl hover:shadow-[0_0_35px_rgba(211,0,0,0.25)]">
+                            class="w-full text-left p-6 sm:p-8 rounded-3xl bg-[#1C2230] border border-white/[0.08] hover:border-accent-gold/40 transition-all duration-300 hover:translate-y-[-2px] group relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
                             <!-- Background Glow Elements -->
                             <div
-                                class="absolute -right-10 -bottom-10 w-48 h-48 bg-gradient-to-br from-[#D30000]/20 to-[#FF6B00]/10 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700">
+                                class="absolute -right-10 -bottom-10 w-48 h-48 bg-gradient-to-br from-primary/10 to-accent-gold/10 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700">
                             </div>
                             <div
-                                class="absolute top-0 left-0 w-28 h-1 bg-gradient-to-r from-[#D30000] via-[#FF6B00] to-transparent">
+                                class="absolute top-0 left-0 w-28 h-1 bg-gradient-to-r from-primary via-accent-gold to-transparent">
                             </div>
 
                             <div class="flex items-center gap-5 relative z-10">
                                 <div
-                                    class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#D30000]/20 via-[#FF6B00]/10 to-transparent border border-[#D30000]/40 flex items-center justify-center text-accent-gold shrink-0 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,215,0,0.4)] transition-all duration-300">
+                                    class="w-14 h-14 rounded-2xl bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center text-accent-gold shrink-0 group-hover:scale-105 transition-all duration-300">
                                     <span class="material-symbols-outlined text-3xl">workspace_premium</span>
                                 </div>
                                 <div>
@@ -1320,7 +1278,7 @@
                                             Honor
                                         </span>
                                     </div>
-                                    <p class="text-xs text-gray-400 font-body">
+                                    <p class="text-xs text-slate-400 font-body">
                                         Gabriel Senior Daza (Creador de la Plataforma) • Prof. Ronny Martínez Reyes
                                         (Mentoría Técnica y Visual)
                                     </p>
@@ -1328,7 +1286,7 @@
                             </div>
 
                             <div
-                                class="flex items-center gap-2 text-accent-gold font-bold text-xs uppercase tracking-widest shrink-0 self-end md:self-center relative z-10 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 group-hover:border-accent-gold/40 group-hover:bg-accent-gold/10 transition-all duration-300">
+                                class="flex items-center gap-2 text-accent-gold font-bold text-xs uppercase tracking-widest shrink-0 self-end md:self-center relative z-10 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 group-hover:border-accent-gold/40 group-hover:bg-accent-gold/10 transition-all duration-300">
                                 <span>Ver Créditos</span>
                                 <span
                                     class="material-symbols-outlined text-sm group-hover:translate-x-1.5 transition-transform">arrow_forward</span>
@@ -1338,13 +1296,12 @@
 
                     <!-- Dashboard Footnote -->
                     <footer
-                        class="mt-12 flex flex-col md:flex-row gap-4 justify-between items-center text-[10px] uppercase tracking-widest text-gray-600 font-bold border-t border-[#D30000]/20 pt-6 text-center md:text-left">
+                        class="mt-12 flex flex-col md:flex-row gap-4 justify-between items-center text-[10px] uppercase tracking-widest text-slate-500 font-bold border-t border-white/[0.08] pt-6 text-center md:text-left">
                         <div>© 2026 ALT + TEND ASOCIACIÓN DE LICENCIATURA EN TECNOLOGÍA</div>
                         <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
                             <span>Versión del Sistema: 5.0.0-Zenith</span>
-                            <span class="text-purple-400 font-bold" x-show="$store.app.isTestMode">Modo: Vista de Prueba
-                                (Evaluación & IA)</span>
-                            <span class="text-[#D30000]"
+                            <span class="text-purple-400 font-bold" x-show="$store.app.isTestMode">Modo: Vista de Prueba (Evaluación & IA)</span>
+                            <span class="text-primary"
                                 x-show="!$store.app.isGuest && !$store.app.isTestMode && $store.app.misionSeleccionada && !$store.app.misionSeleccionada.startsWith('__')">Misión:
                                 <span x-text="$store.app.misionSeleccionada"></span></span>
                             <span class="text-emerald-400" x-show="$store.app.isGuest">Modo: Invitado</span>
@@ -1388,34 +1345,34 @@
 
                             <!-- Tarjeta 1: Gabriel Senior Daza (Creador & Dueño) -->
                             <div
-                                class="relative group overflow-hidden rounded-[2.5rem] border border-[#D30000]/30 bg-[#131313]/80 backdrop-blur-xl p-8 md:p-10 transition-all duration-500 hover:-translate-y-2 hover:border-[#D30000]/70 hover:shadow-[0_0_50px_rgba(211,0,0,0.25)] flex flex-col justify-between">
+                                class="relative group overflow-hidden rounded-[2.5rem] border border-primary/30 bg-[#1C2230] p-8 md:p-10 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/60 shadow-xl flex flex-col justify-between">
                                 <!-- Efectos de Luz de Fondo -->
                                 <div
-                                    class="absolute -top-24 -right-24 w-52 h-52 bg-[#D30000]/20 rounded-full blur-[90px] group-hover:bg-[#D30000]/35 transition-all duration-700 pointer-events-none">
+                                    class="absolute -top-24 -right-24 w-52 h-52 bg-primary/10 rounded-full blur-[90px] pointer-events-none">
                                 </div>
                                 <div
-                                    class="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-[#D30000]/40 rounded-tl-[2.5rem] pointer-events-none">
+                                    class="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-primary/30 rounded-tl-[2.5rem] pointer-events-none">
                                 </div>
                                 <div
-                                    class="absolute bottom-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#D30000] via-[#FF6B00] to-transparent opacity-70 group-hover:opacity-100 transition-opacity">
+                                    class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent-gold to-transparent opacity-70 group-hover:opacity-100 transition-opacity">
                                 </div>
 
                                 <div>
                                     <!-- Insignia de Rol -->
                                     <div class="flex items-center justify-between gap-2 mb-6">
                                         <span
-                                            class="bg-[#D30000]/20 text-[#ffb4a8] border border-[#D30000]/40 text-[9px] md:text-[10px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-[0.2em] flex items-center gap-1.5 shadow-[0_0_15px_rgba(211,0,0,0.3)]">
+                                            class="bg-primary/15 text-primary border border-primary/30 text-[9px] md:text-[10px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-[0.2em] flex items-center gap-1.5 shadow-sm">
                                             <span class="material-symbols-outlined text-[15px]">rocket_launch</span>
                                             Creador & Dueño de la Plataforma
                                         </span>
                                         <span
-                                            class="text-[9px] uppercase tracking-widest text-[#FF6B00] font-black">Liderazgo</span>
+                                            class="text-[9px] uppercase tracking-widest text-accent-gold font-black">Liderazgo</span>
                                     </div>
 
                                     <!-- Avatar / Insignia Visual -->
                                     <div class="flex items-center gap-5 mb-6">
                                         <div
-                                            class="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-gradient-to-br from-[#D30000] via-[#D30000] to-[#FF6B00] flex items-center justify-center shadow-[0_0_35px_rgba(211,0,0,0.4)] border-2 border-white/20 shrink-0 transform group-hover:scale-105 transition-transform duration-500">
+                                            class="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-gradient-to-br from-primary to-accent-gold flex items-center justify-center shadow-lg border border-white/20 shrink-0 transform group-hover:scale-105 transition-transform duration-300">
                                             <span
                                                 class="text-3xl md:text-4xl font-black text-white headline tracking-tight">GS</span>
                                         </div>
@@ -1425,14 +1382,14 @@
                                                 Gabriel Senior Daza
                                             </h3>
                                             <p
-                                                class="text-[#ffb4a8] text-xs md:text-sm font-bold uppercase tracking-wider">
+                                                class="text-slate-300 text-xs md:text-sm font-bold uppercase tracking-wider">
                                                 Fundador & Desarrollador Principal
                                             </p>
                                         </div>
                                     </div>
 
                                     <!-- Biografía / Reconocimiento -->
-                                    <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
                                         Concibió la visión integral, diseñó la arquitectura del software e implementó el
                                         ecosistema digital de calificación, cronometría en vivo y gestión de torneos de
                                         cohetes aeroespaciales a nivel internacional.
@@ -1440,23 +1397,23 @@
                                 </div>
 
                                 <!-- Tags de Competencias -->
-                                <div class="pt-5 border-t border-white/10 space-y-3">
+                                <div class="pt-5 border-t border-white/[0.08] space-y-3">
                                     <div class="flex flex-wrap gap-2">
                                         <span
-                                            class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-gray-300">Arquitectura
+                                            class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300">Arquitectura
                                             de Software</span>
                                         <span
-                                            class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-[#D30000]/15 border border-[#D30000]/30 text-[#ffb4a8]">Desarrollo
+                                            class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-primary/10 border border-primary/20 text-primary">Desarrollo
                                             Fullstack</span>
                                         <span
-                                            class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-gray-300">Diseño
+                                            class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300">Diseño
                                             UI/UX</span>
                                         <span
-                                            class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-[#FF6B00]/15 border border-[#FF6B00]/30 text-[#FF8C38]">Visión
+                                            class="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-accent-gold/10 border border-accent-gold/20 text-accent-gold">Visión
                                             de Torneos</span>
                                     </div>
-                                    <div class="flex items-center gap-2 text-gray-500 text-[10px] font-mono">
-                                        <span class="material-symbols-outlined text-[14px] text-[#D30000]">code</span>
+                                    <div class="flex items-center gap-2 text-slate-400 text-[10px] font-mono">
+                                        <span class="material-symbols-outlined text-[14px] text-primary">code</span>
                                         <span>Autor Principal del Sistema ZENITH</span>
                                     </div>
                                 </div>
@@ -1464,23 +1421,23 @@
 
                             <!-- Tarjeta 2: Prof. Ronny Martínez Reyes (Guía Técnico & Visual) -->
                             <div
-                                class="relative group overflow-hidden rounded-[2.5rem] border border-[#FF6B00]/30 bg-[#131313]/80 backdrop-blur-xl p-8 md:p-10 transition-all duration-500 hover:-translate-y-2 hover:border-[#FF6B00]/70 hover:shadow-[0_0_50px_rgba(255,107,0,0.25)] flex flex-col justify-between">
+                                class="relative group overflow-hidden rounded-[2.5rem] border border-accent-gold/30 bg-[#1C2230] p-8 md:p-10 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent-gold/60 shadow-xl flex flex-col justify-between">
                                 <!-- Efectos de Luz de Fondo -->
                                 <div
-                                    class="absolute -top-24 -right-24 w-52 h-52 bg-[#FF6B00]/20 rounded-full blur-[90px] group-hover:bg-[#FF6B00]/35 transition-all duration-700 pointer-events-none">
+                                    class="absolute -top-24 -right-24 w-52 h-52 bg-accent-gold/10 rounded-full blur-[90px] pointer-events-none">
                                 </div>
                                 <div
-                                    class="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-[#FF6B00]/40 rounded-tl-[2.5rem] pointer-events-none">
+                                    class="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-accent-gold/30 rounded-tl-[2.5rem] pointer-events-none">
                                 </div>
                                 <div
-                                    class="absolute bottom-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#FF6B00] via-[#FFAA00] to-transparent opacity-70 group-hover:opacity-100 transition-opacity">
+                                    class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-accent-gold via-yellow-500 to-transparent opacity-70 group-hover:opacity-100 transition-opacity">
                                 </div>
 
                                 <div>
                                     <!-- Insignia de Rol -->
                                     <div class="flex items-center justify-between gap-2 mb-6">
                                         <span
-                                            class="bg-[#FF6B00]/20 text-[#FFAA00] border border-[#FF6B00]/40 text-[9px] md:text-[10px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-[0.2em] flex items-center gap-1.5 shadow-[0_0_15px_rgba(255,107,0,0.3)]">
+                                            class="bg-accent-gold/15 text-accent-gold border border-accent-gold/30 text-[9px] md:text-[10px] font-black px-3.5 py-1.5 rounded-full uppercase tracking-[0.2em] flex items-center gap-1.5 shadow-sm">
                                             <span class="material-symbols-outlined text-[15px]">school</span>
                                             Guía & Mentor del Proyecto
                                         </span>
@@ -1745,10 +1702,10 @@
                     x-data="calificacionListaController">
                     <div class="max-w-7xl mx-auto space-y-6">
                         <!-- Header y Barra Superior -->
-                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-[#141416]/80 backdrop-blur-md border border-white/5 rounded-2xl p-5 md:p-6 shadow-xl">
+                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-[#1C2230] border border-white/[0.08] rounded-2xl p-5 md:p-6 shadow-xl">
                             <div class="flex items-center gap-4">
                                 <button @click="activeTab = 'dashboard'"
-                                    class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:text-[#D30000] text-gray-300 transition-colors group">
+                                    class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:text-primary text-slate-300 transition-colors group">
                                     <span class="material-symbols-outlined text-[18px]">arrow_back</span>
                                     <span class="text-[11px] font-bold headline uppercase tracking-widest hidden sm:inline">Panel</span>
                                 </button>
@@ -1761,7 +1718,7 @@
                                             5 Criterios
                                         </span>
                                     </div>
-                                    <div class="flex items-center gap-3 text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1 flex-wrap">
+                                    <div class="flex items-center gap-3 text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1 flex-wrap">
                                         <span class="text-accent-gold">Juez: <span class="text-white" x-text="$store.app.currentJudgeName"></span></span>
                                         <span>•</span>
                                         <span class="text-primary">Misión: <span class="text-white" x-text="$store.app.misionSeleccionada"></span></span>
@@ -1779,34 +1736,34 @@
                                 <!-- Filtro Categoría -->
                                 <div class="relative">
                                     <select x-model="filtroCategoria"
-                                        class="bg-black/50 border border-white/10 px-3.5 py-2 rounded-xl text-xs font-bold text-gray-300 focus:outline-none focus:border-accent-gold appearance-none cursor-pointer pr-8">
+                                        class="bg-[#10131B] border border-white/10 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-300 focus:outline-none focus:border-accent-gold appearance-none cursor-pointer pr-8">
                                         <option value="TODAS">TODAS LAS CATEGORÍAS</option>
                                         <option value="Exploradores">EXPLORADORES</option>
                                         <option value="Ingenieros">INGENIEROS</option>
                                         <option value="Masters">MASTERS</option>
                                     </select>
-                                    <span class="material-symbols-outlined text-gray-500 text-sm absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+                                    <span class="material-symbols-outlined text-slate-500 text-sm absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
                                 </div>
 
                                 <!-- Toggle Sacar Automáticamente Calificados -->
-                                <label class="flex items-center gap-2 bg-black/40 border border-white/10 px-3 py-2 rounded-xl cursor-pointer hover:border-accent-gold/40 transition-colors select-none">
+                                <label class="flex items-center gap-2 bg-[#10131B] border border-white/10 px-3 py-2 rounded-xl cursor-pointer hover:border-accent-gold/40 transition-colors select-none">
                                     <input type="checkbox" x-model="soloPendientes"
-                                        class="rounded bg-black/60 border-white/20 text-accent-gold focus:ring-0">
-                                    <span class="text-[10px] font-bold uppercase tracking-wider text-gray-300">Ocultar Evaluados</span>
+                                        class="rounded bg-[#10131B] border-white/20 text-accent-gold focus:ring-0">
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-300">Ocultar Evaluados</span>
                                 </label>
 
                                 <!-- Buscador Rápido -->
                                 <div class="relative flex-1 sm:w-44">
                                     <input type="text" x-model="searchQuery" placeholder="Buscar equipo..."
-                                        class="w-full bg-black/40 border border-white/10 px-3 py-2 pl-8 rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-accent-gold">
-                                    <span class="material-symbols-outlined text-gray-500 text-sm absolute left-2.5 top-1/2 -translate-y-1/2">search</span>
+                                        class="w-full bg-[#10131B] border border-white/10 px-3 py-2 pl-8 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold">
+                                    <span class="material-symbols-outlined text-slate-500 text-sm absolute left-2.5 top-1/2 -translate-y-1/2">search</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Banner de Telemetría en Vivo del Cronómetro -->
                         <template x-if="currentGlobalLaunch && (currentGlobalLaunch.running || (Date.now() - (currentGlobalLaunch.updatedAt || 0) < 45000 && currentGlobalLaunch.time_ms > 0))">
-                            <div class="px-4 py-3 rounded-2xl bg-gradient-to-r from-primary/20 via-black/80 to-[#141416] border border-primary/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg">
+                            <div class="px-4 py-3 rounded-2xl bg-[#1C2230] border border-primary/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg">
                                 <div class="flex items-center gap-3">
                                     <div class="w-9 h-9 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center shrink-0">
                                         <span class="material-symbols-outlined text-primary text-lg" :class="currentGlobalLaunch.running ? 'animate-spin' : ''">rocket</span>
@@ -1818,9 +1775,9 @@
                                                 x-text="currentGlobalLaunch.running ? '🚀 COHETE EN VUELO' : '⏱️ CRONÓMETRO REGISTRADO'">
                                             </span>
                                             <span class="text-xs md:text-sm font-black headline text-white uppercase" x-text="currentGlobalLaunch.nombre_equipo"></span>
-                                            <span class="text-[10px] text-gray-400 uppercase hidden md:inline" x-text="'• ' + currentGlobalLaunch.categoria"></span>
+                                            <span class="text-[10px] text-slate-400 uppercase hidden md:inline" x-text="'• ' + currentGlobalLaunch.categoria"></span>
                                         </div>
-                                        <p class="text-[9px] text-gray-400 mt-0.5">
+                                        <p class="text-[9px] text-slate-400 mt-0.5">
                                             Los datos del cronómetro se reflejan automáticamente en la tabla sin recargar la página.
                                         </p>
                                     </div>
@@ -1828,7 +1785,7 @@
                                 <div class="flex items-center gap-3 self-end sm:self-center">
                                     <template x-if="$store.app.misionSeleccionada === 'Lanzamiento Vertical'">
                                         <div class="text-right">
-                                            <span class="text-[8px] text-gray-400 uppercase font-bold tracking-wider block">Tiempo de Vuelo</span>
+                                            <span class="text-[8px] text-slate-400 uppercase font-bold tracking-wider block">Tiempo de Vuelo</span>
                                             <span class="text-xl md:text-2xl font-black headline font-mono tabular-nums"
                                                 :class="currentGlobalLaunch.running ? 'text-primary animate-pulse' : 'text-emerald-400'"
                                                 x-text="formatTimeSec(currentGlobalLaunch.time_ms)"></span>
@@ -1836,7 +1793,7 @@
                                     </template>
                                     <template x-if="$store.app.misionSeleccionada === 'Tiro Parabólico'">
                                         <div class="text-right">
-                                            <span class="text-[8px] text-gray-400 uppercase font-bold tracking-wider block">Distancia</span>
+                                            <span class="text-[8px] text-slate-400 uppercase font-bold tracking-wider block">Distancia</span>
                                             <span class="text-xl md:text-2xl font-black headline font-mono text-accent-gold"
                                                 x-text="(currentGlobalLaunch.distancia || 0) + ' m'"></span>
                                         </div>
@@ -1846,26 +1803,26 @@
                         </template>
 
                         <!-- Indicación y Conteo -->
-                        <div class="flex items-center justify-between text-[10px] text-gray-400 uppercase tracking-widest px-2">
+                        <div class="flex items-center justify-between text-[10px] text-slate-400 uppercase tracking-widest px-2">
                             <span class="flex items-center gap-1.5 text-accent-gold font-bold">
                                 <span class="material-symbols-outlined text-sm">bolt</span>
                                 Autoguardado instantáneo al cambiar de casilla (Tab). El tiempo se sincroniza en vivo.
                             </span>
-                            <span class="text-gray-500" x-text="'Equipos: ' + visibleTeams.length"></span>
+                            <span class="text-slate-500" x-text="'Equipos: ' + visibleTeams.length"></span>
                         </div>
 
                         <!-- TABLA CONTINUA TIPO LISTA CON COLUMNA DE CRONÓMETRO INTEGRADA -->
-                        <div class="bg-[#121214] border border-white/10 rounded-2xl overflow-x-auto custom-scrollbar shadow-2xl">
+                        <div class="bg-[#1C2230] border border-white/[0.08] rounded-2xl overflow-x-auto custom-scrollbar shadow-2xl">
                             <table class="w-full text-left border-collapse min-w-[980px]">
                                 <thead>
-                                    <tr class="border-b border-white/10 bg-black/40 text-[9px] font-black uppercase tracking-[0.2em] text-gray-400">
+                                    <tr class="border-b border-white/[0.08] bg-[#10131B] text-[9px] font-black uppercase tracking-[0.2em] text-slate-400">
                                         <th class="p-3.5 pl-5 w-52">Equipo / Cohete</th>
                                         <th class="p-3.5 text-center w-36"
                                             x-text="$store.app.misionSeleccionada === 'Tiro Parabólico' ? '🎯 Distancia Oficial' : '⏱️ Tiempo de Vuelo'"></th>
                                         <th class="p-3.5 text-center w-24">1. Vuelo <span class="text-accent-gold font-normal text-[8px]">(40)</span></th>
-                                        <th class="p-3.5 text-center w-24">2. Diseño <span class="text-accent-gold font-normal text-[8px]">(20)</span></th>
-                                        <th class="p-3.5 text-center w-24">3. Innovación <span class="text-accent-gold font-normal text-[8px]">(20)</span></th>
-                                        <th class="p-3.5 text-center w-24">4. Sustentación <span class="text-accent-gold font-normal text-[8px]">(20)</span></th>
+                                        <th class="p-3.5 text-center w-24">2. Exposición <span class="text-accent-gold font-normal text-[8px]">(25)</span></th>
+                                        <th class="p-3.5 text-center w-24">3. Materiales <span class="text-accent-gold font-normal text-[8px]">(20)</span></th>
+                                        <th class="p-3.5 text-center w-28">4. Diseño e Innovación <span class="text-accent-gold font-normal text-[8px]">(15)</span></th>
                                         <th class="p-3.5 text-center w-24">5. Fallos <span class="text-primary font-normal text-[8px]">(-)</span></th>
                                         <th class="p-3.5 text-center w-24">Puntaje</th>
                                         <th class="p-3.5 text-center w-32 pr-5">Estado</th>
@@ -1968,15 +1925,16 @@
                                                     class="w-16 sm:w-20 bg-black/40 border border-white/15 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/30 rounded-xl py-1.5 px-2 text-center text-base font-bold headline text-accent-gold outline-none transition-all disabled:opacity-30">
                                             </td>
 
-                                            <!-- Casilla 2: Diseño (0-20) -->
+                                            <!-- Casilla 2: Exposición (0-25) -->
                                             <td class="p-2.5 text-center">
-                                                <input type="number" min="0" max="20"
-                                                    x-model.number="getRow(team.id).design" @change="saveRow(team.id)"
-                                                    @blur="saveRow(team.id)" :disabled="getRow(team.id).descalificado"
+                                                <input type="number" min="0" max="25"
+                                                    x-model.number="getRow(team.id).sustentation"
+                                                    @change="saveRow(team.id)" @blur="saveRow(team.id)"
+                                                    :disabled="getRow(team.id).descalificado"
                                                     class="w-16 sm:w-20 bg-black/40 border border-white/15 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/30 rounded-xl py-1.5 px-2 text-center text-base font-bold headline text-accent-gold outline-none transition-all disabled:opacity-30">
                                             </td>
 
-                                            <!-- Casilla 3: Innovación (0-20) -->
+                                            <!-- Casilla 3: Materiales (0-20) -->
                                             <td class="p-2.5 text-center">
                                                 <input type="number" min="0" max="20"
                                                     x-model.number="getRow(team.id).innovation"
@@ -1985,12 +1943,11 @@
                                                     class="w-16 sm:w-20 bg-black/40 border border-white/15 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/30 rounded-xl py-1.5 px-2 text-center text-base font-bold headline text-accent-gold outline-none transition-all disabled:opacity-30">
                                             </td>
 
-                                            <!-- Casilla 4: Sustentación (0-20) -->
+                                            <!-- Casilla 4: Diseño e Innovación (0-15) -->
                                             <td class="p-2.5 text-center">
-                                                <input type="number" min="0" max="20"
-                                                    x-model.number="getRow(team.id).sustentation"
-                                                    @change="saveRow(team.id)" @blur="saveRow(team.id)"
-                                                    :disabled="getRow(team.id).descalificado"
+                                                <input type="number" min="0" max="15"
+                                                    x-model.number="getRow(team.id).design" @change="saveRow(team.id)"
+                                                    @blur="saveRow(team.id)" :disabled="getRow(team.id).descalificado"
                                                     class="w-16 sm:w-20 bg-black/40 border border-white/15 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/30 rounded-xl py-1.5 px-2 text-center text-base font-bold headline text-accent-gold outline-none transition-all disabled:opacity-30">
                                             </td>
 
@@ -2055,10 +2012,10 @@
                 <section class="p-4 sm:p-6 md:p-8 pt-24 md:pt-28" x-show="activeTab === 'calificacion'" x-transition
                     x-data="calificacionJurado">
                     <div class="max-w-6xl mx-auto space-y-6">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#141416]/80 backdrop-blur-md border border-white/5 rounded-2xl p-5 md:p-6 shadow-xl">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#1C2230] border border-white/[0.08] rounded-2xl p-5 md:p-6 shadow-xl">
                             <div class="flex items-center gap-4">
                                 <button @click="activeTab = 'dashboard'"
-                                    class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:text-[#D30000] text-gray-300 transition-colors group">
+                                    class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:text-primary text-slate-300 transition-colors group">
                                     <span class="material-symbols-outlined text-[18px]">arrow_back</span>
                                     <span class="text-[11px] font-bold headline uppercase tracking-widest hidden sm:inline">Panel</span>
                                 </button>
@@ -2074,7 +2031,7 @@
                             <div class="flex flex-wrap items-center gap-3">
                                 <!-- Filtro de Categoría -->
                                 <select x-model="categoriaFiltro"
-                                    class="bg-black/50 border border-white/10 px-4 py-2.5 rounded-xl text-xs font-bold text-gray-300 focus:outline-none focus:border-accent-gold appearance-none cursor-pointer">
+                                    class="bg-[#10131B] border border-white/10 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 focus:outline-none focus:border-accent-gold appearance-none cursor-pointer">
                                     <option value="Todos">TODAS LAS CATEGORÍAS</option>
                                     <option value="Exploradores">EXPLORADORES</option>
                                     <option value="Ingenieros">INGENIEROS</option>
@@ -2083,7 +2040,7 @@
 
                                 <!-- Selector de Equipo -->
                                 <select x-model="selectedTeamId"
-                                    class="bg-black/60 border border-accent-gold/40 px-5 py-2.5 rounded-xl text-xs md:text-sm font-bold text-white focus:outline-none focus:border-accent-gold appearance-none text-center cursor-pointer shadow-sm">
+                                    class="bg-[#10131B] border border-accent-gold/40 px-5 py-2.5 rounded-xl text-xs md:text-sm font-bold text-white focus:outline-none focus:border-accent-gold appearance-none text-center cursor-pointer shadow-sm">
                                     <option :value="null">Seleccionar Equipo...</option>
                                     <template x-for="team in filteredTeams" :key="team.id">
                                         <option :value="team.id" x-text="team.nombre_equipo.toUpperCase()"></option>
@@ -2098,12 +2055,12 @@
                         </div>
 
                         <!-- TIEMPO DE VUELO / DISTANCIA EN VIVO Y PUNTAJE PROYECTADO -->
-                        <div class="bg-[#121214] border border-white/10 rounded-2xl p-5 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-xl"
+                        <div class="bg-[#1C2230] border border-white/[0.08] rounded-2xl p-5 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-xl"
                             x-show="selectedTeamId">
                             <!-- Lanzamiento Vertical -->
                             <template x-if="$store.app.misionSeleccionada === 'Lanzamiento Vertical'">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center bg-black/60 relative">
+                                    <div class="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center bg-[#10131B] relative">
                                         <span class="material-symbols-outlined text-2xl"
                                             :class="launchData.running ? 'text-primary animate-pulse' : 'text-emerald-400'">timer</span>
                                         <div x-show="launchData.running"
@@ -2111,7 +2068,7 @@
                                     </div>
                                     <div>
                                         <div class="flex items-center gap-2">
-                                            <h3 class="text-[9px] text-gray-400 font-black uppercase tracking-widest">
+                                            <h3 class="text-[9px] text-slate-400 font-black uppercase tracking-widest">
                                                 Tiempo de Vuelo Oficial (Telemetría en Vivo)
                                             </h3>
                                             <span x-show="!launchData.running && ((launchData.time_ms || selectedTeam?.tiempo_vuelo_cronometro) > 0)"
@@ -2125,7 +2082,7 @@
                                             <span class="w-1.5 h-1.5 rounded-full"
                                                 :class="launchData.running ? 'bg-primary animate-pulse' : 'bg-emerald-400'"></span>
                                             <span class="text-[9px] font-bold uppercase tracking-wider"
-                                                :class="launchData.running ? 'text-primary' : 'text-gray-400'"
+                                                :class="launchData.running ? 'text-primary' : 'text-slate-400'"
                                                 x-text="launchData.running ? 'Capturando Tiempo en Vivo...' : 'Tiempo respaldado en base de datos'"></span>
                                         </div>
                                     </div>
@@ -2135,12 +2092,12 @@
                             <!-- Tiro Parabólico -->
                             <template x-if="$store.app.misionSeleccionada === 'Tiro Parabólico'">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center bg-black/60">
+                                    <div class="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center bg-[#10131B]">
                                         <span class="material-symbols-outlined text-2xl text-accent-gold">straighten</span>
                                     </div>
                                     <div>
                                         <div class="flex items-center gap-2">
-                                            <h3 class="text-[9px] text-gray-400 font-black uppercase tracking-widest">
+                                            <h3 class="text-[9px] text-slate-400 font-black uppercase tracking-widest">
                                                 Distancia Oficial (Telemetría en Vivo)
                                             </h3>
                                             <span x-show="distancia > 0 || selectedTeam?.distancia_cronometro > 0"
@@ -2150,7 +2107,7 @@
                                         </div>
                                         <div class="text-3xl font-black headline text-accent-gold tracking-tight mt-0.5 tabular-nums font-mono"
                                             x-text="(distancia || selectedTeam?.distancia_cronometro || 0) + ' m'">0 m</div>
-                                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-wider mt-0.5">
+                                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">
                                             Medición registrada en la mesa de lanzamiento
                                         </p>
                                     </div>
@@ -2159,7 +2116,7 @@
 
                             <!-- Puntaje Proyectado -->
                             <div class="text-center sm:text-right bg-white/[0.03] px-5 py-3 rounded-xl border border-white/5 shrink-0">
-                                <h3 class="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-0.5">
+                                <h3 class="text-[9px] text-slate-400 font-black uppercase tracking-widest mb-0.5">
                                     Puntaje Proyectado</h3>
                                 <div class="text-3xl font-black headline text-accent-gold tracking-tight"
                                     x-text="total + ' PTS'">0 PTS</div>
@@ -2169,43 +2126,43 @@
                         <!-- 4 CRITERIOS DE EVALUACIÓN (DISEÑO COMPACTO Y ELEGANTE) -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                             <!-- Criterio 1: Desempeño Vuelo -->
-                            <div class="bg-[#121214] border border-white/10 p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all">
+                            <div class="bg-[#1C2230] border border-white/[0.08] p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all shadow-md">
                                 <h3 class="text-white headline font-bold text-xs uppercase tracking-wider mb-0.5">Desempeño Vuelo</h3>
-                                <p class="text-[8px] text-gray-500 uppercase tracking-wider mb-3">Trayecto y Aterrizaje Seguro</p>
+                                <p class="text-[8px] text-slate-400 uppercase tracking-wider mb-3">Trayecto y Aterrizaje Seguro</p>
                                 <input type="number" x-model.number="scores.flight" :disabled="equipoDescalificado"
                                     :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="40"
-                                    class="w-full max-w-[130px] bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
-                                <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2.5">Máx: 40 PTOS</span>
+                                    class="w-full max-w-[130px] bg-[#10131B] border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
+                                <span class="text-[8px] text-slate-500 font-bold uppercase tracking-wider mt-2.5">Máx: 40 PTOS</span>
                             </div>
 
-                            <!-- Criterio 2: Diseño Aerodinámica -->
-                            <div class="bg-[#121214] border border-white/10 p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all">
-                                <h3 class="text-white headline font-bold text-xs uppercase tracking-wider mb-0.5">Diseño Aerodinámico</h3>
-                                <p class="text-[8px] text-gray-500 uppercase tracking-wider mb-3">Construcción y Acabado</p>
-                                <input type="number" x-model.number="scores.design" :disabled="equipoDescalificado"
-                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="20"
-                                    class="w-full max-w-[130px] bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
-                                <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2.5">Máx: 20 PTOS</span>
+                            <!-- Criterio 2: Exposición (Antes Sustentación) -->
+                            <div class="bg-[#1C2230] border border-white/[0.08] p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all shadow-md">
+                                <h3 class="text-white headline font-bold text-xs uppercase tracking-wider mb-0.5">Exposición</h3>
+                                <p class="text-[8px] text-slate-400 uppercase tracking-wider mb-3">Explicación Técnica y Defensa</p>
+                                <input type="number" x-model.number="scores.sustentation" :disabled="equipoDescalificado"
+                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="25"
+                                    class="w-full max-w-[130px] bg-[#10131B] border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
+                                <span class="text-[8px] text-slate-500 font-bold uppercase tracking-wider mt-2.5">Máx: 25 PTOS</span>
                             </div>
 
-                            <!-- Criterio 3: Innovación Maker -->
-                            <div class="bg-[#121214] border border-white/10 p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all">
-                                <h3 class="text-white headline font-bold text-xs uppercase tracking-wider mb-0.5">Innovación Maker</h3>
-                                <p class="text-[8px] text-gray-500 uppercase tracking-wider mb-3">Materiales Reciclados</p>
+                            <!-- Criterio 3: Materiales (Antes Innovación) -->
+                            <div class="bg-[#1C2230] border border-white/[0.08] p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all shadow-md">
+                                <h3 class="text-white headline font-bold text-xs uppercase tracking-wider mb-0.5">Materiales</h3>
+                                <p class="text-[8px] text-slate-400 uppercase tracking-wider mb-3">Materiales Reciclados y Uso Maker</p>
                                 <input type="number" x-model.number="scores.innovation" :disabled="equipoDescalificado"
                                     :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="20"
-                                    class="w-full max-w-[130px] bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
-                                <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2.5">Máx: 20 PTOS</span>
+                                    class="w-full max-w-[130px] bg-[#10131B] border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
+                                <span class="text-[8px] text-slate-500 font-bold uppercase tracking-wider mt-2.5">Máx: 20 PTOS</span>
                             </div>
 
-                            <!-- Criterio 4: Sustentación -->
-                            <div class="bg-[#121214] border border-white/10 p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all">
-                                <h3 class="text-white headline font-bold text-xs uppercase tracking-wider mb-0.5">Sustentación</h3>
-                                <p class="text-[8px] text-gray-500 uppercase tracking-wider mb-3">Explicación Técnica</p>
-                                <input type="number" x-model.number="scores.sustentation" :disabled="equipoDescalificado"
-                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="20"
-                                    class="w-full max-w-[130px] bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
-                                <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2.5">Máx: 20 PTOS</span>
+                            <!-- Criterio 4: Diseño e Innovación -->
+                            <div class="bg-[#1C2230] border border-white/[0.08] p-4 flex flex-col items-center text-center rounded-2xl hover:border-accent-gold/40 transition-all shadow-md">
+                                <h3 class="text-white headline font-bold text-xs uppercase tracking-wider mb-0.5">Diseño e Innovación</h3>
+                                <p class="text-[8px] text-slate-400 uppercase tracking-wider mb-3">Construcción y Acabado</p>
+                                <input type="number" x-model.number="scores.design" :disabled="equipoDescalificado"
+                                    :class="{'opacity-50 cursor-not-allowed': equipoDescalificado}" min="0" max="15"
+                                    class="w-full max-w-[130px] bg-[#10131B] border border-white/15 rounded-xl px-3 py-2 text-center text-xl font-bold font-mono text-accent-gold outline-none transition-all disabled:bg-gray-900 focus:border-accent-gold focus:ring-1 focus:ring-accent-gold/40">
+                                <span class="text-[8px] text-slate-500 font-bold uppercase tracking-wider mt-2.5">Máx: 15 PTOS</span>
                             </div>
                         </div>
 
@@ -2215,7 +2172,7 @@
                             <div class="bg-primary/5 border border-primary/20 p-4 rounded-2xl flex justify-between items-center">
                                 <div>
                                     <h3 class="text-primary headline font-bold text-xs uppercase tracking-wider">Penalizaciones (Puntos)</h3>
-                                    <p class="text-[8px] text-gray-500 uppercase tracking-wider mt-0.5">Resta directa al puntaje final</p>
+                                    <p class="text-[8px] text-slate-400 uppercase tracking-wider mt-0.5">Resta directa al puntaje final</p>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <button @click="decrementPenalty()"
@@ -2232,7 +2189,7 @@
                             </div>
 
                             <!-- Descalificar Equipo -->
-                            <div :class="equipoDescalificado ? 'bg-primary/15 border-primary shadow-[0_0_15px_rgba(211,0,0,0.15)]' : 'bg-[#121214] border-white/10'"
+                            <div :class="equipoDescalificado ? 'bg-primary/15 border-primary shadow-lg shadow-primary/15' : 'bg-[#1C2230] border-white/[0.08]'"
                                 class="p-4 rounded-2xl flex justify-between items-center transition-all duration-300 border">
                                 <div class="flex items-center gap-3">
                                     <div :class="equipoDescalificado ? 'bg-primary text-white' : 'bg-white/5 text-gray-400'"
@@ -3158,26 +3115,24 @@
 
                                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                             <div class="bg-black/20 p-3 rounded-xl border border-white/5">
-                                                <p class="text-[8px] text-gray-600 font-bold uppercase mb-1">Vuelo</p>
+                                                <p class="text-[8px] text-slate-400 font-bold uppercase mb-1">Vuelo (40)</p>
                                                 <p class="text-sm font-black headline text-accent-gold"
                                                     x-text="cal.puntajes?.flight || 0"></p>
                                             </div>
                                             <div class="bg-black/20 p-3 rounded-xl border border-white/5">
-                                                <p class="text-[8px] text-gray-600 font-bold uppercase mb-1">Diseño</p>
+                                                <p class="text-[8px] text-slate-400 font-bold uppercase mb-1">Exposición (25)</p>
                                                 <p class="text-sm font-black headline text-accent-gold"
-                                                    x-text="cal.puntajes?.design || 0"></p>
+                                                    x-text="cal.puntajes?.sustentation || 0"></p>
                                             </div>
                                             <div class="bg-black/20 p-3 rounded-xl border border-white/5">
-                                                <p class="text-[8px] text-gray-600 font-bold uppercase mb-1">Innovación
-                                                </p>
+                                                <p class="text-[8px] text-slate-400 font-bold uppercase mb-1">Materiales (20)</p>
                                                 <p class="text-sm font-black headline text-accent-gold"
                                                     x-text="cal.puntajes?.innovation || 0"></p>
                                             </div>
                                             <div class="bg-black/20 p-3 rounded-xl border border-white/5">
-                                                <p class="text-[8px] text-gray-600 font-bold uppercase mb-1">
-                                                    Sustentación</p>
+                                                <p class="text-[8px] text-slate-400 font-bold uppercase mb-1">Diseño e Innovación (15)</p>
                                                 <p class="text-sm font-black headline text-accent-gold"
-                                                    x-text="cal.puntajes?.sustentation || 0"></p>
+                                                    x-text="cal.puntajes?.design || 0"></p>
                                             </div>
                                         </div>
 
@@ -3203,18 +3158,17 @@
                         </div>
                     </div>
                 </div>
-                </section>
 
                 <!-- Modal Edit Calificacion -->
                 <div x-cloak x-show="$store.app.showEditModal"
-                    class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl"
+                    class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#0D0F17]/85 backdrop-blur-xl"
                     x-data="calificacionJurado"
                     x-effect="if ($store.app.editingTeamId && $store.app.editingTeamId !== selectedTeamId) { selectedTeamId = $store.app.editingTeamId; } else if (!$store.app.editingTeamId) { selectedTeamId = ''; }">
-                    <div class="bg-[#111] border border-white/10 rounded-[3rem] w-full max-w-4xl max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl relative"
+                    <div class="bg-[#1C2230] border border-white/10 rounded-[3rem] w-full max-w-4xl max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl relative"
                         @click.outside="$store.app.closeModal()">
 
                         <div
-                            class="sticky top-0 bg-[#111]/90 backdrop-blur-md p-6 md:p-8 border-b border-white/5 flex justify-between items-center z-10">
+                            class="sticky top-0 bg-[#1C2230]/90 backdrop-blur-md p-6 md:p-8 border-b border-white/5 flex justify-between items-center z-10">
                             <div>
                                 <h3 class="text-2xl font-black headline text-white uppercase tracking-tighter">
                                     Editar Calificación
@@ -3235,7 +3189,7 @@
                                     class="bg-white/5 border border-white/10 p-4 rounded-2xl flex flex-col items-center">
                                     <h3
                                         class="text-white headline font-bold text-[10px] uppercase tracking-widest mb-2 text-center">
-                                        Vuelo</h3>
+                                        Vuelo (40)</h3>
                                     <input type="number" x-model.number="scores.flight" :disabled="equipoDescalificado"
                                         class="w-full bg-black/40 border border-white/10 rounded-xl px-2 py-2 text-center text-xl font-black headline text-accent-gold outline-none transition-all focus:border-accent-gold"
                                         min="0" max="40">
@@ -3244,16 +3198,17 @@
                                     class="bg-white/5 border border-white/10 p-4 rounded-2xl flex flex-col items-center">
                                     <h3
                                         class="text-white headline font-bold text-[10px] uppercase tracking-widest mb-2 text-center">
-                                        Diseño</h3>
-                                    <input type="number" x-model.number="scores.design" :disabled="equipoDescalificado"
+                                        Exposición (25)</h3>
+                                    <input type="number" x-model.number="scores.sustentation"
+                                        :disabled="equipoDescalificado"
                                         class="w-full bg-black/40 border border-white/10 rounded-xl px-2 py-2 text-center text-xl font-black headline text-accent-gold outline-none transition-all focus:border-accent-gold"
-                                        min="0" max="20">
+                                        min="0" max="25">
                                 </div>
                                 <div
                                     class="bg-white/5 border border-white/10 p-4 rounded-2xl flex flex-col items-center">
                                     <h3
                                         class="text-white headline font-bold text-[10px] uppercase tracking-widest mb-2 text-center">
-                                        Innovación</h3>
+                                        Materiales (20)</h3>
                                     <input type="number" x-model.number="scores.innovation"
                                         :disabled="equipoDescalificado"
                                         class="w-full bg-black/40 border border-white/10 rounded-xl px-2 py-2 text-center text-xl font-black headline text-accent-gold outline-none transition-all focus:border-accent-gold"
@@ -3263,11 +3218,10 @@
                                     class="bg-white/5 border border-white/10 p-4 rounded-2xl flex flex-col items-center">
                                     <h3
                                         class="text-white headline font-bold text-[10px] uppercase tracking-widest mb-2 text-center">
-                                        Sustentación</h3>
-                                    <input type="number" x-model.number="scores.sustentation"
-                                        :disabled="equipoDescalificado"
+                                        Diseño e Innovación (15)</h3>
+                                    <input type="number" x-model.number="scores.design" :disabled="equipoDescalificado"
                                         class="w-full bg-black/40 border border-white/10 rounded-xl px-2 py-2 text-center text-xl font-black headline text-accent-gold outline-none transition-all focus:border-accent-gold"
-                                        min="0" max="20">
+                                        min="0" max="15">
                                 </div>
                             </div>
 
@@ -3351,13 +3305,13 @@
 
                 <!-- Modal Editar Datos del Equipo -->
                 <div x-cloak x-show="$store.app.showEditTeamModal && $store.app.editingTeam"
-                    class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/85 backdrop-blur-xl"
+                    class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-[#0D0F17]/85 backdrop-blur-xl"
                     x-transition>
-                    <div class="bg-[#111] border border-white/10 rounded-[3rem] w-full max-w-3xl max-h-[92vh] overflow-y-auto custom-scrollbar shadow-2xl relative"
+                    <div class="bg-[#1C2230] border border-white/10 rounded-[3rem] w-full max-w-3xl max-h-[92vh] overflow-y-auto custom-scrollbar shadow-2xl relative"
                         @click.outside="$store.app.closeEditTeamModal()">
 
                         <div
-                            class="sticky top-0 bg-[#111]/90 backdrop-blur-md p-6 md:p-8 border-b border-white/5 flex justify-between items-center z-10">
+                            class="sticky top-0 bg-[#1C2230]/90 backdrop-blur-md p-6 md:p-8 border-b border-white/5 flex justify-between items-center z-10">
                             <div>
                                 <h3 class="text-2xl font-black headline text-white uppercase tracking-tighter">
                                     Editar Datos del Equipo
